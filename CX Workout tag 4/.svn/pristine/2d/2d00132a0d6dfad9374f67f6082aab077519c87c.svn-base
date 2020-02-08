@@ -1,0 +1,16 @@
+.listsprojectteam-landing {
+    .scrollable-list {
+        height: auto;
+        max-height: 180px;
+        overflow-x: hidden;
+    }
+    .scrollable-list::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 4px;
+    }
+    .scrollable-list::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        background-color: lightgray;
+        -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .75);
+    }
+}

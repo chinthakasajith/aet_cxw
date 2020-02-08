@@ -1,0 +1,177 @@
+(function(module) {
+
+  module.controller('HelpController', ['$scope','$location','$anchorScroll',
+    function($scope,$location,$anchorScroll) {
+      $scope.getStarted = false;
+      $scope.preparationDiv = true;
+      $scope.userAccountDiv = true;
+      $scope.cxProjectsDiv = true;
+      $scope.projectRolesDiv = true;
+      $scope.keyDefinitionsDiv = true;
+      $scope.features = false;
+      $scope.createCXWorkoutDiv = true;
+      $scope.editCXWorkoutDiv = true;
+      $scope.viewMap = true;
+      $scope.createMapDiv = true;
+      $scope.createProjectTeamMissionDiv = true;
+      $scope.editProjectTeamMissionDiv = true;
+      $scope.createProjectTeamListDiv = true;
+      $scope.editProjectTeamListDiv = true;
+      $scope.needmoreHelpDiv = true;
+      $scope.suggetionsDiv = true;
+      $scope.practices = false;
+      $scope.bestPracticesSupprotsDiv = true;
+      $scope.bestPracticesGuildlineDiv = true;
+
+      $scope.expandOnlySelectedTab = function(selectedDiv, isExpanded) {
+        $scope.preparationDiv = true;
+        $scope.userAccountDiv = true;
+        $scope.cxProjectsDiv = true;
+        $scope.projectRolesDiv = true;
+        $scope.keyDefinitionsDiv = true;
+        $scope.suggetionsDiv = true;
+
+        $scope.createCXWorkoutDiv = true;
+        $scope.editCXWorkoutDiv = true;
+        $scope.viewMap = true;
+        $scope.createMapDiv = true;
+        $scope.createProjectTeamMissionDiv = true;
+        $scope.editProjectTeamMissionDiv = true;
+        $scope.createProjectTeamListDiv = true;
+        $scope.editProjectTeamListDiv = true;
+        $scope.needmoreHelpDiv = true;
+
+        $scope.bestPracticesSupprotsDiv = true;
+        $scope.bestPracticesGuildlineDiv = true;
+
+
+
+        switch (selectedDiv) {
+          case 'preparationDiv':
+            if (isExpanded) {
+              $scope.preparationDiv = false;
+            } else {
+              $scope.preparationDiv = true;
+            }
+            break;
+          case 'userAccountDiv':
+            if (isExpanded) {
+              $scope.userAccountDiv = false;
+            } else {
+              $scope.userAccountDiv = true;
+            }
+            break;
+          case 'cxProjectsDiv':
+            if (isExpanded) {
+              $scope.cxProjectsDiv = false;
+            } else {
+              $scope.cxProjectsDiv = true;
+            }
+            break;
+          case 'projectRolesDiv':
+            if (isExpanded) {
+              $scope.projectRolesDiv = false;
+            } else {
+              $scope.projectRolesDiv = true;
+            }
+            break;
+          case 'keyDefinitionsDiv':
+            if (isExpanded) {
+              $scope.keyDefinitionsDiv = false;
+            } else {
+              $scope.keyDefinitionsDiv = true;
+            }
+            break;
+          case 'createCXWorkoutDiv':
+            if (isExpanded) {
+              $scope.createCXWorkoutDiv = false;
+            } else {
+              $scope.createCXWorkoutDiv = true;
+            }
+            break;
+          case 'editCXWorkoutDiv':
+            if (isExpanded) {
+              $scope.editCXWorkoutDiv = false;
+            } else {
+              $scope.editCXWorkoutDiv = true;
+            }
+            break;
+          case 'viewMap':
+            if (isExpanded) {
+              $scope.viewMap = false;
+            } else {
+              $scope.viewMap = true;
+            }
+            break;
+          case 'createMapDiv':
+            if (isExpanded) {
+              $scope.createMapDiv = false;
+            } else {
+              $scope.createMapDiv = true;
+            }
+            break;
+          case 'createProjectTeamMissionDiv':
+            if (isExpanded) {
+              $scope.createProjectTeamMissionDiv = false;
+            } else {
+              $scope.createProjectTeamMissionDiv = true;
+            }
+            break;
+          case 'editProjectTeamMissionDiv':
+            if (isExpanded) {
+              $scope.editProjectTeamMissionDiv = false;
+            } else {
+              $scope.editProjectTeamMissionDiv = true;
+            }
+            break;
+          case 'createProjectTeamListDiv':
+            if (isExpanded) {
+              $scope.createProjectTeamListDiv = false;
+            } else {
+              $scope.createProjectTeamListDiv = true;
+            }
+            break;
+          case 'editProjectTeamListDiv':
+            if (isExpanded) {
+              $scope.editProjectTeamListDiv = false;
+            } else {
+              $scope.editProjectTeamListDiv = true;
+            }
+            break;
+          case 'needmoreHelpDiv':
+            if (isExpanded) {
+              $scope.needmoreHelpDiv = false;
+            } else {
+              $scope.needmoreHelpDiv = true;
+            }
+            break;
+          case 'suggetionsDiv':
+            if (isExpanded) {
+              $scope.suggetionsDiv = false;
+            } else {
+              $scope.suggetionsDiv = true;
+            }
+            break;
+          case 'bestPracticesSupprotsDiv':
+            if (isExpanded) {
+              $scope.bestPracticesSupprotsDiv = false;
+            } else {
+              $scope.bestPracticesSupprotsDiv = true;
+            }
+            break;
+          case 'bestPracticesGuildlineDiv':
+            if (isExpanded) {
+              $scope.bestPracticesGuildlineDiv = false;
+            } else {
+              $scope.bestPracticesGuildlineDiv = true;
+            }
+            break;
+        }
+
+
+      };
+
+    }
+  ]);
+
+})(angular.module('aet.screens.help'));

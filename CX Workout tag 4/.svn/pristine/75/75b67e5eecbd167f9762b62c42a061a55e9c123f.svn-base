@@ -1,0 +1,55 @@
+<h1 class="page-header">
+  Employee Mission
+</h1>
+
+<div class="row search-screen client-landing">
+
+  <div class="col-sm-12">
+
+    <div class="row search-ctrl">
+      <div class="col-sm-4">
+        <button class="btn btn-lg btn-primary" title="new mission" ui-sref="index.secured.employeemission.create" aet-has-permission="CREATE_EMPLOYEE_MISSION">
+          <span aria-hidden="true" class="c-icon c-icon-plus"></span>
+          Create New Employee Mission
+        </button>
+      </div>
+      <div class="col-sm-4 pull-right">
+        <div class="input-group input-group-lg search-input">
+          <input  class="form-control input-lg" ng-change="searchManager.debouncedSearch()" ng-model="searchManager.query" placeholder="Search Employee Missions" type="text"/>
+          <span class="input-group-addon" id="basic-addon2"><i class="glyphicon glyphicon-search"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-12">
+        <aet-search row-name="internalmission" search-manager="searchManager">
+
+          <aet-search-column label="Title" name="title" searchable="true"></aet-search-column>
+          <aet-search-column label="Start Date" name="startDate" searchable="false"></aet-search-column>
+          <aet-search-column label="End Date" name="endDate" searchable="false"></aet-search-column>
+          <aet-search-column label="Creator" name="creatorName" searchable="false"></aet-search-column>
+          <aet-search-column label="Status" name="status" searchable="true"></aet-search-column>
+
+          <button aet-action-button class="btn btn-sm btn-success" ng-click="editMission(internalmission)" title="edit" type="submit" aet-has-permission="VIEW_EMPLOYEE_MISSION">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+          
+          <button aet-action-button class="btn btn-sm btn-default" ng-click="copyMission(internalmission)" title="copy" type="submit" aet-has-permission="VIEW_EMPLOYEE_MISSION"><!-- permission should be changed as aet-has-permission="COPY_EMPLOYEE_MISSION" -->
+            <span class="glyphicon glyphicon-duplicate"></span>
+          </button>
+
+          <button aet-action-button class="btn btn-sm btn-danger" ng-click="deleteMission(internalmission)" title="delete" type="submit" aet-has-permission="DELETE_EMPLOYEE_MISSION">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+
+        </aet-search>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

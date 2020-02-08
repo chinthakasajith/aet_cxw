@@ -1,0 +1,709 @@
+<h1 class="page-header">
+  Tips & Help
+</h1>
+
+<div class="row help-landing">
+  <div class="col-sm-12">
+    <ul class="help-nav">
+      <li>
+        <a class="menu-link" ng-click="getStarted = !getStarted">Getting Started on CX Workout
+          <span class="glyphicon pull-left" ng-class="{'glyphicon-menu-right' : getStarted, 'glyphicon-menu-down' : !getStarted}"></span>
+        </a>
+        <ul class="sub-menu" collapse="getStarted">
+          <li>
+            <ul class="sub-menu">
+			 <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('browserDiv',browserDiv)">Best Web Browsers</a>
+                <div aria-labelledby="headingOne" collapse="browserDiv" id="browserDiv">
+                  <div class="panel-body">
+                    We strongly recommend using Firefox version 42.0 (or 41.0.2), or Chrome 46.0 for the best CX Workout experience.
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('preparationDiv',preparationDiv)">Preparation</a>
+                <div aria-labelledby="headingOne" collapse="preparationDiv" id="preparationDiv">
+                  <div class="panel-body">
+                    To prepare to use the CX Workout software, you will need to do the following:
+                    <ul type="disc">
+                      <li>Complete an Excel spreadsheet with details for each user account you want to create. Download here:
+                        <a class="hyperlink-font" href="http://bit.ly/CXWBetaTesters">http://bit.ly/CXWBetaTesters</a>.</li>
+                      <li>Email the completed form to
+                        <a class="hyperlink-font" href="mailto:support@cxworkout.com">support@cxworkout.com</a>.</li>
+                      <li>Obtain a copy of the Terms & Conditions to be used in all invitations and emails to Customer participants, and that your Customer participants will accept when they provide feedback. This should be sent to
+                        <a class="hyperlink-font" href="mailto:support@cxworkout.com">support@cxworkout.com</a>.</li>
+                      <li>The Leader of your team should create a Project and assign users to whom you want to give access. (A user is anyone who has an account.)</li>
+                      <li>Gather the SMTP details for the “From” email address (e.g., info@yourdomain.com) you will use to send participant Missions. You can get this information from your IT department.</li>
+                    </ul>
+                    <p>NOTE: You will need SMTP technical specifications provided by your IT department. You will also click a button to test the email setup to make sure it works. I’d recommend doing this test and set-up as soon as you can so there won’t be any delays when you want to send your first Mission.</p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('userAccountDiv',userAccountDiv)">User Accounts</a>
+                <div aria-labelledby="headingOne" collapse="userAccountDiv" id="userAccountDiv">
+                  <div class="panel-body">
+                    <p>All CX Workout platform users will be set up by SPCI (to request a new user, please send an email to
+                      <a class="hyperlink-font" href="mailto:support@cxworkout.com">support@cxworkout.com</a>). After users are set up, they will receive an email in which they will be asked to create a password. However, until they have been assigned a Project, they cannot log in and use platform features. Once assigned a Project, they receive a second email notifying them that they can now log in and see their Project.</p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('cxProjectsDiv',cxProjectsDiv)">CX Projects</a>
+                <div aria-labelledby="headingOne" collapse="cxProjectsDiv" id="cxProjectsDiv">
+                  <div class="panel-body">
+                    <p>This is the list of all current
+                      <a class="hyperlink-font" ui-sref="index.secured.project.search">CX Projects</a>. Each user can only see Projects they are assigned to. This is where the Client Lead can create New Projects.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('projectRolesDiv',projectRolesDiv)">Project Roles</a>
+                <div aria-labelledby="headingOne" collapse="projectRolesDiv" id="projectRolesDiv">
+                  <div class="panel-body">
+                    Platform features mentioned below are driven by CX Workout Subscription Level.
+                    <ul type="disc">
+                      <li>
+                        <b>Client Admin</b>: This role is set up by SPCI and is the only role that can create and delete Projects. For each Project the Client Admin will work with a team to assign at least 1 Project Leader and Project Administrator and define the Map Details (these details cannot be edited after setup). (<a class="hyperlink-font" ui-sref="index.secured.project.search">See Create a CX Project help section for more details.</a>)
+                      </li>
+                      <li>
+                        <b>Project Roles</b><br>
+                        <ul type="circle">
+                          <li>
+                            <b>Project Leader</b>: This user has full control over the features (e.g. create a Mission) associated with the Project they are assigned to. They can edit a Project, for example, to add other participants and they need to complete the “Send From” email address section of the Project.
+                          </li>
+                          <li>
+                            <b>Project Administrator</b>: oAt this time, this role has the same access as the Project Leader.
+                          </li>
+                          <li>
+                            <b>Project Team</b>: oThis user can review the CX Map and data collected from Missions, view Reports and the view Tips & Help section. Additionally, they can be sent a Mission to collect their feedback on various Action items in the Map.
+                          </li>
+                          <li>
+                            <b>Project Support</b>: oThis role is for a user who will view, download and print Project materials. They can: view the Map, view Reports (depending on Subscription Level), and view Tips & Help.
+                          </li>
+                          <li>
+                            <b>SME</b>: (Available in Subscription Level 2 and 3.) This is for internal and external Subject Matter Experts that you want to provide insights based on their review of your Mission collected data. (More information to come on this feature.)
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('keyDefinitionsDiv',keyDefinitionsDiv)">Key Definitions</a>
+                <div aria-labelledby="headingOne" collapse="keyDefinitionsDiv" id="keyDefinitionsDiv">
+                  <div class="panel-body">
+                    <ul type="disc">
+                      <li>
+                        <b>Channel</b>: A channel is used on
+                        <a class="hyperlink-font" ui-sref="index.secured.mapview">View Map</a>
+                        as a way to categorize where the Action item occurs. This could be phone, email, web, mobile, partner, or whatever else you’d like to define. Five Channels can be defined for each CX Map.
+                      </li>
+                      <li>
+                        <b>CX Map</b>: The Map associated with each Project on CX Workout is a Customer Journey Map (some refer to this as a Touchpoint Map). The Map hierarchy includes Stages, Touchpoints and their related Action items. An Action item is focused on what a customer is doing, thinking or feeling. On the
+                        <a class="hyperlink-font" ui-sref="index.secured.mapview">View Map</a>
+                        page you can see the map and experience the data collected from Missions (with color coding and icons). PLUS, double click on any Action to drill into the Mission collected data (ratings, comments and media). You can make changes to your map via the
+                        <a class="hyperlink-font" ui-sref="index.secured.mapedit">Edit Map</a>
+                        page.
+                      </li>
+                      <li>
+                        <b>CX Project</b>: Each project can have one unique Map, each Map contains all the data collected on Missions, all the Lists used for sending out Missions and all Reports tied to this work. Depending on your CX Workout Subscription Level, you will have varying features.
+                      </li>
+                      <li>
+                        <b>List</b>: Lists can be created at any time (by Project Leaders or Project Administrators). Lists are used for sending out Missions, Polls and Discussions (depending on the features your Subscription Level).
+                      </li>
+                      <li>
+                        <b>Mission</b>: A Mission can be sent to Project Team members, your larger Employee base or Customer base depending on CX Workout Subscription Level. A Mission collects information about a specific Action item on your CX Map.
+                      </li>
+                    </ul>
+                    <p>It has 3 main elements:
+                    </p>
+                    <ol>
+                      <li>Each Mission has an optional Media Upload feature, where you write specific instructions that direct participants to provide your desired audio, video, image or document uploads about their experience.</li>
+                      <li>Four rating questions which ask how well we are meeting expectations, the frequency of the occurrence of this experience, the value provided (or how the experience made you feel based on the choice of an Emotional or Value Curve in Project Creation) and lastly the likelihood to purchase again.</li>
+                      <li>Lastly, there are two open-ended questions. The first asks for comments to explain their ratings. The second asks if the participant has any big ideas for improving the experience.</li>
+                    </ol>
+                    <p>
+                      The data collected on a Mission, populates the CX Map and generates colors and icons. See related section below for more information.
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a class="menu-link" ng-click="features = !features">CX Workout Features
+          <span class="glyphicon pull-left" ng-class="{'glyphicon-menu-right' : features, 'glyphicon-menu-down' : !features}"></span>
+        </a>
+        <ul class="sub-menu" collapse="features">
+          <li>
+            <ul class="sub-menu">
+              <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('createCXWorkoutDiv',createCXWorkoutDiv)">Create a CX Project</a>
+                <div aria-labelledby="headingTwo" collapse="createCXWorkoutDiv" id="createCXWorkoutDiv">
+                  <div class="panel-body">
+                    Only users with Client Admin privileges can create a new CX Project. To create a New Project:
+                    <ul type="disc">
+                      <li>On the left navigation bar click CX Projects.
+                      </li>
+                      <li>Click the green button at the top of the page to Create a New Project.</li>
+                      <li>There is no limit to the number of projects. Each Project has one CX Journey Map.</li>
+                      <li>Projects include three main sections of information:</li>
+                      <ol>
+                        <li>Project Details,
+                        </li>
+                        <li>Map Details,
+                        </li>
+                        <li>Send From Address.
+                        </li>
+                      </ol>
+                  </ul>
+                  <p>Here are the details for each section.
+                  </p>
+                  <div class="text-indent">
+                    <h5>
+                      <b>1) Project Details</b>
+                    </h5>
+                    <p>Each project includes:</p>
+                    <ul type="disc">
+                      <li>
+                        <b>Project Leader</b>– assign at least one. This role has full access.
+                      </li>
+                      <li>
+                        <b>Project Administrator</b>– assign at least one. This role has full access but cannot create a New Project.</li>
+                      <li>
+                        <b>Project Team members</b>- You can assign these at any time. People in this role can be sent Missions, Polls and Discussions (depending on your CX Workout subscription level) and View Maps and Reports.
+                      </li>
+                      <li>
+                        <b>Project Support members</b>-optional). You can assign these at any time. This role, which has limited access on the platform, is for those you want to be able to view and print various reports, Maps, etc. They cannot create or edit Lists, or create Missions, Polls, or Discussions.
+                      </li>
+                    </ul>
+                    <p>The person who creates a new Project must be assigned a role with the Project so they can easily come back in and make edits, add any additional team members to Project roles, etc.
+                    </p>
+                    <h5>
+                      <b>2) Map Details</b>
+                    </h5>
+                    <b>Curve Types</b>
+                    <p>An Experience Curve is a line graph that plots either the Value or Emotional Experience you deliver – illustrating the high and low points. You need to know which of these two Experience Curves questions you want to in include in your Missions.
+                    </p>
+                    <ul type="disc">
+                      <li>
+                        <b>Value Curve</b>: A Value Curve is most often selected by B2B organizations. Choosing this option means each Mission will include a rating question about the Value delivered on the selected Action item.
+                      </li>
+                      <li>
+                        <b>Emotion Curve</b>: An Emotion Curve is most often selected by B2C organizations. Each Mission will then include a question about how the Action item made the participant feel on a positive/negative scale. Choosing this option means your Mission will not include the Value delivered question.
+                      </li>
+                    </ul>
+                    <p>Regardless of the Curve type you choose, depending on your CX Workout Subscription Level the Curve will appear on the Map page or the Reports page.The data collected in Customer Missions populates the Customer version of your Map. The data collected in Employee and Project Team Missions populates the Employee version of the Map.</p>
+                    <b>Stage Templates</b>
+                    <p>Choose the Stage names you want to appear on your map. You can choose from two pre-defined stage name templates to begin your Map construction (we recommend the SPCI template). Or, you can choose Custom and create your stage names on the next page (View Map).
+                    </p>
+                    <ul type="square">
+                      <li>
+                        <b>SPCI</b>:The 7 stages in this template are: Hear About, Explore, Commit, Receive, Use, Service, Talk About
+                      </li>
+                      <li>
+                        <b>LBGUPS</b>:The 6 stages in this template are: Learn, Buy, Get, Use, Pay, Service</li>
+                      <li>
+                        <b>Custom</b>:Create up to 7 stages of your choosing. You will be taken to the Create/Edit page of the Map once the Project is saved.
+                      </li>
+                    </ul>
+                    <b>Channels</b>
+                    <p>Every Map must include between 1 and 5 Channels. Each Action item you create must be assigned to a Channel.
+                    </p>
+                    <p>- Choose from the pre-defined Channel names, or create your own.
+                    </p>
+                    <p>- On the View Map page, you can see your Actions displayed by Channel.
+                    </p>
+                    <b>Logo</b>
+                    <p>Please upload your Company logo. This will appear at the top of email invitations that Participants receive for Missions, Polls and Discussions, and at the top of your exported CX Map.
+                    </p>
+                    <h5>
+                      <b>3) “From” Address</b>
+                    </h5>
+                    <p>This is the email address from which all your messages to participants (Customers, Project Team members, Employees, SMEs) will be sent. This needs to be a real email address, not a masked address. The required SMTP configuration information is available from your Technology department (based on the email address you want to use.)
+                    </p>
+                    <p>You cannot send a Mission until this From Address is completed set up and tested to be working correctly.
+                    </p>
+                    <p>
+                      <font size="3">DON’T MISS</font>: Once you fill in this information, you must click the Send Test Email button. You will then receive an email from that address sent to you. It will just show as a Test from CX Workout. If you receive that email, you know you have successfully configured this email.
+                    </p>
+                    <p>The name on the email address and the email address itself will appear to participants. This also means they could reply to ask questions or share comments. This should be an email address your Team will be reviewing regularly to manage any participant needs. So keep this in mind when you choose an email address (e.g. feedback@yourdomain.com).</p>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <a class="menu-link" ng-click="expandOnlySelectedTab('editCXWorkoutDiv',editCXWorkoutDiv)">Edit or Delete a CX Project</a>
+              <div aria-labelledby="headingTwo" collapse="editCXWorkoutDiv" id="editCXWorkoutDiv">
+                <div class="panel-body">
+                  To edit an existing CX Project:
+                  <ul type="disc">
+                    <li>On the left navigation bar, select
+                      <a class="hyperlink-font" ui-sref="index.secured.project.search">CX Projects</a>.
+                    </li>
+                    <li>To edit a Project, select the Edit icon to the right of the Project you want to edit</li>
+                  </ul>
+                  <p>Only Project Leaders and Project Administrators can edit or delete a CX Project.
+                  </p>
+                  <p>Note: All fields can be edited except Curve Type and Stage Template. For Channels you can change the wording of the 1-5 you have already chosen. To edit the Curve or Stage templates, we recommend creating a new CX Project that fits your new criteria.</p>
+                  <p>To delete an existing CX Project:</p>
+                  <ul type="disc">
+                    <li>On the left navigation bar, select
+                      <a class="hyperlink-font" ui-sref="index.secured.project.search">CX Projects</a>.
+                    </li>
+                    <li>To delete a Project, select the Delete icon to the right of the Project you want to edit. Keep in mind that deleting a Project deletes all user access; all map elements and Mission data collected.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <li>
+              <a class="menu-link" ng-click="expandOnlySelectedTab('viewMap',viewMap)">View Map</a>
+              <div aria-labelledby="headingTwo" collapse="viewMap" id="viewMap">
+                <div class="panel-body">
+                  To View your CX Map:
+                  <ul type="disc">
+                    <li>On the left navigation bar, select Map, then click
+                      <a class="hyperlink-font" ui-sref="index.secured.mapview">View Map</a>.</li>
+                  </ul>
+                  <p>This page allows you to view your Touchpoint Map and the collected Mission data (which drives Touchpoint and Action shading and icons). See the next Help section to learn how to Create/ Edit your Map.
+                  </p>
+				  <p><b>Across the top of the page</b></p>
+                  <p>Depending on your Subscription Level, you can toggle between: (a) the Employee Map – with data from Employee and Project Team Missions, or (b) the Customer Map – with data from Customer Missions.</p>
+				  <p><b>Drop down selector allows you to choose:</b></p>
+                  <ol>
+					<li>
+					  <b>Show Full Map</b>, This displays the Map with Stages, Touchpoints and Action (without sorting them by Channel). To expand the Map, click on a stage, then all Touchpoints will display. And when you click on a Touchpoint the associated Actions will be displayed.</li>
+					<li>
+					  <b>Show Actions by Channel</b>. This Map also includes the Stages, Touchpoints and be sorts Actions into rows based on the Channel they were assigned to. Again, to view the Actions associated with each Touchpoint, click on the Touchpoint and its Actions will display. </li>
+					<li>
+					  <b>View Experience Curve</b>. This Map will display Stages and Touchpoints without Action items. Below the Touchpoints there is an Experience Curve graph that rolls up the data collected in Missions to a Touchpoint level. The line curve displays data collected from Employee and Project Team Missions, while the bars display the data collected from Customer Missions. The curve and bars display is the data from either the Emotion or Value question, depending on what was selected during the Project creation. One Experience Curve will display per Stage on your Map.</li>
+					  
+				  <p><b>Copy This Map</b></p>  
+				  <p>Use this feature to create a copy of your existing map. Clicking this link (on the View Map page), brings you to the page to create a new Project. This is because a new Map (your copy) requires a new Project. In other words, you are simultaneously making a new Project and carrying over the copy of your Map. On the Project page you need to assign a Project Administrator (you will be automatically assigned as the Project Leader) and can make other edits to the new Project.
+				  </p>
+				  <p>The copy of the Map does not carry over any data collected from Missions. The copy brings over the Stages, Touchpoints and Actions (with Channel assignments).
+				  </p>
+				  
+				  <b>Export Map</b>
+                  <p>In Subscription Level 1 you can download a PDF of your complete map (with Channels expanded). Click Export Map from the View Map page. Once the map is downloaded you can control the orientation for printing.
+                  </p>
+				  
+				  
+				  <b>To view Mission data</b>
+                  <p>Double click on any Action item that was used in a Mission to view the results in 4 tabs:</p>
+                  <ol>
+                    <li>
+                      <b>Performance</b>.This shows bar graphs of ratings on the 4 Mission questions (Expectations, Frequency, Value or Emotion, Loyalty).</li>
+                    <li>
+                      <b>Ratings Comments</b>.Participants are asked "Please tell us why you gave the ratings you did." This tab displays comments by the emotion rating assigned by the Participant.</li>
+                    <li>
+                      <b>Big Ideas</b>.Participants are asked, "What big ideas do you have for us that would improve your experiences with our company? The bigger the better." This tab will display those comments along with their first name, last initial and date of upload.
+                    </li>
+                    <li>
+                      <b>Media</b>.Any audio, video, image or document uploads from your Participants are displayed on this page with their first name, last initial and date of upload.
+                    </li>
+                  </ol>
+                  <b>The Color Guide for Touchpoints and Actions</b>
+                  <ul type="disc">
+                    <li>
+                      <b>For Actions</b>Mission ratings determine the Action color.</li>
+                    <p>
+                      <b>Green</b>
+                      means the average expectations score ("How well did we meet your expectations on this experience") is between 4 and 5 (on a scale of 5) and the average score on loyalty ("How important is this specific experience to earning your loyalty?") is between 4 and 5. This illustrates we are doing well on meeting expectations and have a high likelihood for loyalty.</p>
+                    <p>
+                      <b>Red</b>
+                      means the average expectations score ("How well did we meet your expectations on this experience") is between 1 and 2 and the average loyalty score ("How important is this specific experience to earning your loyalty?") is between 4 and 5. This illustrates that we are not meeting expectations for customers who want to be loyal. This is a key area to focus on because you don’t want to lose this audience.
+                    </p>
+                    <p>
+                      <b>Gray</b>
+                      means the data doesn’t meet the above conditions for green or red coloring.</p>
+                    <p>
+                      <b>White</b>
+                      means there is no collected data about this item (from a Mission).</p>
+                    <li>
+                      <b>For Touchpoints</b>
+                      <p>Touchpoint colors are based on an average of the ratings across all their related Actions (for which data has been collected). See color definitions above.
+                      </p>
+                      <p>
+                        <b>White</b>
+                        means there is no collected data about any of the Actions associated with this Touchpoint.</p>
+                    </li>
+                  </ul>
+                  <b>The Guide for Icons</b>
+                  <br><img  height='30' src='assets/images/icons/loyalty-ico.png' width='30'/>
+                  <p>
+                    <b>Yellow icon with a medal.</b>
+                    Loyalty icon means there was a 4 to 5 average rating on the loyalty question for that Action item.
+                  </p>
+                  <br><img  height='30' src='assets/images/icons/media-ico.png' width='30'/>
+                  <p>
+                    <b>Blue icon with a play button.</b>
+                    Medic icon displayed means a participant uploaded a media file (audio, video, image or document) to the Action item.
+                  </p>
+                  <br><img  height='30' src='assets/images/icons/media-new-ico.png' width='30'/>
+                  <p>
+                    <b>Dark blue icon with play button and red dot.</b>
+                    A small red doc inside the Media icon means a new item has been uploaded from a Mission in the last 24 hours.
+                  </p>
+                 
+                </div>
+              </div>
+            </li>
+            <li>
+              <a class="menu-link" ng-click="expandOnlySelectedTab('createMapDiv',createMapDiv)">Create/Edit Map</a>
+              <div aria-labelledby="headingTwo" collapse="createMapDiv" id="createMapDiv">
+                <div class="panel-body">
+                  To Create or Edit a Map:
+                  <ul type="disc">
+                    <li>On the left navigation bar, select Map and then
+                      <a class="hyperlink-font" ui-sref="index.secured.mapedit">Create/Edit</a>.
+                    </li>
+                    <li>You can create a map and edit it at any time.</li>
+                  </ul>
+                  <p>This page is only to Project Leaders and Project Administrators.
+                  </p>
+                  <b>What you can create</b>
+                  <ul type="disc">
+                    <li>
+                      <b>Custom Stage Names</b>. If you selected Custom Stages during Project set up, you will need to create your Stage names. Click the plus (+) sign near the top of the page. You can create up to seven custom Stage names.</li>
+                    <li>
+                      <b>Touchpoints</b>. You can create new Touchpoints and Action items at any time. To create a new Touchpoint, click the plus (+) sign on the Stage to which you want to assign the Touchpoint.</li>
+                    <li>
+                      <b>Action Items</b>. To create a new Action item, click the plus (+) sign on the Touchpoint to which you want the Action item assigned.
+                    </li>
+                  </ul>
+                  <b>What you can edit</b>
+                  <ul type="disc">
+                    <li>Any custom Stage names that you create. (Note: If you selected a Predefined Stage template, those Stage names cannot be edited.)</li>
+                    <li>Text in all Touchpoint and Actions.</li>
+                    <li>The Channel to which an Action is assigned. Click the Edit button for the Action you want to edit.</li>
+                    <li>To edit your Channel names, go to the CX Project page and click the Edit icon, then double click the Action name you want to change. Then click Save.
+                    </li>
+                    <li>The order of Touchpoints within their defined Stage (drag-and-drop).</li>
+                  </ul>
+                  <b>What you can delete</b>
+                  <ul type="disc">
+                    <li>Custom Stage names that you have created.</li>
+                    <li>Touchpoints and Actions</li>
+                  </ul>
+                  <p>
+                    <u>Note</u>: You cannot delete a Touchpoint or Action that has a live Mission associated with it. To do that, you first have to edit the Live Mission, change the End Date to today, and click Save. That will close the Mission. Participants who attempt to access the Mission will be advised the Mission is closed.
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <a class="menu-link" ng-click="expandOnlySelectedTab('createMissionDiv',createMissionDiv)">Create a Project Team, Employee or Customer Mission</a>
+              <div aria-labelledby="headingTwo" collapse="createMissionDiv" id="createMissionDiv">
+                <div class="panel-body">
+                  To create a Mission:
+                  <ul type="disc">
+                    <li>On the left navigation bar, click Missions and select
+                      <a class="hyperlink-font" ui-sref="index.secured.missionsprojectteam.search">Project Team</a>, Employee or Customer.
+                    </li>
+                    <li>At the top of the page, click "Create New Mission."</li>
+                  </ul>
+                  <p>This feature is visible to only Project Leaders and Project Administrators.</p>
+                  <b>Step 1. Create a Mission title, and assign start and end dates</b>
+                  <p>To begin, name your Mission and assign a Start Date. The Start Date indicates when your Mission will be sent out. If you want to send it today, choose today’s date. You can also pick a date in the future. This means that in the Send step, the Mission will queue for sending on the Start Date.</p>
+                  <p>Assign an End Date. Be sure to leave enough time for Participants to respond to and complete a Mission. Every Mission has the first email invitation to participate, which you write, and then a Reminder Email for Participants who have not yet completed an active Mission. Then click the Save button</p>
+                  <b>Step 2. Select Action items to include in one individual Mission.
+                  </b>
+                  <p>Select one or more Action items for each Mission.</p>
+				  <p>For each Action item, write instructions for the Participant regarding what part of the Experience you want their feedback on. If you want them to upload Media, write a second set of instructions for that part of the Mission (in the next step) as well. Check the boxes of the Action(s) you want to include, and then click Next.</p>
+                  <b>Step 3. Develop your Mission Assignment
+                  </b>
+                  <ol type="a">
+                    <li>
+                      <b>For each Action item, fill in the specifics about what part of their experience they should focus on.</b> Use this area to describe the Mission’s focus and help participants understand what to consider when they complete the questions below. The wording of your selected Action item will not appear on the Mission.
+                    </li>
+                    <li>
+                      <b>Media Upload</b>. In this Step you will also decide if you want to include the Media Upload feature as part of your Mission. Use the Media Upload feature if you want to give Participants the option to upload an audio or video recording or upload an image about their experience. If you check the box to include Media Upload in your Mission, you must complete the instructions that appear above the Upload button.
+                      <p>Tip: Be very clear about what you want Participants to provide: you can direct them to take photos or record videos of their thoughts or experiences, or upload a screen shot, or whatever will best support your understanding of their experience regarding this particular Action item. Explain to Participants this is an optional field, and that they will have to go create a video, picture or audio file and then upload it here.
+                      </p>
+                    </li>
+                  </ol>
+                  <p>Complete the above Header and Media Upload checkbox and Instructions for each Action item chosen in the previous step, then click Next.</p>
+                  <b>Step 4. Create Participant Messages</b>
+                  <ol type="a">
+                    <li>
+                      <b>Create your original email invitation to Participants</b>Explain what you are asking, what part of the experience you want them to focus on, why their feedback is valuable, and the benefits of participating.
+                      <p>This email includes two parts automatically. The opening will say "Dear {FirstName}," and below your custom message two links enable them to accept or decline participation in the Mission. One says, "Yes, I’d like to participate." The second says "No, thank you." We will track which link they choose, and we will also track who completes a Mission.</p>
+                    </li>
+                    <li>
+                      <b>Create your Reminder email</b>Those who do not complete the Mission (from your Participant list) will receive the Reminder email based on the time interval you define. This is the second email you create in this step. We provided draft copy for you to edit however you like. This message will also include the "Yes" and "No" links described above.</li>
+                    <li>
+                      <b>Write Thank You Message</b>In this Step you will write a brief “Thank You” message that will appear on the screen after the Participant completes the Mission.
+                    </li>
+                    <p>Then click Next</p>
+                    <b>Step 5. Select Participants</b>
+					<p><b>Creating a Project Team Mission</b></p>
+					
+                    <p>Project Team Participants are those with login access to CX Workout who have been assigned to this CX Project.</p>
+					<p>If you have not created a Project Team List previously, click the "Create List" button to display a window with a list of Project Team members. Select the members to be included, name your list and click the OK button. Then choose the list from the Team List on this page and click Next.</p>
+                    
+					<p><b>Creating an Employee or Customer Mission</b></p>
+					<p>If you have not created a List previously or want to create a New List, click the “Create List” button to display a window where you can upload an Excel .csv file or manually create a list with first name, last name and email address will appear.</p>
+					<p>If you want to upload a file, the Excel file must have 3 columns only. Column A should have a header that says First Name (in cell A1), Column B should have a header that says Last Name (in cell B1) and Column C should have a header that says Email Address (in cell C1). This file must be saved in .csv file format. If your file is 1,000 rows or more, the system may take longer to process the file, so don’t worry if it takes a few moments longer than you might have expected. Any duplicate email address in your uploaded file will be shown below the list data, click the red X next to the one you want to remove from the list. Then click OK to save your list. If any email addresses are incorrectly formatted, they will not be included in the list.</p>
+					<p>Once the pop-up window is closed, make sure your new list is selected and click Next. (You can only select and send to one list at a time. You can always copy the Mission and send it out to a second list if desired.)</p>
+			
+					<b>Step 6. Preview and Send
+                    </b>
+                    <p>This is where you can see how Participants will view the Mission you created. If you have two Action items, they appear as unique pages on the left side of the screen. You can type in text, move the sliders around on your rating questions, and then click Next or Submit. Since this is a Preview, it will not submit your answers.
+                    </p>
+                    <font size="3">TIPS: BEFORE YOU SEND</font>
+                    <p>When you are ready to send, check the Start Date. Today’s date means the Mission will be sent out shortly after you click Send. A future Start Date means the Mission will be sent out on that date.
+                    </p>
+                    <p>Make sure your End Date provides enough time for Participants to respond.
+                    </p>
+                    <p>If it all looks good, click "Send". Your Mission will appear on the Mission page (Project Team, Employee or Customer) based ib what you created. It will say "Live" if it has been sent (you selected today's date as the Start Date), or "Scheduled" if it is set to go out on a future date.
+                    </p>
+                    <p>If you aren’t ready to Send yet, just leave the page. You can revisit your Draft Mission later and click the Edit button to complete it.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('editMissionDiv',editMissionDiv)">Edit or Delete a Mission</a>
+                <div aria-labelledby="headingTwo" collapse="editMissionDiv" id="editMissionDiv">
+                  <div class="panel-body">
+                    Any Mission in
+                    <b>Draft</b>
+                    status can be fully edited.
+                    <ul type="disc">
+                      <li>On the left navigation bar, click Mission and select
+                        <a class="hyperlink-font" ui-sref="index.secured.listsprojectteam.search">Project Team</a>, Employee or Customer.
+                      </li>
+                      <li>Then click the Edit button next to the title of the Mission you want to edit.</li>
+                      <li>You can also click the Delete button next to any Mission you want delete.</li>
+                    </ul>
+					<p>Any Mission in <b>Scheduled</b> status can still be edited. Once you click the Edit button next to the Mission title, it will revert to draft state until you click Send (with the Start Date set to today or a future date).</p>
+					<p>Any Mission in <b>Live<b> status can have one element updated, the End Date. For example, if you want to close your Mission, move your End Date to today. This means any Participants who click the link in your invitation email will receive a message telling them the Mission has been closed.
+                    </p>
+                    <p>
+                      CAUTION:<b>Closed</b>
+                      Missions cannot be edited, they can be deleted, but you will delete all the data collected during the Mission. Please use this feature with caution.
+                    </p>
+                  </div>
+                </div>
+              </li>
+			  <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('createListDiv',createListDiv)">Create a Project Team, Employee or Customer List</a>
+                <div aria-labelledby="headingTwo" collapse="createListDiv" id="createListDiv">
+                  <div class="panel-body">
+					<p>
+					<b>Creating Project Team Lists</b>
+				  This feature helps you create Project Team lists to be used when you send out a Project Team Mission. To Create a Project Team List:
+                    <ul type="disc">
+                      <li>On the left navigation bar click Lists and then select
+                        <a class="hyperlink-font" ui-sref="index.secured.listsprojectteam.search">Project Team</a>.
+                      </li>
+                      <li>Click the “New Project Team List” button at top of the page.
+                      </li>
+                      <li>Create a name for the list.</li>
+                      <li>Select Participants to add to the list. (The participants that appear in this step are those (a) that have logins for CX Workout, and (b) are also associated with this CX Project.</li>
+                      <li>Click Save.
+                      </li>
+                    </ul>
+                    <p>This section is visible only to Project Leaders and Project Administrators.</p>
+					<b>Creating Employee or Customer Lists</b>
+				  This feature allows you to create Employee or Customer lists to be used when you send out a Mission. To Create an Employee or Customer List:
+                    <ul type="disc">
+                      <li>On the left navigation bar click Lists and then select Employee or Customer.
+                      </li>
+                      <li>Click the "Create New List" button at top of the page.
+                      </li>
+					  <li>Create a name for the list.
+					  </li>
+					  <li>You can then upload a CSV file or manually add customers including first name, last name and email address. Any uploaded files must have 3 columns with Column A for First Name (cell A1), Column B for Last Name (cell B1) and Column C for Email Address (cell C1). The file must be in .csv file format. Any duplicate email addresses in your list will be shown below the list information. Click the red X to remove which one should be removed from the list. Those email addresses with incorrect formatting will be removed from the list.
+					  </li>
+					  <li>Click Save.
+					  </li>
+					</ul>					  
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('editListDiv',editPListDiv)">Edit or Delete a List</a>
+                <div aria-labelledby="headingTwo" collapse="editListDiv" id="editListDiv">
+                  <div class="panel-body">
+                    To edit or delete an existing Project Team, Employee or Customer List:
+                    <ul type="disc">
+                      <li>On the left navigation bar click Lists and then select
+                        <a class="hyperlink-font" ui-sref="index.secured.listsprojectteam.search">Project Team</a>, Employ
+                      </li>
+                      <li>Next to the List you want to edit, select the Edit icon.</li>
+                    </ul>
+                    <p>You can add or remove Participants or rename the List.To remove a name, click the red X. You can edit the First Name or Last Name. If you want to edit an email address you will have to remove the row entirely and create a new row with the appropriate information. Click Save when your List edits are complete.</p>
+					<p>Removing or adding participants on a List does not affect past use of the list. For example, if the List was used to send out a Mission recently (a “Live” Mission, Poll or Discussion) those participants are still part of that activity. If you want to send it out to new participants, create a new Mission, Poll or Discussion and select your Participants during the creation flow.</p>
+                    <p>If you want an additional Project Team member (employee) to be given an account on CX Workout, please email
+                      <a class="hyperlink-font" href='mailto:support@cxworkout.com'>support@cxworkout.com</a>
+                      with your request.</p>
+                  </div>
+                </div>
+              </li>
+			  <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('reportParticipationDiv',reportParticipationDiv)">Report> Participation</a>
+                <div aria-labelledby="headingTwo" collapse="reportParticipationDiv" id="reportParticipationDiv">
+                  <div class="panel-body">
+                    <p>Use this customizable Report to find out the details of Project Team, Employee and Customer Mission participation. Report parameters include: </p>
+					<ul type="disc">
+					<li>Audience (Project Team, Employee, Customer)
+					</li>
+					<li>Mission Name
+					</li>
+					<li>Mission Participation
+					</li>
+					<li>Participation Dates
+					</li>
+					</ul>
+					<p>If you have promised incentives to participants, this is your way to determine who needs compensation. You can also use this report to see the level of response to a particular Mission and determine if you want to copy the Mission and sent it out to others to gather more input.</p>
+					<p>This report can be exported. It will export the search parameters entered into an Excel file.</p>
+					 </div>
+                </div>
+              </li>
+					
+			  
+			  
+			  
+              <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('needmoreHelpDiv',needmoreHelpDiv)">Need More Help?</a>
+                <div aria-labelledby="headingTwo" collapse="needmoreHelpDiv" id="needmoreHelpDiv">
+                  <div class="panel-body">
+                    Still have questions? Need more help?
+                    <p>Email
+                      <a class="hyperlink-font" href='mailto:support@cxworkout.com'>support@cxworkout.com</a>
+                      and we’ll get back to you as soon as we can.</p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('suggetionsDiv',suggetionsDiv)">Submit Your CX Workout Suggestions
+                </a>
+                <div aria-labelledby="headingTwo" collapse="suggetionsDiv" id="suggetionsDiv">
+                  <div class="panel-body">
+                    Have feedback and suggestions on CX Workout? Email your ideas to:
+                    <p>
+                      <a class="hyperlink-font" href='mailto:support@cxworkout.com'>support@cxworkout.com</a>
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a class="menu-link" ng-click="practices = !practices">CX Workout Best Practices
+          <span class="glyphicon pull-left" ng-class="{'glyphicon-menu-right' : practices, 'glyphicon-menu-down' : !practices}"></span>
+        </a>
+        <ul class="sub-menu" collapse="practices">
+          <li>
+            <ul class="sub-menu">
+              <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('bestPracticesSupprotsDiv',bestPracticesSupprotsDiv)">CX Workout Core Team & Other CX Team Supporters
+                </a>
+                <div aria-labelledby="headingThree" collapse="bestPracticesSupprotsDiv" id="bestPracticesSupprotsDiv">
+                  <div class="panel-body">
+                    <p>Deciding who to invite to be part of a CX Design Team is an important step. Depending on the scope of the project, the type of team membership and length of time they will work on the project will vary. Here are some ideas on the type of roles that are part of a typical Core and Extended CX Design Team to help you decide.</p>
+                    <b>CX Workout Core Team</b>:
+                    <p>
+                      <b>Project Leader</b>: Reporting to the Project Sponsor or Steering Committee, this role is responsible for the overall quality of the project and from Discovery to Deploy. Core Project Team Members report to this person or over the course of the project. For a large, end-to-end design effort, the Project Leader could be a full time resource on the project. In most cases, this is a senior line or functional leader selected to achieve a specific improvement target in the customer experience. (This role is assigned on the CX Projects page.)
+                    </p>
+                    <p>
+                      <b>Project Administrator/Project Manager</b>: This could be a part time or full time role. This person has Project Administrator status inside a Project on the CX Workout Software Platform. The Project Manager oversees all to the details of project management from managing and tracking development of the CX Journey Maps and serves as the Project Leader’s key resource for ensuring the project stays on track. (This role is assigned on the CX Projects page.)</p>
+                    <p>
+                      <b>Project Support</b>: This role on CX Workout offers a user account level for someone who will access your materials to download and print them. They can export the CX Map and export Reports. These options are defined by your Subscription Level of CX Workout.</p>
+                    <b>Core Team Members outside of CX Workout Software Platform:</b>
+                    <p>
+                      <b>Project Sponsor or Steering Committee</b>: The Project Sponsor or in some cases, Steering Committee provide the Project Leader with an executive(s) who has a vested interested in seeing the project succeed. They may be a senior product, operations or customer service leader with the authority to approve or get the approval for recommendations that will be presented by the CX Design Team.</p>
+                    <p>
+                      <b>Analysts</b>: Most Design Teams will have at least one Analyst role assigned to the project. This is a person with strong statistical analysis and modeling skills that are most involved with the CX Workout platform once the qualitative data has been collected and you are preparing a Quantitative Survey.</p>
+                    <p>
+                      <b>Designers</b>: Depending on your business, the Designer role in your organization could be an operations leader, a UX/UI designer, or a marketing expert.
+                    </p>
+                    <p>
+                      <b>CX Professionals</b>: This includes anyone in the VOC or CX organization who may be managing the customer satisfaction measurement system or any part of that program.</p>
+                    <p>
+                      <b>Facilitators</b>: Whether within the Core Team or contracted out, having an experienced facilitator to help conduct Employee meetings or focus groups and the someone to conduct the official CX “Workout” Session is important. (We offer training in the CX Workout methodology used to conduct productive internal sessions based on what has been collected on the Software Platform.)</p>
+                    <p>
+                      <b>Extended Team</b>: The extended team represents individuals who the Core Team may tap into on an as-need basis but who play an important role nonetheless. These include but are not limited to:</p>
+                    <ul>
+                      <li>Internal Subject Matter Experts</li>
+                      <li>External Subject Matter Experts</li>
+                      <li>Process Improvement Consultants</li>
+                      <li>Internal Partners from:</li>
+                    </ul>
+                    <div style="padding-left:20px;">
+                      <ul type="circle">
+                        <li>Operations
+                        </li>
+                        <li>Call Centers</li>
+                        <li>E-Commerce</li>
+                        <li>HR</li>
+                        <li>Marketing</li>
+                        <li>Product Development
+                        </li>
+                        <li>Legal/Regulatory</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <a class="menu-link" ng-click="expandOnlySelectedTab('bestPracticesGuildlineDiv',bestPracticesGuildlineDiv)">Guidelines for your CX Journey Map on CX Workout
+                </a>
+                <div aria-labelledby="headingThree" collapse="bestPracticesGuildlineDiv" id="bestPracticesGuildlineDiv">
+                  <div class="panel-body">
+                    <p>Let’s talk about the steps associated with creating a CX Journey Map. Before you get started there are a couple of choices you need to make. The first has to do with who the target customer is your CX Journey Map will represent. Is it your Core Customer or a specific segment of customers? Some companies may represent a customer segment as something called a Persona. A Persona is a human description of a customer segment that brings their preferences, typical demographics and psychographic characteristics to life. Unless your company's experience is focused on primarily one core customer, your marketing team has probably defined two or more customer segments or customer Persona's, that you would typically use as the focus of the experience you plan to map. We suggest creating a CX Journey Map for a specific customer segment. However, if the core experience is the same for different Personas, you can always Label your Customer Actions to be specific to one or more Personas when you are building the Map.</p>
+                    <p>The second choice you have to make is around scope. Do you want to map the entire end-to-end customer experience or are you just trying to map one or two Stages? If you are trying to zero in on just the support experience or the customer onboarding experience, then focus your attention on that. You still start out selecting or creating one or more custom Stages and then adding Touchpoints, but be sure to decide how much of the customer experience you plan to map.</p>
+                    <p>Our goal with CX Workout is to help you produce a Customer Journey Map that includes all of the salient information in understanding the current customer journey and none of the superfluous things that might be academically interesting, but simply don’t inform an action you would take to create improvements that customers would truly value.
+                    </p>
+                    <p>We believe this information includes:</p>
+                    <ol>
+                      <li>Identifying the
+                        <b>Stages</b>
+                        in the experience. A common set of stages includes the traditional Path to Purchase: Awareness, Research, Purchase, Use and Service. We have developed a set of 7 Stages that include: Hear About; Explore; Commit; Receive; Use; Service and Talk About. These stages describe the major phases that a customer goes through before, during and after purchasing a product or service. With CX Workout you can use the SPCI Stages or create your own but you are limited to no more than 7 stages.
+                      </li>
+                      <li>Next come
+                        <b>Touchpoints</b>. You can think of these as the major Steps in the experience. For example, under the Stage: Hear About, there could be 4 major Touchpoints or Steps: 1. Hear a radio ad, 2. Receive an email invitation to an event, 3. Watch a TV ad or 4. Receive recommendation from a friend. Steps are not necessarily sequential – they can happen in parallel and they may have dependencies or may not. In fact, they may be circular – such as when I get in a bad phone queue and get put on hold or transferred several times.
+                      </li>
+                      <li>3)The third level of the Journey Map is Customer Actions. These are things that customers are Doing, Thinking or Feeling within the Touchpoint you have described. That is why we use the First Person to describe customer actions such as:
+                        <ol type="a">
+                          <li>
+                            <b>Doing</b>: “I open my browser and search for the company’s website</li>
+                          <li>
+                            <b>Thinking</b>: “That line looks long, I wonder how much time before I get served?”</li>
+                          <li>
+                            <b>Feeling</b>:“I love this place - they always make me feel right at home.”</li>
+                        </ol>
+                      </li>
+                    </ol>
+                    <p>One thing to remember, a CX Journey Map is not a Process Map or a Workflow. The goal isn’t to create the engineering diagram of the functional steps, inputs and outputs. That is a good thing to do – but it isn’t the intent of this tool. The CX Journey Map’s purpose is to bring to life the unbiased Functional, Human and Emotional journey that the customer experiences when they buy from your brand. As you describe the Customer Actions, think about what Customers See, Hear, Smell, Taste and Touch throughout the experience. For example, the team at Krispy Kreme doughnuts pipes the smell of fresh doughnut out to the street.
+                    </p>
+                    <p>Your steps for completing your first CX Journey Map are to:</p>
+                    <ol>
+                      <li>Define your Stages</li>
+                      <li>Define the Touchpoints (or major Steps) associated with each Stage</li>
+                      <li>Starting with the first Touchpoint, add the major Customer Actions that occur within that Touchpoint in the First Person: "I click on the Touchpoint and begin adding Actions." Assign a Channel you defined to each Action.
+                      </li>
+                    </ol>
+                    <p>Once you have completed adding all of your Stages, Touchpoints and Actions, you are ready to have either your Core Project Team or even better, a larger group of frontline employees and managers rate the organization’s performance on most or all of the Customer Actions. Emailing to a larger employee base is available for CX Workout Subscription 2 and 3.</p>
+
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

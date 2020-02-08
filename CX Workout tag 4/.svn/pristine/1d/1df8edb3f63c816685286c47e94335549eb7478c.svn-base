@@ -1,0 +1,616 @@
+(function(module) {
+
+  module.controller('EditEmpMissionController', ['$scope', '$rootScope', '$anchorScroll', '$location', '$stateParams', 'missionRequest', 'Mission', 'MissionAction', 'projectService', 'listEmployeeService', 'missionEmployeeService', 'participantList', 'mapData', 'alertsService', '$modal', '$state', '$log', 'missionPreviewService', 'modalService', '$filter', '$rootScope', 'taOptions',
+    function($scope, $rootScope, $anchorScroll, $location, $stateParams, missionRequest, Mission, MissionAction, projectService, listEmployeeService, missionEmployeeService, participantList, mapData, alertsService, $modal, $state, $log, missionPreviewService, modalService, $filter, $rootScope, taOptions) {
+
+      $scope.originalMission = angular.copy(missionRequest);
+      $scope.mission = missionRequest;
+      $scope.teamLists = participantList.results;
+      $scope.selectedTeam = null;
+      $scope.mapData = mapData.data.stages;
+      $scope.projectData = mapData.data.project;
+      var confirmedExit = false;
+
+      // rich text editor tool bar customization
+      taOptions.toolbar = [
+        ['bold', 'italics', 'underline'],
+        ['fontSize'],
+        ['ul', 'ol'],
+        ['indent', 'outdent'],
+        ['wordcount', 'charcount']
+      ];
+
+      $scope.$on('$stateChangeStart',
+        function(event, toState, toParams, fromState, fromParams) {
+          if (!$scope.equalsfunc() && !confirmedExit) {
+            var modalInstance = modalService.unsavedChangesModal();
+            modalInstance.result.then(function(result) {
+              if (result.save === true) {
+                updateRequestActions($scope.mission);
+                $rootScope.showLoader('Updating...');
+                missionEmployeeService.updateMission($scope.mission, false).then(function(response) {
+                  confirmedExit = true;
+                  $state.go(toState);
+                  $rootScope.hideLoader();
+                }, function(err) {
+                  $rootScope.hideLoader();
+                });
+              } else {
+                confirmedExit = true;
+                $state.go(toState);
+              }
+            });
+            event.preventDefault();
+          }
+        });
+
+      $scope.equalsfunc = function() {
+        return angular.equals($scope.mission, $scope.originalMission);
+      };
+
+      //$scope.step used to swtich through subforms
+      $scope.step = 1;
+      $scope.stages = [];
+      $scope.minStartdDate = $scope.minDate ? null : new Date();
+      $scope.minEndDate;
+
+      angular.isUndefinedOrNull = function(val) {
+        return angular.isUndefined(val) || val === null || val === ""
+      }
+
+      //Checks the mission status
+      $scope.isStatus = function(status) {
+        var isStatus = false;
+        if (angular.equals(status, $scope.mission.status)) {
+          isStatus = true;
+        }
+        return isStatus;
+      }
+
+      //Compares DTOs team against the full list of teams and marks checked if its included in the DTO
+      function parseInternalList(request) {
+        if (angular.isDefined(request.list)) {
+          angular.forEach($scope.teamLists, function(team, key) {
+            if (angular.equals(team.id, request.list.id)) {
+              request.list = team;
+            }
+          });
+        }
+      }
+
+      $scope.prevStep = function() {
+        $scope.step--;
+      }
+
+      $scope.isValidReminderDate = function() {
+        var isValid = false;
+        //hack.
+        $scope.createMissionInternal.reminderDays.$showError = null;
+        $scope.createMissionInternal.reminderDays.$error.required = null;
+        $scope.createMissionInternal.reminderDays.$error.invalidDays = null;
+        $scope.createMissionInternal.reminderDays.$error.isZero = null;
+        $scope.createMissionInternal.reminderDays.$error.pattern = null;
+        $scope.createMissionInternal.reminderDays.$error.maxlength = null;
+        var diff = (getDaysDifference($scope.mission.endDate, $scope.mission.startDate));
+        if (angular.isUndefinedOrNull($scope.mission.remindInDays)) {
+          $scope.createMissionInternal.reminderDays.$error.required = true;
+        } else if (angular.isDefined($scope.mission.remindInDays) && $scope.mission.remindInDays > Number(diff)) {
+          $scope.createMissionInternal.reminderDays.$error.invalidDays = true;
+        } else if ($scope.mission.remindInDays < 1) {
+          $scope.createMissionInternal.reminderDays.$error.isZero = true;
+        } else if (!(/^[0-9]+$/.test($scope.mission.remindInDays))) {
+          $scope.createMissionInternal.reminderDays.$error.pattern = true;
+        } else if ($scope.mission.remindInDays.length > 3) {
+          $scope.createMissionInternal.reminderDays.$error.maxlength = true;
+        } else {
+          isValid = true;
+        };
+        return isValid;
+      };
+
+      function getDaysDifference(date1, date2) {
+        var d1 = new Date($filter('date')(date1, 'yyyy-MM-dd'));
+        var d2 = new Date($filter('date')(date2, 'yyyy-MM-dd'));
+        return ((d1 - d2) / (1000 * 3600 * 24)).toFixed(0);
+      }
+
+      $scope.openStartDatePicker = function($event) {
+        $scope.startDatePickerOpened = true;
+      };
+
+      $scope.openEndDatePicker = function($event) {
+        $scope.endDatePickerOpened = true;
+      };
+
+
+      $scope.addProjectTeam = function() {
+        var modalInstance = modalService.addEmployeeList();
+        modalInstance.result.then(function(result) {
+          listEmployeeService.searchlistEmployee({
+            count: 0,
+            page: 0
+          }).then(function(response) {
+            $scope.teamLists = response.results;
+            parseInternalList($scope.mission);
+          });
+        });
+
+      }
+
+      $scope.preview = function() {
+        var modalInstance = missionPreviewService.missionPreview();
+      };
+
+      $scope.isValidPage = function() {
+        return $scope.isValidSave() && $scope.isValidAction() && $scope.isValidAssignment() && $scope.isValidMessages() && $scope.isValidSelectParticipants();
+      }
+
+      $scope.isValidSave = function() {
+        return true;
+      }
+
+      $scope.isValidAction = function() {
+        var isValid = false;
+        angular.forEach($scope.stages, function(action, key) {
+          if (action.checked) {
+            isValid = true;
+          }
+        });
+        /*if ($scope.mission.missionActions.length > 0) {
+          isValid = true;
+        }*/
+        return isValid;
+      }
+
+      $scope.isValidAssignment = function() {
+        var isValid = true;
+        if ($scope.mission.missionActions.length > 0) {
+          angular.forEach($scope.mission.missionActions, function(action, key) {
+            if (angular.isUndefinedOrNull(action.actionHeader) || action.actionHeader.length > 750) {
+              isValid = false;
+            }
+            if (action.isMediaIncluded === true) {
+              if (angular.isUndefinedOrNull(action.mediaIncludedMessage) || action.mediaIncludedMessage.length > 750) {
+                isValid = false;
+              }
+            }
+          });
+        } else {
+          isValid = false;
+        }
+        return isValid;
+      }
+
+      $scope.isValidMessages = function() {
+
+        var checkRemainderDayValidations = $scope.isValidReminderDate();
+        if ($scope.mission.missionEmailTitle !== null && angular.isDefined($scope.mission.missionEmailTitle)) {
+          $scope.createMissionInternal.welcomeSubjectLine.$showError = false;
+          $scope.createMissionInternal.welcomeSubjectLine.$error.required = false;
+        } else {
+          $scope.createMissionInternal.welcomeSubjectLine.$showError = true;
+          $scope.createMissionInternal.welcomeSubjectLine.$error.required = true;
+        }
+        if ($scope.mission.missionEmail !== null && angular.isDefined($scope.mission.missionEmail)) {
+          $scope.createMissionInternal.welcome.$showError = false;
+          $scope.createMissionInternal.welcome.$error.required = false;
+        } else {
+          $scope.createMissionInternal.welcome.$showError = true;
+          $scope.createMissionInternal.welcome.$error.required = true;
+        }
+        if ($scope.mission.reminderEmailTitle !== null && angular.isDefined($scope.mission.reminderEmailTitle)) {
+          $scope.createMissionInternal.reminderSubjectLine.$showError = false;
+          $scope.createMissionInternal.reminderSubjectLine.$error.required = false;
+        } else {
+          $scope.createMissionInternal.reminderSubjectLine.$showError = true;
+          $scope.createMissionInternal.reminderSubjectLine.$error.required = true;
+        }
+        if ($scope.mission.reminderEmail !== null && angular.isDefined($scope.mission.reminderEmail)) {
+          $scope.createMissionInternal.reminder.$showError = false;
+          $scope.createMissionInternal.reminder.$error.required = false;
+        } else {
+          $scope.createMissionInternal.reminder.$showError = true;
+          $scope.createMissionInternal.reminder.$error.required = true;
+        }
+        if ($scope.mission.thankYouMessage !== null && angular.isDefined($scope.mission.thankYouMessage)) {
+          $scope.createMissionInternal.thankYouMessage.$showError = false;
+          $scope.createMissionInternal.thankYouMessage.$error.required = false;
+        } else {
+          $scope.createMissionInternal.thankYouMessage.$showError = true;
+          $scope.createMissionInternal.thankYouMessage.$error.required = true;
+        }
+        if ($scope.mission.reminderEmail !== null && angular.isDefined($scope.mission.reminderEmail) && $scope.mission.missionEmail !== null && angular.isDefined($scope.mission.missionEmail) && !$scope.createMissionInternal.thankYouMessage.$error.required && !$scope.createMissionInternal.thankYouMessage.$showError && !$scope.createMissionInternal.reminderSubjectLine.$showError && !$scope.createMissionInternal.reminderSubjectLine.$error.required && !$scope.createMissionInternal.welcomeSubjectLine.$showError && !$scope.createMissionInternal.welcomeSubjectLine.$error.required && checkRemainderDayValidations && $scope.mission.missionEmail !== null && angular.isDefined($scope.mission.missionEmail)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      $scope.isValidSelectParticipants = function() {
+        var isValid = false;
+        if (!angular.isUndefinedOrNull($scope.mission.list)) {
+          isValid = true;
+        }
+        return isValid;
+      }
+
+      function warnSubmit() {
+        var isValid = false;
+        if (getDaysDifference($scope.mission.startDate, new Date()) < 0) {
+          alertsService.addAlert({
+            title: 'Error',
+            message: 'The Start date cannot be in the past',
+            type: 'error',
+            removeOnStateChange: 2
+          });
+          $scope.startDatePickerOpened = true;
+        } else if (getDaysDifference($scope.mission.endDate, $scope.mission.startDate) < 7) {
+          var modalInstance = modalService.createMissionSend('sevenDayExceed');
+          modalInstance.result.then(function(result) {
+            if (result.send === true) {
+              if (getDaysDifference($scope.mission.startDate, new Date()) == 0) {
+                var startTodayModel = modalService.createMissionSend('startToday');
+                startTodayModel.result.then(function(sResult) {
+                  if (sResult.send === true) {
+                    $scope.validateAndUpdate('popup');
+                  }
+                });
+              } else {
+                $scope.validateAndUpdate('popup');
+              }
+            } else {
+              $scope.endDatePickerOpened = true;
+            }
+          });
+        } else if (getDaysDifference($scope.mission.startDate, new Date()) == 0) {
+          var modalInstance = modalService.createMissionSend('startToday');
+          modalInstance.result.then(function(result) {
+            if (result.send === true) {
+              $scope.validateAndUpdate('popup');
+              //redirect to search screen
+              //$state.go('index.secured.employeemission.search');
+            }
+          });
+        } else {
+          isValid = true;
+        }
+        return isValid;
+      }
+
+      function showNotification() {
+        if (getDaysDifference($scope.mission.startDate, new Date()) > 0) {
+          var modalInstance = modalService.createMissionSend('futureDate');
+          modalInstance.result.then(function(result) {
+            if (result.send === true) {
+              $state.go('index.secured.employeemission.search');
+            }
+          });
+        } else {
+          //redirect to search screen
+          $state.go('index.secured.employeemission.search');
+        }
+      };
+
+      $scope.validateAndUpdate = function(subformId) {
+        var sending = false;
+        var isUpdatable = true;
+
+        if ($scope.isStatus('Closed') || $scope.isStatus('Live')) {
+          isUpdatable = false;
+        }
+
+        if (angular.equals(subformId, 'save')) {
+          //$scope.step = 1;
+          isUpdatable = true;
+        };
+        //ugly fix
+        if (angular.equals(subformId, 'root')) {
+          $scope.step = 1;
+        };
+        if (angular.equals(subformId, 'action')) {
+          $scope.step = 2;
+          updateRequestActions($scope.mission);
+        };
+        if (angular.equals(subformId, 'assignment')) {
+          $scope.step = 3;
+        };
+        if (angular.equals(subformId, 'messages')) {
+          $scope.step = 4;
+        };
+        if (angular.equals(subformId, 'participants')) {
+          $scope.step = 5;
+        };
+        if (angular.equals(subformId, 'send')) {
+          sending = true;
+          if (!$scope.isValidPage()) {
+            isUpdatable = false;
+            if (!$scope.isValidMessages()) {
+              $scope.step = 3;
+
+              if (!$scope.isValidReminderDate()) {
+                var modalInstance = modalService.createMissionSend('reminderDayConflict');
+                modalInstance.result.then(function(result) {
+
+                });
+              }
+            } else if (!$scope.isValidAction()) {
+              $scope.step = 1;
+            } else if (!$scope.isValidAssignment()) {
+              $scope.step = 2;
+            } else if (!$scope.isValidSelectParticipants()) {
+              $scope.step = 4;
+            };
+          } else {
+            isUpdatable = warnSubmit();
+          }
+
+        };
+        if (angular.equals(subformId, 'popup')) {
+          sending = true;
+        };
+
+        if (isUpdatable && (!$scope.equalsfunc() || sending)) {
+          updateMission(sending);
+        }
+      };
+
+      //updates DTO with actions
+      function updateRequestActions(request) {
+        var selectedActions = [];
+        var existingActions = request.missionActions;
+
+        angular.forEach($scope.stages, function(action, key) {
+          if (action.checked) {
+            selectedActions.push(angular.copy(action));
+          }
+        });
+
+        request.missionActions = selectedActions;
+
+        angular.forEach(request.missionActions, function(missionAction, key) {
+          angular.forEach(existingActions, function(existingAction, key) {
+            if (angular.equals(missionAction.action.id, existingAction.action.id)) {
+              missionAction.actionHeader = angular.copy(existingAction.actionHeader);
+              missionAction.isMediaIncluded = angular.copy(existingAction.isMediaIncluded);
+              missionAction.mediaIncludedMessage = angular.copy(existingAction.mediaIncludedMessage);
+            }
+          });
+        });
+      };
+
+      function addOneDayToEndDate(date) {
+        var dt = new Date(date);
+        dt.setDate(dt.getDate() + 1);
+        return dt;
+      };
+
+      $scope.onStartDateChange = function() {
+        $scope.minEndDate = $scope.mission.startDate;
+        if (getDaysDifference($scope.mission.endDate, $scope.mission.startDate) < 1) {
+          $scope.mission.endDate = addOneDayToEndDate($scope.mission.startDate);
+        }
+        $scope.minEndDate = addOneDayToEndDate($scope.minEndDate);
+      };
+
+      function populateMissionScreen() {
+        if ($scope.isStatus('Live')) {
+          $scope.minEndDate = new Date();
+        } else {
+          $scope.minEndDate = addOneDayToEndDate($scope.mission.startDate);
+        }
+
+        $scope.stages = [];
+        angular.forEach($scope.mapData, function(mapData, mapKey) {
+          if (mapData.touchpoints.length > 0) {
+            angular.forEach(mapData.touchpoints, function(touchpointData, touchpointKey) {
+              if (touchpointData.actions.length > 0) {
+                angular.forEach(touchpointData.actions, function(actionData, actionKey) {
+                  var checked = false;
+                  for (var key in $scope.mission.missionActions) {
+                    if ($scope.mission.missionActions[key].action.id === actionData.id) {
+                      checked = true;
+                    }
+                  }
+
+                  //if expectation is not answered
+                  if (actionData.feedbackSummary.EMPLOYEES.chartSummary.expectation === null) {
+                    actionData.feedbackSummary.EMPLOYEES.chartSummary.expectation = new Object();
+                    actionData.feedbackSummary.EMPLOYEES.chartSummary.expectation.averageAnswer = 6;
+                  }
+
+                  //if frequency is not answered
+                  if (actionData.feedbackSummary.EMPLOYEES.chartSummary.frequency === null) {
+                    actionData.feedbackSummary.EMPLOYEES.chartSummary.frequency = new Object();
+                    actionData.feedbackSummary.EMPLOYEES.chartSummary.frequency.averageAnswer = 6;
+                  }
+
+                  //if loyalty is not answered
+                  if (actionData.feedbackSummary.EMPLOYEES.chartSummary.loyalty === null) {
+                    actionData.feedbackSummary.EMPLOYEES.chartSummary.loyalty = new Object();
+                    actionData.feedbackSummary.EMPLOYEES.chartSummary.loyalty.averageAnswer = 6;
+                  }
+
+                  if ($scope.projectData.curveType === "EMOTION") {
+                    //if emotion is not answered
+                    if (actionData.feedbackSummary.EMPLOYEES.chartSummary.emotion === null) {
+                      actionData.feedbackSummary.EMPLOYEES.chartSummary.emotion = new Object();
+                      actionData.feedbackSummary.EMPLOYEES.chartSummary.emotion.averageAnswer = 6;
+                    }
+
+                  } else {
+                    //if value is not answered
+                    if (actionData.feedbackSummary.EMPLOYEES.chartSummary.value === null) {
+                      actionData.feedbackSummary.EMPLOYEES.chartSummary.value = new Object();
+                      actionData.feedbackSummary.EMPLOYEES.chartSummary.value.averageAnswer = 6;
+                    }
+                  }
+
+                  $scope.stages.push({
+                    "stage": mapData.title,
+                    "touchpoint": touchpointData.title,
+                    "action": actionData,
+                    "checked": checked
+                  });
+                });
+              }
+            });
+          }
+        });
+
+        /**
+         * @ngdoc function
+         * @name colorCode
+         * @description
+         * row shading is done by according to the average point
+         * colors are define in the mission.less
+         */
+
+        //sort by flag and legend
+        $scope.sortType = false;
+        $scope.sortingLegend = false;
+
+        function colorCode(averageType) {
+          if (averageType >= 1 && averageType <= 2.9) {
+            return 'chooseActionRed';
+          } else if (averageType >= 3 && averageType <= 3.9) {
+            return 'chooseActionGray';
+          } else if (averageType >= 4 && averageType <= 5) {
+            return 'chooseActionGreen';
+          }
+        }
+
+
+        /**
+         * @ngdoc function
+         * @name scoreColor
+         * @description
+         * row shading color is selected according to the given selected sorting type
+         * average is send to colorCode function
+         */
+        $scope.scoreColor = function(stage, sortType) {
+          var expectationAverage = stage.action.feedbackSummary.EMPLOYEES.chartSummary.expectation.averageAnswer;
+          var loyaltyAverage = stage.action.feedbackSummary.EMPLOYEES.chartSummary.loyalty.averageAnswer;
+          if (stage.action.feedbackSummary.EMPLOYEES.chartSummary.value !== null) {
+            var valueAverage = stage.action.feedbackSummary.EMPLOYEES.chartSummary.value.averageAnswer;
+          } else {
+            var emotionAverage = stage.action.feedbackSummary.EMPLOYEES.chartSummary.emotion.averageAnswer;
+          }
+          var frequencyAverage = stage.action.feedbackSummary.EMPLOYEES.chartSummary.frequency.averageAnswer;
+
+          switch (sortType) {
+            // case false:
+            //   return false;
+            //   break;
+            case 'action.feedbackSummary.EMPLOYEES.chartSummary.expectation.averageAnswer':
+              return colorCode(expectationAverage);
+              break;
+            case 'action.feedbackSummary.EMPLOYEES.chartSummary.loyalty.averageAnswer':
+              return colorCode(loyaltyAverage);
+              break;
+            case 'action.feedbackSummary.EMPLOYEES.chartSummary.frequency.averageAnswer':
+              return colorCode(frequencyAverage);
+              break;
+            case 'action.feedbackSummary.EMPLOYEES.chartSummary.emotion.averageAnswer':
+              return colorCode(emotionAverage);
+              break;
+            case 'action.feedbackSummary.EMPLOYEES.chartSummary.value.averageAnswer':
+              return colorCode(valueAverage);
+              break;
+
+          }
+        }
+
+        parseInternalList($scope.mission);
+        updateRequestActions($scope.mission);
+        parseInternalList($scope.originalMission);
+        updateRequestActions($scope.originalMission);
+
+        if (angular.isUndefinedOrNull($scope.mission.reminderEmail)) {
+          $scope.mission.reminderEmail = "Hello, We would like your feedback on your experiences with our company. Please click the link below and answer a few short questions. Thank you.";
+        }
+        if (angular.isUndefinedOrNull($scope.mission.reminderEmailTitle)) {
+          $scope.mission.reminderEmailTitle = "Reminder: We want your feedback.";
+        }
+        if (angular.isUndefinedOrNull($scope.mission.remindInDays)) {
+          $scope.mission.remindInDays = "4";
+        }
+
+        $rootScope.hideLoader();
+      };
+
+      //send update request
+      function updateMission(send) {
+        $rootScope.showLoader('Updating...');
+        missionEmployeeService.updateMission($scope.mission, send).then(function(response) {
+          alertsService.addAlert({
+            title: 'Success',
+            message: 'Mission Project Team "' + $scope.mission.title + '" successfully updated',
+            type: 'success',
+            removeOnStateChange: 2
+          });
+
+          if (send) {
+            showNotification();
+
+          }
+          missionEmployeeService.findMission($stateParams.id).then(function(data) {
+            $scope.mission = data;
+            $scope.originalMission = angular.copy(data);
+            parseInternalList($scope.originalMission);
+            updateRequestActions($scope.originalMission);
+            populateMissionScreen();
+          });
+        }, function(err) {
+          $rootScope.hideLoader();
+        });
+      }
+
+      // this is a fix for rendering the popover/tooltip in ng-repeat
+      $scope.forceRenderToolTip = function() {
+        $('span.tooltip-hover').webuiPopover('destroy').webuiPopover({
+          trigger: 'hover',
+          placement: 'right',
+          delay: {
+            show: 0,
+            hide: 500
+          }
+        });
+      };
+
+      $scope.copyMission = function(mission) {
+
+        var message = "Are you sure you want to create a copy of " + mission.title + "?";
+
+        var modalInstance = modalService.customCopyModal(mission.title, message, 'Yes', 'No');
+        modalInstance.result.then(function() {
+          $rootScope.showLoader('Copying...');
+          missionEmployeeService.copyMission(mission.id).then(function(data) {
+            alertsService.addAlert({
+              title: 'Success',
+              message: "Successfully created a copy of '" + mission.title + "'",
+              type: 'success'
+            });
+            $scope.loadEditScreen(data);
+          }, function(err) {
+            $rootScope.hideLoader();
+            alertsService.addAlert({
+              title: 'Error',
+              message: "Could not create a copy of '" + mission.title + "'",
+              type: 'error'
+            });
+          });
+        });
+
+      };
+
+      $scope.loadEditScreen = function(mission) {
+        confirmedExit = true;
+        $state.go('index.secured.employeemission.edit', {
+          id: mission.id
+        });
+      };
+
+      populateMissionScreen();
+    }
+  ]);
+})(angular.module('aet.screens.missionemployee'));

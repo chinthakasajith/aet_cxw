@@ -1,0 +1,48 @@
+<h1 class="page-header">
+  Project Team List
+</h1>
+
+<div class="row search-screen listsprojectteam-landing">
+
+  <div class="col-sm-12">
+
+    <div class="row search-ctrl">
+      <div class="col-sm-4">
+        <button class="btn btn-lg btn-primary" title="new listsprojectteam" ui-sref="index.secured.listsprojectteam.create" aet-has-permission="CREATE_PT_LIST">
+          <span aria-hidden="true" class="c-icon c-icon-plus"></span>
+          Create New Project Team List
+        </button>
+      </div>
+      <div class="col-sm-4 pull-right">
+        <div class="input-group input-group-lg search-input">
+          <input  class="form-control input-lg" ng-change="searchManager.debouncedSearch()" ng-model="searchManager.query" placeholder="Search Project Team Lists" type="text"/>
+          <span class="input-group-addon" id="basic-addon2"><i class="glyphicon glyphicon-search"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-12">
+        <aet-search row-name="internalList" search-manager="searchManager">
+
+          <aet-search-column label="Title" name="title" searchable="true"></aet-search-column>
+          <aet-search-column label="Creator" name="creatorName" searchable="true"></aet-search-column>
+          <aet-search-column label="Created Date" name="createdDate" searchable="false"></aet-search-column>
+          <button aet-action-button class="btn btn-sm btn-success" ng-click="editProjectTeamList(internalList)" title="edit" type="submit" aet-has-permission="VIEW_PT_LIST">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+
+          <button aet-action-button class="btn btn-sm btn-danger" ng-click="deleteProjectTeamList(internalList)" title="delete" type="submit" aet-has-permission="DELETE_PT_LIST">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+
+        </aet-search>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

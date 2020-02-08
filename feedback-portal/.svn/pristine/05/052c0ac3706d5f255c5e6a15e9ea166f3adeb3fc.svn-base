@@ -1,0 +1,93 @@
+.mission {
+  .questionlist-header {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .questionlist-body {
+    padding: 15px;
+    .panel {
+      &.comments {
+        margin-top: 30px;
+      }
+    }
+    .media-instruction {
+        margin-top: 0;
+        font-family: 'Arial';
+        font-size: 12pt;
+      }
+      .question {
+        margin-top: 0;
+        font-family: 'Arial';
+        font-size: 12pt;
+        font-style: normal;
+      }
+
+  }
+  .questionlist-footer {
+    padding: 15px;
+  }
+  .logo {
+    margin: 10px 15px 0;
+    max-height: 55px;
+  }
+  .tab-set {
+    .list-group {
+
+    }
+  }
+  .tab-body {
+    label {
+      font-weight: normal;
+    }
+    .item {
+      .mission-header {
+        margin-top: 0;
+        text-align: justify;
+        font-family: 'Arial';
+        font-size: 12pt;
+
+        @media @mobile {
+          font-size: 14px;
+        }
+      }
+      p {
+        margin-bottom: 0;
+        font-family: 'Arial';
+        font-size: 10pt;
+      }
+
+    }
+  }
+  .jslider {
+    min-height: 30px;
+    margin-top: 15px;
+    @media @mobile {
+      width: 99%;
+    }
+    div.jslider-scale ins {
+      left: -3px;
+      font-size: 10pt;
+      font-family: 'Arial';
+      // div.title-mar-left-10 {
+      //   margin-left: -10px;
+      // }
+    }
+    .jslider-value {
+      visibility: hidden;
+    }
+    .jslider-pointer {
+      top: -7px;
+      left: 15px;
+      width: 20px;
+      height: 20px;
+      margin-left: -9px;
+    }
+
+    // .sliderCSS div.jslider-bg i.before{
+    //   background-color: rgb(173, 173, 173);
+    // }
+  }
+  .form-control {
+    height: inherit;
+  }
+}

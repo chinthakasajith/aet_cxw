@@ -1,0 +1,16 @@
+<div class="tnc-modal aet-modal">
+  <div class="modal-header">
+    <h3 class="modal-title">The Service Profit Chain Institute</h3>
+  </div>
+  <div class="modal-body">
+    <h5><strong>Please accept or decline the Terms & Conditions before you proceed</strong></h5>
+    <div class="well tnc">
+      <p ng-bind-html="client.termsCond"></p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="accept()">Accept</button>
+    <button class="btn btn-default" ng-click="decline()">Decline</button>
+  </div>
+
+</div>

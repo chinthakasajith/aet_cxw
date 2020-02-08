@@ -1,0 +1,13 @@
+.thank-screen {
+  max-width: 750px;
+  margin: 0 auto;
+  top: 70px;
+  text-align: center;
+  position: relative;
+}
+
+.thank-screen .logo {
+  max-width: 100px;
+  margin: 0px;
+  margin-bottom: 20px;
+}

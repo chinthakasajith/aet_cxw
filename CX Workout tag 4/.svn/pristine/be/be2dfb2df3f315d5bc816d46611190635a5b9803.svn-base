@@ -1,0 +1,464 @@
+<h1 class="page-header">
+  Edit Project
+</h1>
+
+<div class=" project-landing">
+  <form class="form-horizontal" name="editProjectForm" novalidate>
+
+    <section class="row project">
+      <div class="col-sm-12 ">
+        <div class="section-container">
+          <div class="section-aside">
+            <div class="context">
+              <span class="c-icon c-icon-cx-white"></span>
+
+              <p>Project</p>
+            </div>
+          </div>
+
+          <div class="section-body">
+<!--Project Name-->
+            <div class="form-group has-feedback required" ng-class="{ 'has-success' : editProjectForm.name.$valid, 'has-error' : editProjectForm.name.$showError && editProjectForm.name.$hasError()}">
+              <label class="col-sm-4 control-label" for="name">Project Name
+                <div class="tooltip-custom">
+                  <span class="tooltip-hover" data-content="This is for internal use only."><img  alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+                </div>
+              </label>
+              <div class="col-sm-6">
+                <input  aria-describedby="inputSuccess2Status" class="form-control" id="name" name="name" ng-maxlength="255" ng-model-options="{ updateOn: 'blur' }" ng-model="project.title" placeholder="A short name to identify the project ..." required type="text"/>
+                <div class="error" ng-show="editProjectForm.name.$showError">
+                  <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : editProjectForm.name.$valid, 'glyphicon-remove' : editProjectForm.name.$showError && editProjectForm.name.$hasError()}"></span>
+                  <p class="text-danger" ng-show="editProjectForm.name.$error.required">Project Name is required.</p>
+                  <p class="text-danger" ng-show="editProjectForm.name.$error.maxlength">Project Name must be 255 characters or less</p>
+                  <p class="text-danger" ng-show="editProjectForm.name.$error.pattern">This doesn't seem to be a valid name, don't use special characters</p>
+                </div>
+              </div>
+            </div>
+<!--end-->
+
+<!--Project Description-->
+            <div class="form-group has-feedback" ng-class="{ 'has-error' : editProjectForm.description.$showError && editProjectForm.description.$hasError()}">
+              <label class="col-sm-4 control-label" for="name">Project Description</label>
+              <div class="col-sm-6">
+                <input  aria-describedby="inputSuccess2Status" class="form-control" id="description" name="description" ng-maxlength="255" ng-model-options="{ updateOn: 'blur' }" ng-model="project.description" placeholder="The Project Description ..." type="text"/>
+                <div class="error" ng-show="editProjectForm.description.$showError">
+                  <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : editProjectForm.description.$showError && editProjectForm.description.$hasError()}"></span>
+                  <p class="text-danger" ng-show="editProjectForm.description.$error.maxlength">Project Description must be 255 characters or less</p>
+                </div>
+              </div>
+            </div>
+<!-- end -->
+
+<!--Project Leader-->
+            <div class="form-group has-feedback required" ng-class="{ 'has-error' : editProjectForm.projectLeader.$showError && editProjectForm.projectLeader.$hasError()}">
+              <label class="col-sm-4 control-label" for="projectLeader">Project Leader
+                <div class="tooltip-custom">
+                  <span class="tooltip-hover" data-content="There must be at least 1 Project Leader assigned."><img  alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+                </div>
+              </label>
+
+              <div class="col-sm-6">
+                <ui-select id="projectLeader" multiple name="projectLeader" name="test" ng-model="multipleBU.selectedUsers" required sortable="true" tagging-label="(custom 'new' label)" theme="bootstrap" title="Select a Project Leader" ui-select-required>
+                  <ui-select-match placeholder="Select a project leader..."><span style="text-transform: none;">{{ $item.firstName + " " + $item.lastName }}</span>
+                  </ui-select-match>
+                  <ui-select-choices repeat="businessuser in businessusers | filter:$select.search | orderBy : 'id'">
+                    {{businessuser.firstName+" "+businessuser.lastName}}
+                  </ui-select-choices>
+                </ui-select>
+                <div class="error" ng-show="editProjectForm.projectLeader.$showError">
+                  <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : editProjectForm.projectLeader.$valid, 'glyphicon-remove' : editProjectForm.projectLeader.$showError && editProjectForm.projectLeader.$hasError()}"></span>
+
+                  <p class="text-danger" ng-show="editProjectForm.projectLeader.$error.empty">Project leader required.</p>
+
+                </div>
+              </div>
+            </div>
+<!--end-->
+
+<!--Project Administrator-->
+            <div class="form-group has-feedback required" ng-class="{ 'has-error' : editProjectForm.projectAdmin.$showError && editProjectForm.projectAdmin.$hasError()}">
+              <label class="col-sm-4 control-label" for="projectAdministrator">Project Administrator
+                <div class="tooltip-custom">
+                  <span class="tooltip-hover" data-content="There must be at least 1 Project Administrator assigned."><img  alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+                </div>
+              </label>
+
+              <div class="col-sm-6">
+                <ui-select id="projectAdmin" multiple name="projectAdmin" ng-model="multipleBU.selectedAdmins" required sortable="true" tagging-label="(custom 'new' label)" theme="bootstrap" title="Choose a project leader" ui-select-required>
+                  <ui-select-match placeholder="Select a Project Admin"><span style="text-transform: none;">{{$item.firstName+" "+$item.lastName}}</span>
+                  </ui-select-match>
+                  <ui-select-choices ng-click="test($index)" repeat="businessuser in businessusers | filter:$select.search">
+                    {{businessuser.firstName+" "+businessuser.lastName}}
+                  </ui-select-choices>
+                </ui-select>
+                <div class="error" ng-show="editProjectForm.projectAdmin.$showError">
+                  <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : editProjectForm.projectAdmin.$valid, 'glyphicon-remove' : editProjectForm.projectAdmin.$showError && editProjectForm.projectAdmin.$hasError()}"></span>
+
+                  <p class="text-danger" ng-show="editProjectForm.projectAdmin.$error.empty">Project admin required.</p>
+
+                </div>
+              </div>
+            </div>
+<!--end-->
+
+<!--Project Team-->
+            <div class="form-group has-feedback" ng-class="{ 'has-error' : editProjectForm.projectTeam.$showError && editProjectForm.projectTeam.$hasError()}">
+              <label class="col-sm-4 control-label" for="projectTeam">Project Team</label>
+
+              <div class="col-sm-6">
+                <ui-select multiple ng-model="multipleBU.selectedTeams" required sortable="true" tagging-label="(custom 'new' label)" theme="bootstrap" title="Choose a project team member">
+                  <ui-select-match placeholder="Select a Project Team Member"><span style="text-transform: none;">{{$item.firstName+ " " +$item.lastName}}</span>
+                  </ui-select-match>
+                  <ui-select-choices repeat="businessuser in businessusers | filter:$select.search">
+                    {{businessuser.firstName+" "+businessuser.lastName}}
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+<!--end-->
+
+<!--Project Support-->
+            <div class="form-group has-feedback" ng-class="{ 'has-error' : editProjectForm.projectSupport.$showError && editProjectForm.projectSupport.$hasError()}">
+              <label class="col-sm-4 control-label" for="projectSupport">Project Support</label>
+
+              <div class="col-sm-6">
+                <ui-select multiple ng-model="multipleBU.selectedSupports" required sortable="true" tagging-label="(custom 'new' label)" theme="bootstrap" title="Choose a project support">
+                  <ui-select-match placeholder="Select a project support ..."><span style="text-transform: none;">{{$item.firstName+" "+$item.lastName}}</span>
+                  </ui-select-match>
+                  <ui-select-choices repeat="businessuser in businessusers | filter:$select.search">
+                    {{businessuser.firstName+" "+businessuser.lastName}}
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+<!--end-->
+<!--SME-->
+            <div class="form-group has-feedback" ng-class="{ 'has-error' : editProjectForm.SMEUser.$showError && editProjectForm.SMEUser.$hasError()}">
+              <label class="col-sm-4 control-label" for="test">SME</label>
+
+              <div class="col-sm-6">
+                <ui-select multiple ng-model="project.projectSMEIds" required sortable="true" tagging-label="(custom 'new' label)" theme="bootstrap" title="Choose a sme user">
+                  <ui-select-match placeholder="Select a SME ..."><span style="text-transform: none;">{{$item.firstName+" "+$item.lastName}}</span>
+                  </ui-select-match>
+                  <ui-select-choices repeat="smeuser in smeUserDetails | filter:$select.search">
+                    {{smeuser.firstName+" "+smeuser.lastName}}
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+<!--end-->
+
+<!--Start Date , End date-->
+            <div class="form-group has-feedback required" ng-class="{ 'has-success' : editProjectForm.startDate.$valid, 'has-error' : editProjectForm.startDate.$showError && editProjectForm.startDate.$hasError()}">
+              <label class="col-sm-4 control-label" for="startDate">Start Date</label>
+
+              <div class="col-sm-2 date-width">
+                <p class="input-group">
+                  <input  class="form-control" close-text="Close" datepicker-options="dateOptions" datepicker-popup="{{format}}" id="startDate" is-open="opened" max-date="'2020-06-22'" min-date="minDate" ng-change="onStartDateChange()" ng-model="project.startDate" required type="text"/>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="open($event)" type="button">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                </p>
+              </div>
+              <label class="col-sm-2 control-label endDate-text-align-left" for="endDate">End Date
+                <div class="tooltip-custom">
+                  <span class="tooltip-hover" data-content="Select an End Date that gives you enough time to run all the Missions, Polls or Discussions you want."><img  alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+                </div>
+              </label>
+
+              <div class="col-sm-2 date-width">
+                <p class="input-group">
+                  <input  class="form-control" close-text="Close" datepicker-options="dateOptions" datepicker-popup="{{format}}" id="endDate" is-open="opened1" max-date="'2020-06-22'" min-date="minEndDate" ng-model="project.endDate" required type="text"/>
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" ng-click="open1($event)" type="button">
+                      <i class="glyphicon glyphicon-calendar"></i>
+                    </button>
+                  </span>
+                </p>
+              </div>
+            </div>
+<!--end-->
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="row map">
+      <div class="col-sm-12">
+        <div class="section-container">
+          <div class="section-aside">
+            <div class="context">
+              <span class="glyphicon glyphicon-th-large"></span>
+
+              <p>CX Map</p>
+            </div>
+          </div>
+
+          <div class="section-body">
+
+<!--Curve Type-->
+            <div class="form-group required">
+              <label class="col-sm-4 control-label" for="curveType">Curve Type
+                <div class="tooltip-custom">
+                  <span class="tooltip-hover" data-content="The Curve Type will drive one of your Mission questions. Selecting 'Emotion' includes a question about how the participant felt about that point of the experience. Selecting 'Value' includes a question about the amount of value derived from that point in the experience."><img  alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+                </div>
+              </label>
+              <div class="col-sm-6">
+                <input  aria-describedby="inputSuccess2Status" class="form-control" id="curveType" name="curveType" ng-disabled="true" ng-model-options="{ updateOn: 'blur' }" ng-model="project.curveType" type="text"/>
+              </div>
+            </div>
+<!--end-->
+
+<!--Stage Template-->
+            <div class="form-group has-feedback required" ng-class="{ 'has-success' : editProjectForm.stageTemplate.$valid, 'has-error' : editProjectForm.stageTemplate.$showError && editProjectForm.stageTemplate.$hasError()}">
+              <label class="col-sm-4 control-label" for="region">Stage Template
+                <div class="tooltip-custom">
+                  <span class="tooltip-hover" data-content="<b>SPCI Stage Names:</b> Learn About, Explore, Commit, Receive, Service, Talk About <br/> <b>LBGUPS Stage Names:</b> Learn, Buy, Get, Use, Pay, Service"><img  alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+                </div>
+              </label>
+              <div class="col-sm-6">
+                <select class="form-control" id="stageTemplate" name="stageTemplate" ng-disabled="true" ng-model="project.stageTemplate">
+                  <option selected="selected" value="SPCI">SPCI Template</option>
+                  <option value="LBGUPS">LBGUPS Template</option>
+                  <option value="CUSTOM">CUSTOM Template</option>
+                </select>
+              </div>
+            </div>
+<!--end-->
+
+<!--Channels-->
+            <div class="form-group has-feedback required" ng-class="{ 'has-success' : editProjectForm.channels.$valid, 'has-error' : editProjectForm.channels.$showError && editProjectForm.channels.$hasError()}">
+              <label class="col-sm-4 control-label" for="channels">Channels
+                <div class="tooltip-custom">
+                  <span class="tooltip-hover" data-content="Create 1-5 Channels for your Map. <br/> Once this Project is saved, you can only edit the Channel text."><img  alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+                </div>
+              </label>
+              <div class="col-sm-6 channel-list">
+                <label class="checkbox-inline" ng-repeat="channel in listChannels">
+                  <input ng-checked="channelTitles.indexOf(channel) > -1" ng-click="toggleSelection(channel)" ng-disabled="previouslySelectedChannels.indexOf(channel) > -1" type="checkbox" value="{{channel}}">
+                  <span ng-dblclick="openChangeChannelModel(channel)" ng-show="channelTitles.indexOf(channel) > -1">{{channel}}</span>
+                  <span ng-show="channelTitles.indexOf(channel) == -1">{{channel}}</span>
+                </label>
+                <button class="add-chanel-to-edit btn btn-primary" ng-click="addChannel()" ng-hide="project.channels.length>=5">Add Channel</button>
+                <div class="error" ng-show="editProjectForm.channels.$showError">
+                  <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : editProjectForm.channels.$valid, 'glyphicon-remove' : editProjectForm.channels.$showError && editProjectForm.channels.$hasError()}"></span>
+                  <span class="text-danger" ng-show="editProjectForm.channels.$error.required">Channels is required</span>
+                </div>
+              </div>
+            </div>
+<!--end-->
+
+<!--Logo-->
+            <div class="form-group has-feedback required">
+              <label class=" col-sm-4 control-label" for="logo">Logo
+                <div class="tooltip-custom">
+                  <span class="tooltip-hover" data-content="This appears on Participant emails (for Missions and other communications) and on your Exported Map."><img  alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+                </div>
+              </label>
+              <div class="col-sm-6">
+                <img alt="Project Logo" class="logo" ng-show="project.logoUrl" ng-src="{{project.logoUrl}}">
+                <div class="form-control upload" ecs-upload-data="uploadManager" ng-model="project.logoUrl" tabindex="0">
+                  <div class="row">
+                    <div class="buttons col-xs-12">
+                      <button brand-btn-color="{{municipality.buttonColor}}" class="btn btn-primary" ecs-color-update ecs-upload-button="uploadManager" ng-show="!project.logoUrl && !uploadManager.uploading" tabindex="-1">
+                        Select File
+                        <ecs-upload-input accept='image/*'></ecs-upload-input>
+                      </button>
+                      <span ng-hide="project.logoUrl || uploadManager.uploading">No file Chosen</span>
+                      <button brand-btn-color="{{municipality.buttonColor}}" class="btn btn-primary" ecs-color-update ecs-upload-button="uploadManager" ng-show="project.logoUrl" tabindex="-1">
+                        Change File
+                        <ecs-upload-input accept='image/*'></ecs-upload-input>
+                      </button>
+                      <button class="btn btn-danger" ecs-delete-button="uploadManager" ng-show="project.logoUrl" tabindex="-1">
+                        Delete
+                      </button>
+                      <button class="btn btn-default" ng-click="uploadManager.cancel()" ng-show="uploadManager.uploading" tabindex="-1">
+                        Cancel
+                      </button>
+                    </div>
+                    <div class="data col-sm-6 col-xs-12" ng-show="uploadManager.uploading">
+                      <progressbar animate="true" value="progress"></progressbar>
+                    </div>
+                    <div class="data col-xs-12" ng-show="project.logoUrl" style="text-overflow: ellipsis; overflow: hidden;">
+                      <span class=""></span>
+                      <a class="filename" href ng-click="downloadFile(project.logoUrl)">{{getFileName(project.logoUrl)}}</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="error" ng-show="uploadManager.$errors.length > 0">
+                  <p class="text-danger" ng-repeat="error in uploadManager.$errors">{{error}}</p>
+                </div>
+                <div class="project-logo-validations" ng-show="isValidProjectLogo()">
+                  <span aria-hidden="true" class="glyphicon glyphicon-remove" style="float: right;"></span>
+                  Project logo is mandatory
+                </div>
+              </div>
+            </div>
+<!--end-->
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="row project">
+      <div class="col-sm-12 ">
+        <div class="section-container">
+          <div class="section-aside">
+            <div class="context">
+              <span class="glyphicon glyphicon-user"></span>
+
+              <p>From</p>
+            </div>
+          </div>
+
+          <div class="section-body">
+
+            <div class="form-group has-feedback">
+              <label class="col-sm-4 control-label">
+                <div class="tooltip-custom">
+                  <span class="tooltip-hover" data-content="Get this SMTP information from your Technology Department."><img  alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+                </div>
+              </label>
+              <div class="col-sm-6">
+                <strong class="help-block">This is the "from" email address for messages sent to participants</strong>
+              </div>
+            </div>
+
+<!--Sender Email-->
+            <div class="form-group has-feedback" ng-class="{'required' : !isValidEmailConfig(), 'has-error' : editProjectForm.senderemailAddress.$showError && editProjectForm.senderemailAddress.$hasError()}">
+              <label class="col-sm-4 control-label" for="senderemailAddress">Sender Email</label>
+
+              <div class="col-sm-6">
+                <input  aria-describedby="inputSuccess2Status" class="form-control" id="senderemailAddress" name="senderemailAddress" ng-maxlength="255" ng-model="project.emailConfig.senderEmail" ng-pattern="/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$/" ng-required="!isValidEmailConfig()" placeholder="Sender Email address..." type="text"/>
+
+                <div class="error" ng-show="editProjectForm.senderemailAddress.$showError">
+                  <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove' : editProjectForm.senderemailAddress.$showError && editProjectForm.senderemailAddress.$hasError()}"></span>
+
+                  <p class="text-danger" ng-show="editProjectForm.senderemailAddress.$error.required">Sender Email is required.</p>
+
+                  <p class="text-danger" ng-show="editProjectForm.senderemailAddress.$error.maxlength">Must be less than 255 characters</p>
+
+                  <p class="text-danger" ng-show="editProjectForm.senderemailAddress.$error.pattern">Not a valid email address</p>
+                </div>
+              </div>
+            </div>
+<!--end-->
+
+<!--Host-->
+            <div class="form-group has-feedback" ng-class="{'required' : !isValidEmailConfig(), 'has-error' : editProjectForm.senderemailHost.$showError && editProjectForm.senderemailHost.$hasError()}">
+              <label class="col-sm-4 control-label" for="senderemailHost">Outgoing Server
+              </label>
+
+              <div class="col-sm-6">
+                <input  aria-describedby="inputSuccess2Status" class="form-control" id="senderemailHost" name="senderemailHost" ng-model="project.emailConfig.host" ng-required="!isValidEmailConfig()" placeholder="Sender Email host ..." type="text"/>
+
+                <div class="error" ng-show="editProjectForm.senderemailHost.$showError">
+                  <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove' : editProjectForm.senderemailHost.$showError && editProjectForm.senderemailHost.$hasError()}"></span>
+
+                  <p class="text-danger" ng-show="editProjectForm.senderemailHost.$error.required">Outgoing Server is required.</p>
+                </div>
+              </div>
+            </div>
+<!--end-->
+
+<!--Port-->
+            <div class="form-group has-feedback" ng-class="{'required' : !isValidEmailConfig(), 'has-error' : editProjectForm.senderPort.$showError && editProjectForm.senderPort.$hasError()}">
+              <label class="col-sm-4 control-label" for="senderPort">SMTP Port</label>
+
+              <div class="col-sm-6">
+                <input  aria-describedby="inputSuccess2Status" class="form-control" id="senderPort" name="senderPort" ng-model="project.emailConfig.port" ng-pattern="/^[0-9]+$/" ng-required="!isValidEmailConfig()" placeholder="Sender Port ..." type="text"/>
+
+                <div class="error" ng-show="editProjectForm.senderPort.$showError">
+                  <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove' : editProjectForm.senderPort.$showError && editProjectForm.senderPort.$hasError()}"></span>
+
+                  <p class="text-danger" ng-show="editProjectForm.senderPort.$error.pattern">SMTP Port should be numeric</p>
+
+                  <p class="text-danger" ng-show="editProjectForm.senderPort.$error.required">SMTP Port is required.</p>
+                </div>
+              </div>
+            </div>
+<!--end-->
+
+<!--Secure Protocol -->
+            <div class="form-group has-feedback" ng-class="{'required' : !isValidEmailConfig(), 'has-error' : editProjectForm.secureProtocol.$showError && editProjectForm.secureProtocol.$hasError()}">
+              <label class="col-sm-4 control-label" for="secureProtocol">Secure Protocol</label>
+
+              <div class="col-sm-6">
+                <div class="radio">
+                  <label class="radio-inline">
+                    <input id="secureProtocol" ng-model="project.emailConfig.secureProtocol" ng-required="!isValidEmailConfig()" type="radio" value="SSL">
+                    SSL
+                  </label>
+                  <label class="radio-inline">
+                    <input ng-model="project.emailConfig.secureProtocol" type="radio" value="TLS">
+                    TLS
+                  </label>
+                </div>
+                <div class="error" ng-show="editProjectForm.secureProtocol.$showError">
+                  <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : editProjectForm.secureProtocol.$valid, 'glyphicon-remove' : editProjectForm.secureProtocol.$showError && editProjectForm.secureProtocol.$hasError()}"></span>
+
+                  <p class="text-danger" ng-show="editProjectForm.secureProtocol.$error.required">Secure Protocol is required.</p>
+                </div>
+              </div>
+            </div>
+<!--end-->
+
+<!--User Name-->
+            <div class="form-group has-feedback" ng-class="{'required' : !isValidEmailConfig(), 'has-error' : editProjectForm.senderuserName.$showError && editProjectForm.senderuserName.$hasError()}">
+              <label class="col-sm-4 control-label" for="senderuserName">User Name
+              </label>
+
+              <div class="col-sm-6">
+                <input  aria-describedby="inputSuccess2Status" class="form-control" id="senderuserName" name="senderuserName" ng-model="project.emailConfig.username" ng-required="!isValidEmailConfig()" placeholder="Sender User Name ..." type="text"/>
+
+                <div class="error" ng-show="editProjectForm.senderuserName.$showError">
+                  <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove' : editProjectForm.senderuserName.$showError && editProjectForm.senderuserName.$hasError()}"></span>
+
+                  <p class="text-danger" ng-show="editProjectForm.senderuserName.$error.required">Username is required.</p>
+                </div>
+              </div>
+            </div>
+<!--end-->
+
+<!--Password-->
+            <div class="form-group has-feedback" ng-class="{'required' : !isValidEmailConfig(), 'has-error' : editProjectForm.senderPassword.$showError && editProjectForm.senderPassword.$hasError()}">
+              <label class="col-sm-4 control-label" for="senderPassword">Password</label>
+
+              <div class="col-sm-6">
+                <input  aria-describedby="inputSuccess2Status" class="form-control" id="senderPassword" name="senderPassword" ng-model="project.emailConfig.password" ng-required="!isValidEmailConfig()" placeholder="Sender Password ..." type="password"/>
+
+                <div class="error" ng-show="editProjectForm.senderPassword.$showError">
+                  <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove' : editProjectForm.senderPassword.$showError && editProjectForm.senderPassword.$hasError()}"></span>
+
+                  <p class="text-danger" ng-show="editProjectForm.senderPassword.$error.required">Password is required.</p>
+                </div>
+              </div>
+              <button class="btn btn-primary btn-test-mail" id="testEmail" ng-click="sendTestMail()" ng-disabled="!isValidTestEmailConfig()" type="submit">
+                <span ng-show="buttonLoader">
+                  <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                  Sending...</span>
+                <span ng-hide="buttonLoader">Send Test Email</span>
+              </button>
+            </div>
+<!--end-->
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="form-group">
+        <div class="col-sm-12">
+          <button aet-has-permission="EDIT_PROJECT" class="btn btn-lg btn-primary pull-right" ng-click="submitProjectForm()" ng-disabled="!isValidProjectInfo()" type="submit">
+            Save
+          </button>
+        </div>
+      </div>
+    </section>
+    <div class="clearfix"></div>
+
+  </form>
+
+</div>

@@ -1,0 +1,142 @@
+<h1 class="page-header">
+  Create Customer List
+</h1>
+
+<div class="row listscustomer-landing">
+  <div class=" col-sm-12">
+    <form class="form-horizontal" name="createCustomerList" novalidate>
+      <div class="form-group has-feedback required" ng-class="{'has-error' : createCustomerList.title.$showError && createCustomerList.title.$hasError()}">
+        <label class="col-sm-2 control-label" for="title">Customer List Title</label>
+        <div class="col-sm-5">
+          <input aria-describedby="inputSuccess2Status" class="form-control" id="title" name="title" ng-maxlength="255" ng-model="listCustomer.title" placeholder="The Customer List Title ..." required type="text"/>
+          <div class="error" ng-show="createCustomerList.title.$showError">
+            <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : createCustomerList.title.$showError && createCustomerList.title.$hasError()}"></span>
+            <p class="text-danger" ng-show="createCustomerList.title.$error.required">Customer List Title is required</p>
+            <p class="text-danger" ng-show="createCustomerList.title.$error.maxlength">Customer List Title must be 255 characters or less</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-group has-feedback csv">
+        <label class="col-sm-2 control-label" for="title">Upload CSV</label>
+        <div class="col-sm-5">
+          <input class="form-control" accept=".csv" file-reader="fileContent" type="file"/>
+          <div class="error hide">
+            <span aria-hidden="true" class="glyphicon form-control-feedback glyphicon-remove"></span>
+            <p class="text-danger">Invalid file format.</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <ng-form name="manualForm">
+          <label class="col-sm-2 control-label" style="margin-left: 20px;" for="title">Add Customer</label>
+          <div class="col-sm-2 padding-10">
+            <div class="form-group has-feedback" ng-class="{ 'has-error' : manualForm.manuallyAddedFirstName.$showError && manualForm.manuallyAddedFirstName.$hasError()}">
+              <input aria-describedby="inputSuccess2Status" class="form-control" id="manuallyAddedFirstName" name="manuallyAddedFirstName" ng-model="manuallyAddedFirstName" placeholder="First Name" required type="text">
+              <div class="error" ng-show="manualForm.manuallyAddedFirstName.$showError">
+                <span class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : manualForm.manuallyAddedFirstName.$showError && manualForm.manuallyAddedFirstName.$hasError()}"></span>
+                <p class="text-danger" ng-show="manualForm.manuallyAddedFirstName.$error.required">First Name is required.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2 padding-10">
+            <input class="form-control" id="manuallyAddedLastName" name="manuallyAddedLastName" ng-model="manuallyAddedLastName" placeholder="Last Name" type="text">
+          </div>
+          <div class="col-sm-2 padding-10">
+            <div class="form-group has-feedback" ng-class="{ 'has-error' : manualForm.manuallyAddedEmailAddress.$showError && manualForm.manuallyAddedEmailAddress.$hasError()}">
+              <input class="form-control" id="manuallyAddedEmailAddress" name="manuallyAddedEmailAddress" ng-model="manuallyAddedEmailAddress" ng-pattern="/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$/" placeholder="Email" required type="text">
+              <div class="error" ng-show="manualForm.manuallyAddedEmailAddress.$showError">
+                <span class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : manualForm.manuallyAddedEmailAddress.$showError && manualForm.manuallyAddedEmailAddress.$hasError()}"></span>
+                <p class="text-danger" ng-show="manualForm.manuallyAddedEmailAddress.$error.pattern">This doesn't seem to be a valid email address pattern</p>
+                <p class="text-danger" ng-show="manualForm.manuallyAddedEmailAddress.$error.required">Email is required.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2 padding-10">
+            <button class="btn btn-sm btn-primary" ng-click="manullayAddRow(manuallyAddedFirstName,manuallyAddedLastName,manuallyAddedEmailAddress); manualForm.$setPristine()" ng-disabled="!manuallyAddedRowValidation()" type="button">Add</button>
+          </div>
+        </ng-form>
+      </div>
+
+      <div class="form-group" ng-show="emailList.uniqueUsers.length>0">
+        <label class="col-sm-2 control-label" for="title">Unique Users</label>
+        <div class="col-sm-7 padding-0" style="margin-left: 10px;">
+          <table class="table margin-0">
+            <thead>
+              <th class="table-header"></th>
+              <th class="table-header">First Name</th>
+              <th class="table-header">Last Name</th>
+              <th class="table-header">
+                <span style="width: 85px;display: inline-block;">Email</span>
+              </th>
+            </thead>
+          </table>
+          <div class="infinite-scroll">
+            <table class="table compact">
+              <tbody>
+                <tr ng-repeat="csvData in emailList.uniqueUsers | limitTo:uniqueDisplayed">
+                  <td>
+                    <button class="btn btn-sm btn-danger" ng-click="deleteUniqueRow(csvData)" type="button">
+                      <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <ng-form name="manualForm">
+                      <div class="form-group has-feedback" ng-class="{ 'has-error' : manualForm.firstName.$showError && manualForm.firstName.$hasError()}">
+                        <input class="form-control" id="firstName" name="firstName" ng-model="csvData.firstName" required type="text">
+                        <div class="error" ng-show="manualForm.firstName.$showError">
+                          <span class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : manualForm.firstName.$showError && manualForm.firstName.$hasError()}"></span>
+                          <p class="text-danger" ng-show="manualForm.firstName.$error.required">First Name is required.</p>
+                        </div>
+                      </div>
+                    </ng-form>
+                  </td>
+                  <td><input class="form-control" id="lastName" ng-model="csvData.lastName" type="text"></td>
+                  <td>
+                    <ng-form name="manualForm">
+                      <div class="form-group has-feedback" ng-class="{ 'has-error' : manualForm.email.$showError && manualForm.email.$hasError()}">
+                        <input class="form-control" id="email" name="email" ng-disabled="true" ng-model="csvData.email" ng-pattern="/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$/" type="text">
+                        <div class="error" ng-show="manualForm.email.$showError">
+                          <span class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : manualForm.email.$showError && manualForm.email.$hasError()}"></span>
+                          <p class="text-danger" ng-show="manualForm.email.$error.pattern">This doesn't seem to be a valid email address pattern</p>
+                          <p class="text-danger" ng-show="manualForm.email.$error.required">Email is required.</p>
+                        </div>
+                      </div>
+                    </ng-form>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" ng-show="emailList.duplicateUsers.length>0">
+        <label class="col-sm-2 control-label" for="title">Duplicate Users</label>
+        <div class="col-sm-7 duplicates">
+          <div class="row">
+            <div class="col-sm-12 bundle" ng-repeat="duplicateEmailLists in emailList.duplicateUsers track by $index">
+              <div class="row">
+                <div class="col-sm-12 title">{{duplicateEmailLists.email}}</div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 records" ng-repeat="record in duplicateEmailLists.users track by $index">
+                  <button class="btn btn-xs btn-danger" ng-click="deleteDuplicateRow($parent.$index ,$index)" type="button">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </button>
+                  {{record.firstName}}
+                  {{record.lastName}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+          <button aet-has-permission="CREATE_CUSTOMER_LIST" class="btn btn-primary" ng-click="submitListCustomer()" ng-disabled="!isValidList()" type="submit">
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

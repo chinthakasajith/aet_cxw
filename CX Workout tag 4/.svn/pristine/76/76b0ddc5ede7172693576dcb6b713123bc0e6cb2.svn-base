@@ -1,0 +1,11 @@
+<p>
+  {{ comment }}<br>
+  <button class="btn more"
+          ng-class="{'btn-success' : type == 'positive' , 'btn-default' : type == 'natural', 'btn-danger' : type == 'negative'}"
+          ng-show="more"
+          ng-click="showMoreTxt()">
+    Read more
+  </button>
+</p>
+
+<!---->

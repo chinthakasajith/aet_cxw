@@ -1,0 +1,43 @@
+<h1 class="page-header">
+  CX Projects
+</h1>
+
+<div class="row search-screen project-landing">
+  <div class="col-sm-12">
+    <div class="row search-ctrl">
+      <div class="col-sm-4">
+        <button class="btn btn-lg btn-primary" title="new project" ui-sref="index.secured.project.create" aet-has-permission="ADD_PROJECT">
+          <span aria-hidden="true" class="c-icon c-icon-plus"></span>
+          Create New Project
+        </button>
+      </div>
+      <div class="col-sm-4 pull-right">
+        <div class="input-group input-group-lg search-input">
+          <input  class="form-control input-lg" ng-change="searchManager.debouncedSearch()" ng-model="searchManager.query" placeholder="Search Projects" type="text"/>
+          <span class="input-group-addon" id="basic-addon2"><i class="glyphicon glyphicon-search"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <aet-search row-name="project" search-manager="searchManager">
+          <aet-search-column label="Project Name" name="title" searchable="true"></aet-search-column>
+          <aet-search-column label="Start Date" name="startDate" searchable="true"></aet-search-column>
+          <aet-search-column label="End Date" name="endDate" searchable="true"></aet-search-column>
+          <aet-search-column label="Curve Type" name="curveType" searchable="true"></aet-search-column>
+          <aet-search-column label="Stage Template" name="stageTemplate"></aet-search-column>
+          <aet-search-column label="Creator" name="creatorName"></aet-search-column>
+          <button aet-action-button class="btn btn-sm btn-success" ng-click="editProject(project)" title="edit" type="submit" aet-has-permission="VIEW_PROJECT">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+          <button aet-action-button class="btn btn-sm btn-default" ng-click="copyProject(project)" title="copy" type="submit" aet-has-permission="VIEW_PROJECT"><!-- permission should be changed as aet-has-permission="COPY_PROJECT" -->
+            <span class="glyphicon glyphicon-duplicate"></span>
+          </button> 
+          <button aet-action-button class="btn btn-sm btn-danger" ng-click="deleteProject(project)" title="delete" type="submit" aet-has-permission="DELETE_PROJECT">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </aet-search>
+      </div>
+    </div>
+  </div>
+</div>

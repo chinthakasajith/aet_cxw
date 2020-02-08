@@ -1,0 +1,103 @@
+<h1 class="page-header">
+  Create Employee Mission
+</h1>
+
+<div class="row mission-landing">
+
+  <form class="form-horizontal" name="createMissionInternalFirst" novalidate>
+    <div class=" col-sm-6">
+      <div class="form-group has-feedback required" ng-class="{'has-success' : createMissionInternalFirst.title.$valid,'has-error' : createMissionInternalFirst.title.$showError && createMissionInternalFirst.title.$hasError()}">
+        <label class="col-sm-5 control-label" for="title">Mission Title
+        	<div class="tooltip-custom">
+        		<span class="tooltip-hover" data-content="This is for internal use only."><img src="assets/images/cx-workout_tooltip-icon_16px.png" alt="Help"/></span>
+     		</div>
+        </label>
+        <div class="col-sm-6">
+          <input  aria-describedby="inputSuccess2Status" class="form-control" id="title" name="title" ng-maxlength="255" ng-model="mission.title" placeholder="The Mission Title ..." required type="text"/>
+          <div class="error" ng-show="createMissionInternalFirst.title.$showError">
+            <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : createMissionInternalFirst.title.$showError && createMissionInternalFirst.title.$hasError()}"></span>
+            <p class="text-danger" ng-show="createMissionInternalFirst.title.$error.required">Mission Title is required.</p>
+            <p class="text-danger" ng-show="createMissionInternalFirst.title.$error.maxlength">Mission Title must be 255 characters or less</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group has-feedback required" ng-class="{ 'has-success' : createMissionInternalFirst.startDate.$valid, 'has-error' : createMissionInternalFirst.startDate.$showError && createMissionInternalFirst.startDate.$hasError()}">
+        <label class="col-sm-5 control-label" for="startDate">Start Date
+        	<div class="tooltip-custom">
+        		<span class="tooltip-hover" data-content="When ready to launch a Mission, change the date to today (to send immediately) or choose a future delivery date."><img src="assets/images/cx-workout_tooltip-icon_16px.png" alt="Help"/></span>
+     		</div>
+        </label>
+        <div class="col-sm-6">
+          <p class="input-group">
+            <input  class="form-control" close-text="Close" datepicker-options="dateOptions" datepicker-popup="{{format}}" is-open="opened" max-date="'2020-06-22'" min-date="minStartdDate" ng-model="mission.startDate" ng-change="onStartDateChange()" required type="text"/>
+            <span class="input-group-btn">
+              <button class="btn btn-default" ng-click="open($event)" type="button">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback required" ng-class="{ 'has-success' : createMissionInternalFirst.endDate.$valid, 'has-error' : createMissionInternalFirst.endDate.$showError && createMissionInternalFirst.endDate.$hasError()}">
+        <label class="col-sm-5 control-label" for="endDate">End Date
+        	<div class="tooltip-custom">
+       			<span class="tooltip-hover" data-content="Make sure to allow enough time for your initial invitation, reminder invitation, and resulting participation."><img src="assets/images/cx-workout_tooltip-icon_16px.png" alt="Help"/></span>
+     		</div>
+        </label>
+        <div class="col-sm-6">
+          <p class="input-group">
+            <input  class="form-control" close-text="Close" datepicker-options="dateOptions" datepicker-popup="{{format}}" is-open="opened1" max-date="'2020-06-22'" min-date="minEndDate" ng-model="mission.endDate" required type="text"/>
+            <span class="input-group-btn">
+              <button class="btn btn-default" ng-click="open1($event)" type="button">
+                <i class="glyphicon glyphicon-calendar"></i>
+              </button>
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+          <button class="btn btn-primary" ng-click="submitMissionInternal()" ng-disabled="createMissionInternalFirst.$invalid" type="submit" aet-has-permission="CREATE_EMPLOYEE_MISSION">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form class="form-horizontal" name="createMission" novalidate>
+
+    <div class="col-sm-12">
+      <div id="navigation">
+        <button id="step-one">
+          <span class="iconRemove"></span>
+          <div class="buttonTextLabel">Choose <br>Action</div>
+          <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <button id="step-two">
+          <span class="iconRemove"></span>
+          <div class="buttonTextLabel">Action <br>Headers</div>
+          <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <button id="step-three">
+          <span class="iconRemove"></span>
+          <div class="buttonTextLabel oneLine">Messages</div>
+          <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <button id="step-four">
+          <span class="iconRemove"></span>
+          <div class="buttonTextLabel">Select <br>Participants</div>
+          <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <button id="step-five">
+          <span class="emptyIcon"></span>
+          <div class="buttonTextLabel">Preview &amp; <br> Send</div>
+          <span class="emptyIcon"></span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

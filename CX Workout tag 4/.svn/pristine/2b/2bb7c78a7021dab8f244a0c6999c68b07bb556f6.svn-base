@@ -1,0 +1,107 @@
+.mission-landing {
+  #navigation {
+    display: inline-block;
+    button {
+      padding: 20px;
+      width: 196px;
+      height: 66px;
+      float: left;
+      display: block;
+      margin-top: 20px;
+      margin-left: 5px;
+      text-align: center;
+      position: relative;
+      background-color: #fff;
+      border: 1px solid #adadad;
+    }
+    button:hover {
+      background-color: #e6e6e6;
+    }
+    .navLabel {
+      vertical-align: middle;
+    }
+    button.passed {
+      padding: 20px;
+      width: 196px;
+      background-color: #aaa;
+      border: 1px solid #666;
+      color: #fff;
+      cursor: default;
+      display: block;
+      margin-top: 20px;
+      text-align: center;
+      float: left;
+    }
+    .glyphicon {
+      font-size: 24px;
+    }
+    .glyphicon-remove {
+      background-color: #d9534f;
+      border-color: #d43f3a;
+      color: #fff;
+      left: -4px;
+      padding: 4px;
+      position: absolute;
+      top: -16px;
+    }
+    .glyphicon-ok {
+      background-color: #a0d24e;
+      border-color: #769b3b;
+      color: #fff;
+      left: -4px;
+      padding: 4px;
+      position: absolute;
+      top: -16px;
+    }
+    .glyphicon-arrow-right {
+      vertical-align: middle;
+      font-size: 24px;
+    }
+  }
+
+  .btn-preview {
+    width: auto;
+    color: #fff;
+  }
+  .animate-if {
+    background: white;
+    padding: 10px;
+  }
+  .animate-if.ng-enter,
+  .animate-if.ng-leave {
+    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  }
+  .animate-if.ng-enter,
+  .animate-if.ng-leave.ng-leave-active {
+    opacity: 0;
+  }
+  .animate-if.ng-leave,
+  .animate-if.ng-enter.ng-enter-active {
+    opacity: 1;
+  }
+
+  .defaultscroll {
+    max-height: 300px;
+    overflow: auto;
+    margin-bottom: 20px;
+
+    label {
+	    display: block;
+	    padding-left: 25px;
+	    text-indent: -25px;
+	    font-weight: inherit;
+
+	    input {
+		    width: 13px;
+		    height: 13px;
+		    padding: 0;
+		    margin:5px;
+		    vertical-align: sub;
+		    position: relative;
+		    top: -1px;
+		    *overflow: hidden;
+		}
+	}
+  }
+
+}

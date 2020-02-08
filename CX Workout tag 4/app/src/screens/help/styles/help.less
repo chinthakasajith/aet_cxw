@@ -1,0 +1,99 @@
+.help-landing {
+  ul.help-nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 16px;
+    display: block;
+    background-color: @sub-menu-bg-color;
+    li {
+      border: 1px;
+      position: relative;
+      > a.menu-link {
+        cursor: pointer;
+        position: relative;
+        padding-top: 15px;
+        padding-right: 30px;
+        padding-bottom: 15px;
+        padding-left: 30px;
+        display: block;
+        border-bottom: 1px solid #e3e3e3;
+        span.glyphicon {
+          display: inline;
+          top: 0px;
+          margin-right: 20px;
+          &.glyphicon-menu-right,
+          &.glyphicon-menu-down {
+            font-size: 25px;
+          }
+        }
+        &:hover{color:#79a92b;}
+        &.active {
+          background-color: @admin-nav-active-color;
+          color: @admin-sidebar-active-fontColor;
+          border-left: 5px solid @main-color;
+          border-bottom: 1px solid @admin-nav-borderColor;
+        }
+      }
+      ul.sub-menu {
+        padding: 0;
+        list-style: none;
+        font-size: 14px;
+        position: relative;
+        background-color: @white;
+        border-left: 1px solid @border-color;
+        border-right: 1px solid @border-color;
+        .shadow-inset(0, 10px, 10px, 10px, rgba(0, 0, 0, 0.5));
+        &:before {
+          content: "";
+          display: block;
+          position: absolute;
+          z-index: 1;
+          left: 45px;
+          top: 0;
+          bottom: 0;
+          &:hover {
+            .glyphicon-alert;
+          }
+        }
+        li {
+          border-bottom:1px solid @white;
+          > a {
+            padding-left: 60px;
+            background-color: #e6e6e6;
+            &:hover{color:#79a92b;}
+          }
+          ul.sub-menu {
+            li {
+              .hyperlink-font {
+                color: #00f;
+                text-decoration: underline;
+                display: initial;
+                padding-left: 0;
+                padding-left: -60px;
+                background-color: transparent;
+              }
+              li {
+                border-style: none;
+              }
+            }
+            .panel-body{
+              padding:15px 60px;
+
+            }
+          }
+        }
+      }
+      > a.menu-link:hover {
+        //background-color: @admin-nav-active-color;
+        &.active {
+          background-color: @admin-nav-active-color;
+          color: @admin-sidebar-active-fontColor;
+        }
+      }
+    }
+  }
+  .text-indent {
+    margin-left: 50px;
+  }
+}

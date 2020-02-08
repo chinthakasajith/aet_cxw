@@ -1,0 +1,55 @@
+<h1 class="page-header">
+	Discussions
+</h1>
+
+<div class="row">
+
+	<div class="col-sm-12">
+
+		<div class="row">
+			<div class="col-sm-4">
+				<button class="btn btn-lg btn-primary" ui-sref="index.secured.discussions" title="new discussion">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true" ui-sref="index.secured.discussion.create"></span> New Discussion
+				</button>
+			</div>
+			<div class="col-sm-4">
+				<aet-search-input search-manager="searchManager"></aet-search-input>
+			</div>
+		</div>
+
+
+		<div class="row">
+
+			<div class="col-sm-12">
+				<aet-search search-manager="searchManager" row-name="admin">
+
+					<aet-search-column name="firstName" label="Name" searchable="true"></aet-search-column>
+					<aet-search-column name="lastName" label="Title" searchable="true"></aet-search-column>
+					<aet-search-column name="emailAddress" label="Received Email" searchable="true"></aet-search-column>
+
+
+					<button aet-action-button
+							class="btn btn-sm btn-default"
+							title="edit"
+							type="submit"
+							ng-click="editDiscussion(client)">
+						<span class="glyphicon glyphicon-edit"></span>
+					</button>
+
+					<button aet-action-button
+							class="btn btn-sm btn-danger"
+							title="delete"
+							type="submit"
+							ng-click="deleteDiscussion(client)">
+						<span class="glyphicon glyphicon-trash"></span>
+					</button>
+
+				</aet-search>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>

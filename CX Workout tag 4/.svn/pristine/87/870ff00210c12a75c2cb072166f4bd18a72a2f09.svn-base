@@ -1,0 +1,28 @@
+(function(module) {
+
+  module.controller('CreatePTMissionController', ['$scope', '$controller', 'missionPTService', '$state',  'alertsService',
+    function($scope, $controller, missionPTService, $state, alertsService) {
+      $controller('CreateMissionController', {
+        $scope: $scope
+      });
+
+      $scope.submitMissionInternal = function() {
+        missionPTService.createMission($scope.mission).then(function(data) {
+          alertsService.addAlert({
+            title: 'Success',
+            message: 'Mission Project Team "' + $scope.mission.title + '" successfully created',
+            type: 'success',
+            removeOnStateChange: 2
+          });
+          $state.go('index.secured.missionsprojectteam.edit', {
+            id: data.id
+          });
+        }, function(err) {
+          console.error('Could not create mission internal', err);
+        });
+      };
+
+    }
+  ]);
+
+})(angular.module('aet.screens.missionsprojectteam'));

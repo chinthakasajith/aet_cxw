@@ -1,0 +1,66 @@
+<div class="Add-modal map-modal">
+
+  <div class="modal-header">
+    <h3 class="modal-title">Edit {{type}}.</h3>
+  </div>
+  <div class="modal-body">
+    <form name="editModal" class="form-horizontal">
+      <div class="form-group has-feedback required"
+           ng-class="{ 'has-success' : editModal.stageTitle.$valid, 'has-error' : editModal.stageTitle.$showError && editModal.stageTitle.$hasError()}"
+           ng-show="type === 'Stage'">
+        <label for="stageTitle" class="col-sm-3 control-label">Title</label>
+        <div class="col-sm-8">
+          <input name="stageTitle"
+                 ng-model="stageTitle"
+                 type="text"
+                 class="form-control"
+                 id="stageTitle"
+                 placeholder="Title"
+                 ng-required="true"
+                 ng-maxlength="20"
+              >
+          <div class="error" ng-show="editModal.stageTitle.$showError">
+            <span aria-hidden="true" class="glyphicon form-control-feedback"
+                  ng-class="{'glyphicon-ok' : editModal.stageTitle.$valid, 'glyphicon-remove' : editModal.stageTitle.$showError && editModal.stageTitle.$hasError()}"></span>
+
+            <p class="text-danger" ng-show="editModal.stageTitle.$error.required">{{type}} title is required.</p>
+            <p class="text-danger" ng-show="editModal.stageTitle.$error.maxlength">{{type}} title must be 20
+              characters or less</p>
+
+          </div>
+        </div>
+      </div>
+      <div class="form-group has-feedback required"
+           ng-class="{ 'has-success' : editModal.touchpointTitle.$valid, 'has-error' : editModal.touchpointTitle.$showError && editModal.touchpointTitle.$hasError()}"
+           ng-show="type === 'Touchpoint'">
+        <label for="touchpointTitle" class="col-sm-3 control-label">Title</label>
+        <div class="col-sm-8">
+          <input name="touchpointTitle"
+                 ng-model="touchpointTitle"
+                 type="text"
+                 class="form-control"
+                 id="touchpointTitle"
+                 placeholder="Pay"
+                 ng-required="true"
+                 ng-maxlength="80"
+              >
+          <div class="error" ng-show="editModal.touchpointTitle.$showError">
+            <span aria-hidden="true" class="glyphicon form-control-feedback"
+                  ng-class="{'glyphicon-ok' : editModal.touchpointTitle.$valid, 'glyphicon-remove' : editModal.touchpointTitle.$showError && editModal.touchpointTitle.$hasError()}"></span>
+
+            <p class="text-danger" ng-show="editModal.touchpointTitle.$error.required">{{type}} title is required.</p>
+            <p class="text-danger" ng-show="editModal.touchpointTitle.$error.maxlength">{{type}} title must be 80
+              characters or less</p>
+
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button ng-show="type === 'Stage'" ng-disabled="editModal.stageTitle.$invalid" class="btn btn-default btn-primary" ng-click="edit()">Save</button>
+    <button ng-show="type === 'Touchpoint'" ng-disabled="editModal.touchpointTitle.$invalid" class="btn btn-default btn-primary" ng-click="edit()">Save</button>
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+  </div>
+
+</div>

@@ -1,0 +1,138 @@
+<div class="mission">
+  <div class="row questionlist-header">
+    <img alt="cxworkout" class="logo" ng-src="{{mission.logoUrl}}">
+  </div>
+  <div class="row questionlist-body">
+    <div class="col-sm-3 tab-set">
+      <div class="list-group">
+        <button class="list-group-item" ng-class="{'active' : item === $index}" ng-repeat="missionAction in mission.actions" type="button">Item
+          {{ $index + 1 }}
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-9 tab-body">
+      <div class="item" id="item1" ng-repeat="missionAction in mission.actions" ng-show="item === $index">
+        <div class="well">
+          <h3 class="mission-header">{{ missionAction.actionHeader }}</h3>
+          <h4>{{ missionAction.actionTitle }}</h4>
+        </div>
+        <form class="form-horizontal form-group has-feedback" name="textBoxForm" ng-class="{'has-error' : textBoxForm.comment{{$index}}.$showError && textBoxForm.comment{{$index}}.$hasError()}">
+          {{missionAction.questions.questionText}}
+          <div class="form-group" ng-init="index = index + $index" ng-repeat="question in missionAction.questions">
+            <h4 class="textAlignLeft" ng-show="question.inputType != 'TEXTBOX'">
+              {{question.headerGroupName}}
+            </h4>
+
+            <div ng-switch="question.inputType">
+              <div ng-switch-when="FILEUPLOAD">
+                <div class="col-sm-12 col-sm-offset-0 mar-t-30">
+                  <label class="col-sm-12 " for="q1Slider">
+                    {{ index + 1 +". "}}
+                    {{ question.questionText}}
+                  </label>
+                </div>
+                <div class="col-sm-12 col-sm-offset-0">
+                  <label class="col-sm-12 mar-l-20">
+                    {{question.instructionsText}}
+                  </label>
+                </div>
+                <div class="col-sm-9 col-sm-offset-1">
+<!--input class="form-control" ng-model="question.answer" type="file"-->
+                  <div class="form-control upload" ecs-upload-data="uploadManager" ng-model="question.answer" tabindex="0">
+
+                    <div class="row">
+
+                      <div class="buttons col-sm-6 col-xs-12">
+                        <button brand-btn-color="{{municipality.buttonColor}}" class="btn btn-primary" ecs-color-update ecs-upload-button="uploadManager" ng-show="!question.answer && !uploadManager.uploading" tabindex="-1">
+                          Select File
+                          <ecs-upload-input accept='image/*,audio/*,video/*'></ecs-upload-input>
+                        </button>
+                        <button brand-btn-color="{{municipality.buttonColor}}" class="btn btn-primary" ecs-color-update ecs-upload-button="uploadManager" ng-show="question.answer" tabindex="-1">
+                          Change File
+                          <ecs-upload-input accept='image/*,audio/*,video/*'></ecs-upload-input>
+                        </button>
+                        <button class="btn btn-danger" ecs-delete-button="uploadManager" ng-show="question.answer" tabindex="-1">
+                          Delete
+                        </button>
+                        <button class="btn btn-default" ng-click="uploadManager.cancel()" ng-show="uploadManager.uploading" tabindex="-1">
+                          Cancel
+                        </button>
+                      </div>
+
+                      <div class="data col-sm-6 col-xs-12" ng-show="uploadManager.uploading">
+                        <progressbar animate="true" value="progress"></progressbar>
+                      </div>
+                      <div class="data col-sm-6 col-xs-12" ng-show="question.answer">
+                        <a class="filename" href ng-click="downloadFile(question.answer)">{{getFileName(question.answer)}}</a>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="text-danger" ng-repeat="error in uploadManager.$errors" ng-show="uploadManager.$errors.length > 0">{{error}}</p>
+                </div>
+              </div>
+              <div ng-switch-when="SLIDER">
+                <div class="col-sm-12 col-sm-offset-0 mar-t-30">
+                  <label class="col-sm-12 " for="q1Slider">
+                    {{ index + 1 +". "}}
+                    {{ question.questionText}}
+                  </label>
+                </div>
+                <div class="col-sm-9 col-sm-offset-1">
+                  <input id="q{{ index + 1}}Slider" name="q{{ index + 1}}Slider" ng-model="question.answer" options="question.option" slider type="text"/>
+                </div>
+              </div>
+              <div ng-switch-when="TEXTBOX">
+                <div class="panel panel-default mar-t-30">
+                  <div class="panel-heading">
+                    <h4 class="textAlignLeft">
+                      {{question.headerGroupName}}
+                    </h4>
+                  </div>
+                  <div class="panel-body">
+                    <div class="col-sm-12 col-sm-offset-0 mar-t-30">
+                      <label class="col-sm-12 " for="q1Slider">
+                        {{ index + 1 +". "}}
+                        {{ question.questionText}}
+                      </label>
+                    </div>
+                    <div class="col-sm-9 col-sm-offset-1">
+                      <textarea class="form-control" id="comment{{$index}}" name="comment{{$index}}" ng-model="question.answer" placeholder=""></textarea>
+
+                      <p class="text-danger" ng-show="question.answer.length > 2000">This must be 2000 characters or less</p>
+                    </div>
+                  </div>
+                  <div class="panel-footer" ng-show="question.groupName==='Comments'">
+                    <div aria-label="..." class="btn-group btn-group-sm" role="group">
+                      <button class="btn " ng-class="question.isPositive == true ? 'btn-success' : 'btn-default'" ng-click="question.isPositive=true" ng-disabled="question.isPositive == true">
+                        <i class="fa" ng-class="question.isPositive == true ? 'fa-thumbs-up' : 'fa-thumbs-o-up'"></i>
+                      </button>
+                      <button class="btn btn-default" ng-class="question.isPositive == false ? 'btn-success' : 'btn-default'" ng-click="question.isPositive=false" ng-disabled="question.isPositive == false">
+                        <i class="fa fa-thumbs-o-down" ng-class="question.isPositive == false ? 'fa-thumbs-down' : 'fa-thumbs-o-down'"></i>
+                      </button>
+                    </div>
+                    <div class="clear-fix"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row questionlist-footer">
+  <div class="pull-right">
+    <div class="btn-group " ng-hide="isFinished">
+      <button class="btn btn-default" ng-click="previous()" ng-hide="isPreviousDisabled" type="button">Previous
+      </button>
+      <button class="btn btn-primary" ng-click="next()" ng-disabled="!isAnswerComplete()" type="button">Next</button>
+    </div>
+    <div class="btn-group" ng-show="isFinished">
+      <button class="btn btn-default" ng-click="previous()" ng-hide="isPreviousDisabled" type="button">Previous
+      </button>
+      <button class="btn btn-primary" ng-click="finish()" ng-disabled="!isAnswerComplete()" type="button">Submit
+      </button>
+    </div>
+  </div>
+</div>

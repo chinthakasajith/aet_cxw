@@ -1,0 +1,4 @@
+{
+	"apiBaseUrl": "http://10.33.2.111",
+	"s3bucket" : "cxworkoutdev"
+}

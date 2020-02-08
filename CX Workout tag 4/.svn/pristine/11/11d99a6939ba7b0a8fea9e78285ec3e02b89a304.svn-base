@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <h3 class="modal-title">Change Channel Name</h3>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" name="channelForm" novalidate>
+    <div class="form-group has-feedback" ng-class="{'has-error' : channelForm.changeChannel.$showError && channelForm.changeChannel.$hasError()}">
+      <label class="col-sm-3 control-label" for="changeChannel">New Title :</label>
+      <div class="col-sm-9">
+        <input  aria-describedby="inputSuccess2Status" class="form-control" id="changeChannel" name="changeChannel" ng-maxlength="25" ng-model="changedChannelTitle" placeholder="Enter new title ..." required type="text"/>
+        <div class="error" ng-show="channelForm.changeChannel.$showError">
+          <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove' : channelForm.changeChannel.$showError && channelForm.changeChannel.$hasError()}"></span>
+          <p class="text-danger" ng-show="channelForm.changeChannel.$error.required">Channel title required</p>
+          <p class="text-danger" ng-show="channelForm.changeChannel.$error.maxlength">Channel title must be 25 characters or less</p>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-click="change()" ng-disabled="channelForm.$invalid" type="button">Accept</button>
+  <button class="btn btn-warning" ng-click="cancel()" type="button">Cancel</button>
+</div>

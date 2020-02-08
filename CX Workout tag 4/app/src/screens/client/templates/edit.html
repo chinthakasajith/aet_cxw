@@ -1,0 +1,166 @@
+<h1 class="page-header">
+    Edit Client
+</h1>
+
+<div class="row">
+    <div class=" col-sm-6">
+        <form name="editClientForm" novalidate class="form-horizontal">
+            <div class="form-group has-feedback required"
+                 ng-class="{ 'has-success' : editClientForm.name.$valid, 'has-error' : editClientForm.name.$showError && editClientForm.name.$hasError()}">
+                <label class="col-sm-5 control-label" for="name">Name</label>
+
+                <div class="col-sm-7">
+                    <input aria-describedby="inputSuccess2Status" class="form-control" id="name" name="name"
+                           ng-maxlength="255" ng-model="client.name" ng-pattern="/^[a-zA-Z0-9 ]*$/"
+                           placeholder="A short name to identify the client ..." required type="text"/>
+
+                    <div class="error" ng-show="editClientForm.name.$showError">
+                        <span aria-hidden="true" class="glyphicon form-control-feedback"
+                              ng-class="{'glyphicon-ok' : editClientForm.name.$valid, 'glyphicon-remove' : editClientForm.name.$showError && editClientForm.name.$hasError()}"></span>
+
+                        <p class="text-danger" ng-show="editClientForm.name.$error.required">Client Name is
+                            required.</p>
+
+                        <p class="text-danger" ng-show="editClientForm.name.$error.maxlength">Client Name must be 255
+                            characters or less</p>
+
+                        <p class="text-danger" ng-show="editClientForm.name.$error.pattern">This doesn't seem to be a
+                            valid name, don't use special characters</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group has-feedback"
+                 ng-class="{'has-error' : editClientForm.streetAddress1.$showError && editClientForm.streetAddress1.$hasError()}">
+                <label class="col-sm-5 control-label" for="streetAddress1">Street Address 1
+                </label>
+
+                <div class="col-sm-7">
+                    <input class="form-control"
+                           id="streetAddress1"
+                           name="streetAddress1"
+                           ng-maxlength="255"
+                           ng-model="client.streetAddress1"
+                           placeholder="Street Address 1 ..."
+                           type="text"/>
+
+                    <div class="error" ng-show="editClientForm.streetAddress1.$showError">
+                        <span aria-hidden="true" class="glyphicon form-control-feedback"
+                              ng-class="{ 'glyphicon-remove' : editClientForm.streetAddress1.$showError && editClientForm.streetAddress1.$hasError()}"></span>
+
+                        <p class="text-danger" ng-show="editClientForm.streetAddress1.$error.maxlength">Street Address 1
+                            must be 255 characters or less</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group has-feedback"
+                 ng-class="{'has-error' : editClientForm.streetAddress2.$showError && editClientForm.streetAddress2.$hasError()}">
+                <label class="col-sm-5 control-label" for="streetAddress2">Street Address 2</label>
+
+                <div class="col-sm-7">
+                    <input class="form-control"
+                           id="streetAddress2"
+                           name="streetAddress2"
+                           ng-maxlength="255"
+                           ng-model="client.streetAddress2"
+                           placeholder="Street Address 2 ..."
+                           type="text"/>
+
+                    <div class="error" ng-show="editClientForm.streetAddress2.$showError">
+                        <span aria-hidden="true" class="glyphicon form-control-feedback"
+                              ng-class="{ 'glyphicon-remove' : editClientForm.streetAddress2.$showError && editClientForm.streetAddress2.$hasError()}"></span>
+
+                        <p class="text-danger" ng-show="editClientForm.streetAddress2.$error.maxlength">Street Address 2
+                            must be 255 characters or less</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group has-feedback"
+                 ng-class="{'has-error' : editClientForm.city.$showError && editClientForm.city.$hasError()}">
+                <label class="col-sm-5 control-label" for="city">City</label>
+
+                <div class="col-sm-7">
+                    <input class="form-control"
+                           id="city"
+                           name="city"
+                           ng-maxlength="255"
+                           ng-model="client.city"
+                           placeholder="City ..."
+                           type="text"/>
+
+                    <div class="error" ng-show="editClientForm.city.$showError">
+                        <span aria-hidden="true" class="glyphicon form-control-feedback"
+                              ng-class="{ 'glyphicon-remove' : editClientForm.city.$showError && editClientForm.city.$hasError()}"></span>
+
+                        <p class="text-danger" ng-show="editClientForm.city.$error.maxlength">City must be 255
+                            characters or less</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group has-feedback required"
+                 ng-class="{ 'has-success' : editClientForm.state.$valid, 'has-error' : editClientForm.state.$showError && editClientForm.state.$hasError()}">
+                <label class="col-sm-5 control-label" for="state">State/Province</label>
+
+                <div class="col-sm-7">
+                    <select class="form-control" id="state" name="state" ng-model="client.state" required
+                            ng-options="s.key as s.value for s in stateDetails" placeholder="Region ..."
+                            required></select>
+
+                    <div class="error" ng-show="editClientForm.state.$showError">
+                        <span aria-hidden="true" class="glyphicon form-control-feedback"
+                              ng-class="{ 'glyphicon-remove' : editClientForm.state.$showError && editClientForm.state.$hasError()}"></span>
+
+                        <p class="text-danger" ng-show="editClientForm.state.$error.required">State is required.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group has-feedback"
+                 ng-class="{'has-error' : editClientForm.zipcode.$showError && editClientForm.zipcode.$hasError()}">
+                <label class="col-sm-5 control-label" for="zipcode">Zip Code</label>
+
+                <div class="col-sm-7">
+                    <input class="form-control"
+                           id="zipcode"
+                           name="zipcode"
+                           ng-model="client.zipCode"
+                           placeholder="Zip Code ..."
+                           type="text" ng-pattern="/^[0-9]{0,5}$/"/>
+
+                    <div class="error" ng-show="editClientForm.zipcode.$showError">
+                        <span aria-hidden="true" class="glyphicon form-control-feedback"
+                              ng-class="{ 'glyphicon-remove' : editClientForm.zipcode.$showError && editClientForm.zipcode.$hasError()}"></span>
+
+                        <p class="text-danger" ng-show="editClientForm.zipcode.$error.pattern">Zip Code must be maximum
+                            5 digits</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group has-feedback"
+                 ng-class="{ 'has-success' : editClientForm.termscond.$valid,'has-error' : editClientForm.termscond.$showError && editClientForm.termscond.$hasError()}">
+                <label class="col-sm-5 control-label" for="texteditor">Terms and Conditions
+                </label>
+
+                <div class="col-sm-7">
+                    <div ng-model="client.termsCond" id="texteditor" text-angular></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button class="btn btn-primary"
+                            type="submit"
+                            ng-disabled="editClientForm.$invalid"
+                            ng-click="submitClientForm()">
+                        Save
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

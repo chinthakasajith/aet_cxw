@@ -1,0 +1,44 @@
+<h1 class="page-header">
+  Edit Project Team List
+</h1>
+
+<div class="row listsprojectteam-landing">
+
+  <form class="form-horizontal" name="editMissionList" novalidate>
+    <div class=" col-sm-6">
+      <div class="form-group has-feedback required" ng-class="{'has-error' : editMissionList.title.$showError && editMissionList.title.$hasError()}">
+        <label class="col-sm-5 control-label" for="title">Project Team List Title</label>
+        <div class="col-sm-7">
+          <input  aria-describedby="inputSuccess2Status" class="form-control" id="title" name="title" ng-maxlength="255" ng-model="ListInternal.title" placeholder="The Project Team List Title ..." type="text" required/>
+          <div class="error" ng-show="editMissionList.title.$showError">
+            <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : editMissionList.title.$showError && editMissionList.title.$hasError()}"></span>
+            <p class="text-danger" ng-show="editMissionList.title.$error.required">Project Team List Title is required</p>
+            <p class="text-danger" ng-show="editMissionList.title.$error.maxlength">Project Team List Title must be 255 characters or less</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-group has-feedback" ng-class="{ 'has-success' : editMissionList.PTLists.$valid, 'has-error' : editMissionList.PTLists.$showError && editMissionList.PTLists.$hasError()}">
+        <div class="col-sm-7">
+
+          <ul class="list-group scrollable-list">
+            <li class="list-group-item" ng-repeat="teamlist in teamLists">
+              <label class="checkbox-inline">
+                <input ng-checked="ListInternal.members.indexOf(teamlist.id) > -1" ng-click="toggleSelection(teamlist.id)" type="checkbox" value="{{teamlist.id}}">
+                {{teamlist.firstName+" "+teamlist.lastName}}
+              </label>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+          <button class="btn btn-primary" ng-click="submitMissionInternal()" type="submit" aet-has-permission="EDIT_PT_LIST">
+            Save
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>

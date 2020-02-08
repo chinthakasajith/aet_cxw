@@ -1,0 +1,14 @@
+<div class="starter-template">
+  <div class=" thank-screen">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="row" ng-show="feedbackResponse.logoUrl">
+          <img alt="cxworkout" class="logo" ng-src="{{feedbackResponse.logoUrl}}">
+        </div>
+        <div class="row">
+          <span>{{feedbackResponse.thankYouMsg}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+.panel{
+  &.panel-default, &.panel-success, &.panel-danger {
+    .panel-heading {
+      background-image: inherit;
+    }
+  }
+}

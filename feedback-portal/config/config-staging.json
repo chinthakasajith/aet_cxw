@@ -1,0 +1,4 @@
+{
+	"apiBaseUrl": "http://cxworkout.aeturnum.com",
+	"s3bucket" : "cxworkoutstage"
+}

@@ -1,0 +1,4 @@
+{
+	"apiBaseUrl": "http://beta.cxworkout.com",
+	"s3bucket" : "cxworkoutbeta"
+}

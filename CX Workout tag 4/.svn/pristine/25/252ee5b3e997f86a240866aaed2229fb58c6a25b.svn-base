@@ -1,0 +1,200 @@
+(function(module) {
+
+  module.controller('CreateListsCustomerController', ['$scope', '$rootScope', 'ListCustomer', 'userDetails', 'listCustomerService', 'alertsService', '$modal', '$state', '$log', 'modalService', 'CSVDataObject', 'modalService',
+    function($scope, $rootScope, ListCustomer, userDetails, listCustomerService, alertsService, $modal, $state, $log, modalService, CSVDataObject, modalService) {
+
+      $scope.listCustomer = new ListCustomer();
+      $scope.listCustomer.creatorId = userDetails.getUserId();
+
+      $scope.emailList = {};
+      $scope.emailList.uniqueUsers = [];
+      $scope.emailList.duplicateUsers = [];
+      $scope.emailList.invalidUsers = [];
+
+      $scope.uniqueDisplayed = 25;
+      $('.infinite-scroll').on('scroll', function() {
+        if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
+          $scope.uniqueDisplayed += 25;
+          $scope.$apply();
+        }
+      })
+
+      $scope.$watch('fileContent', function() {
+        if (angular.isDefined($scope.fileContent)) {
+          sendCSVFile();
+        }
+      });
+
+      $scope.isValidList = function() {
+        var isValidList = false;
+
+        if ($scope.emailList.uniqueUsers.length > 0 && angular.isDefined($scope.listCustomer.title)) {
+          isValidList = true;
+          angular.forEach($scope.emailList.uniqueUsers,function(uniqueUser,uniqueUserKey){
+            if (angular.isUndefined(uniqueUser.firstName)) {
+              isValidList = false;
+            }
+          });
+        }
+        return isValidList;
+      }
+
+
+
+      function getFullList(data) {
+        var list = angular.copy(data.uniqueUsers);
+        angular.forEach($scope.emailList.duplicateUsers, function(duplicateData, duplicateDataKey) {
+          angular.forEach(duplicateData.users, function(user, userKey) {
+            list.push(user);
+          });
+        });
+        return list;
+      }
+
+      var CSVDataObject = new CSVDataObject();
+
+      var sendCSVFile = function() {
+        $rootScope.showLoader("Processing CSV...");
+
+        CSVDataObject.csvContent = angular.toJson($scope.fileContent).replace(/(^"|"$)/g, '');
+        CSVDataObject.externalUsers = $scope.emailList.uniqueUsers;
+        angular.forEach($scope.emailList.duplicateUsers, function(duplicateData, duplicateDataKey) {
+          angular.forEach(duplicateData.users, function(user, userKey) {
+            CSVDataObject.externalUsers.push(user);
+          });
+        });
+        angular.forEach($scope.emailList.invalidUsers, function(invalidData, invalidDataKey) {
+            CSVDataObject.externalUsers.push(invalidData);
+        });
+
+        listCustomerService.uploadExternalUsers(CSVDataObject).then(function(retrivalObjects) {
+          $scope.emailList = angular.copy(retrivalObjects);
+          $rootScope.hideLoader();
+        }, function(err) {
+          $rootScope.hideLoader();
+        });
+
+      }
+
+      var sendManuallyAddedRow = function(manuallyAddedRecord) {
+        $rootScope.showLoader("Processing email...");
+
+        var externalUsersObject = new Object();
+        externalUsersObject.externalUsers = angular.copy($scope.emailList.uniqueUsers);
+        externalUsersObject.externalUsers.push(manuallyAddedRecord);
+        angular.forEach($scope.emailList.duplicateUsers, function(duplicateData, duplicateDataKey) {
+          angular.forEach(duplicateData.users, function(user, userKey) {
+            externalUsersObject.externalUsers.push(user);
+          });
+        });
+        angular.forEach($scope.emailList.invalidUsers, function(invalidData, invalidDataKey) {
+            externalUsersObject.externalUsers.push(invalidData);
+        });
+
+        listCustomerService.uploadExternalUsers(externalUsersObject).then(function(retrivalObjects) {
+          //$scope.csvDatas = retrivalObjects.uniqueUsers;
+          //$scope.duplicateDatas = retrivalObjects.duplicateUsers;
+          $scope.emailList = angular.copy(retrivalObjects);
+          $rootScope.hideLoader();
+        }, function(err) {
+          $rootScope.hideLoader();
+        });
+
+
+      }
+
+      $scope.manuallyAddedRowValidation = function() {
+        var isManuallyAddingRecordButtonValidated = false;
+        if (angular.isDefined($scope.manuallyAddedFirstName) && angular.isDefined($scope.manuallyAddedEmailAddress)) {
+          isManuallyAddingRecordButtonValidated = true;
+        }
+        return isManuallyAddingRecordButtonValidated;
+      }
+
+      $scope.manullayAddRow = function(manuallyAddedFirstName, manuallyAddedLastName, manuallyAddedEmailAddress) {
+
+        var manuallyAddedObject = {
+          'firstName': manuallyAddedFirstName,
+          'lastName': manuallyAddedLastName,
+          'email': manuallyAddedEmailAddress
+        };
+
+        //$scope.emailList.uniqueUsers.push(manuallyAddedObject);
+        $scope.manuallyAddedFirstName = "";
+        $scope.manuallyAddedLastName = "";
+        $scope.manuallyAddedEmailAddress = "";
+
+        sendManuallyAddedRow(manuallyAddedObject);
+      }
+
+      $scope.resolveDuplicateValues = function(deletedDuplicateData) {
+        angular.forEach($scope.emailList.duplicateUsers, function(duplicateData, duplicateDataKey) {
+
+          var idx = duplicateData.users.indexOf(deletedDuplicateData);
+
+          // is currently selected
+          if (idx > -1) {
+            duplicateData.users.splice(idx, 1);
+          }
+
+          if (duplicateData.users.length === 1) {
+            $scope.emailList.uniqueUsers.push(duplicateData.users[0]);
+            duplicateData.users.splice(0, 1);
+          }
+
+        });
+
+      }
+
+      $scope.deleteUniqueRow = function(csvData) {
+
+        var idx = $scope.emailList.uniqueUsers.indexOf(csvData);
+        // is currently selected
+        if (idx > -1) {
+          $scope.emailList.uniqueUsers.splice(idx, 1);
+        }
+      }
+
+      $scope.deleteDuplicateRow = function(bundleIndex, recordIndex) {
+        $scope.emailList.duplicateUsers[bundleIndex].users.splice(recordIndex, 1);
+        if ($scope.emailList.duplicateUsers[bundleIndex].users.length == 1) {
+          $scope.emailList.uniqueUsers.push($scope.emailList.duplicateUsers[bundleIndex].users[0]);
+          $scope.emailList.duplicateUsers[bundleIndex].users.splice(0, 1);
+          $scope.emailList.duplicateUsers.splice(bundleIndex, 1);
+        }
+      }
+
+
+      $scope.submitListCustomer = function() {
+
+        $scope.listCustomer.externalUsers = $scope.emailList.uniqueUsers;
+
+        if ($scope.emailList.duplicateUsers.length > 0 || $scope.emailList.invalidUsers.length > 0) {
+          var modalInstance = modalService.externalListDuplicateValidation($scope.emailList.duplicateUsers.length, $scope.emailList.invalidUsers.length);
+          modalInstance.result.then(function(result) {
+            if (result.save === true) {
+              saveList();
+            }
+          });
+        } else {
+          saveList();
+        }
+      }
+
+      function saveList() {
+        listCustomerService.createlistCustomer($scope.listCustomer).then(function(data) {
+          alertsService.addAlert({
+            title: 'Success',
+            message: 'List Customer "' + $scope.listCustomer.title + '" successfully created',
+            type: 'success',
+            removeOnStateChange: 2
+          });
+          $state.go('index.secured.listscustomer.search');
+        }, function(err) {
+          //console.error('Could not create project', err);
+        });
+      }
+    }
+  ]);
+
+})(angular.module('aet.screens.listscustomer'));

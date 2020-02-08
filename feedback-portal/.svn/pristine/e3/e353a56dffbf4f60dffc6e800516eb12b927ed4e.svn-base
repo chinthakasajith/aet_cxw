@@ -1,0 +1,32 @@
+(function() {
+
+  angular.element(document).ready(function() {
+    angular.bootstrap(document, [
+      'aet.bootstrap'
+    ]);
+  });
+
+})(angular.module('aet.bootstrap', [
+  // angular modules
+  'ui.router',
+  'ui.scrollfix',
+  'ngCookies',
+  'LocalStorageModule',
+  'ui.bootstrap',
+  'ngAnimate',
+  'angularAwesomeSlider',
+
+  // application modules
+   'aet.domain',
+   'aet.endpoint',
+   'aet.alerts',
+   'aet.config',
+   'ecs-upload',
+
+  // directives
+
+  // screens
+  'aet-screens-mission',
+  'aet-screens-thank'
+
+]));

@@ -1,0 +1,180 @@
+@media (min-width: 768px) {
+
+}
+@media (min-width: 992px) {
+
+}
+@media (min-width: 1200px) {
+
+}
+body {
+  background-color: #dfe2e3;
+  color: #33485d;
+}
+
+.mission {
+  div.missionheader {
+
+    background-color: #33485d;
+    color: #becad6;
+    padding: 20px;
+  }
+  .action-header {
+
+    background-color: #fff;
+    color: #33485d;
+    padding: 10px;
+  }
+  .formBodyDiv {
+
+    padding: 0;
+  }
+  .questionlist-header {
+    padding: 15px;
+    background-color: #dfe2e3;
+  }
+  .questionlist-body {
+    padding: 0;
+    .panel {
+      &.comments {
+        margin-top: 30px;
+      }
+      .smileyIconButtons {
+        text-align: center;
+        padding: 10px;
+      }
+      .smileyIconButtons a {
+        padding: 12px 12px 0;
+        margin-right: 20px;
+      }
+      .smileyIconButtons a:hover {
+        opacity: 1.0;
+      }
+      .smileyIconButtons a.icoPositive {
+        background: url("../../assets/images/icons/positive-smile-ico.png") no-repeat;
+        opacity: 0.5;
+      }
+      .smileyIconButtons a.icoNeutral {
+        background: url("../../assets/images/icons/neutral-smile-ico.png") no-repeat;
+        opacity: 0.5;
+      }
+      .smileyIconButtons a.icoNegative {
+        background: url("../../assets/images/icons/negative-smile-ico.png") no-repeat;
+        opacity: 0.5;
+      }
+      .smileyIconButtons a.icoPositiveSelected {
+        background: url("../../assets/images/icons/positive-smile-ico.png") no-repeat;
+        opacity: 1.0;
+      }
+      .smileyIconButtons a.icoNeutralSelected {
+        background: url("../../assets/images/icons/neutral-smile-ico.png") no-repeat;
+        opacity: 1.0;
+      }
+      .smileyIconButtons a.icoNegativeSelected {
+        background: url("../../assets/images/icons/negative-smile-ico.png") no-repeat;
+        opacity: 1.0;
+      }
+    }
+    .panel-default > .panel-heading {
+      color: inherit;
+      background-image: none;
+      background-color: #fff;
+      border-color: #dfe2e3;
+    }
+    .media-instruction {
+      margin-top: 0;
+      font-family: 'Arial';
+      font-size: 12pt;
+      padding: 20px 0;
+    }
+    .question {
+      margin-top: 0;
+      font-family: 'Arial';
+      font-size: 12pt;
+      font-style: normal;
+    }
+  }
+  .questionlist-footer {
+    padding: 15px;
+  }
+  .logo {
+    margin: 10px 15px 0;
+    max-height: 55px;
+  }
+  .tab-set {
+    .list-group {
+
+    }
+  }
+  .tab-body {
+    label {
+      font-weight: normal;
+    }
+    .item {
+      .mission-header {
+        margin-top: 0;
+        margin-bottom: 0;
+        text-align: justify;
+        font-family: 'Arial';
+
+      }
+      p {
+        margin-bottom: 0;
+        font-family: 'Arial';
+        font-size: 10pt;
+      }
+    }
+  }
+
+  .jslider {
+    min-height: 30px;
+    margin-top: 15px;
+    margin-left: 10px;
+
+    div.jslider-scale span:nth-child(4) ins .ratingLabel {
+
+      left: -16px;
+      position: relative;
+      text-align: center;
+    }
+    div.jslider-scale span:nth-child(6) ins .ratingLabel {
+
+    }
+    div.jslider-scale ins {
+      left: -3px;
+      font-size: 10pt;
+      font-family: 'Arial';
+
+      // div.title-mar-left-10 {
+      //   margin-left: -10px;
+      // }
+    }
+    .jslider-value {
+      visibility: hidden;
+    }
+    .jslider-pointer {
+      top: -7px;
+      left: 15px;
+      width: 20px;
+      height: 20px;
+      margin-left: -9px;
+    }
+  }
+  .form-control {
+    height: inherit;
+    padding-right: 42.5px !important;
+  }
+  .overflow-hide {
+    overflow: hidden;
+  }
+  .noPaddingLeftRight {
+    padding: 0;
+  }
+  div.form-group {
+    background-color: #f9f9f9;
+    border: 1px solid #dfe2e3;
+
+    padding: 10px 0 80px;
+    margin: 10px 0;
+  }
+}

@@ -1,0 +1,11 @@
+aside.sidebar {
+	position: fixed;
+	background-color: @admin-nav-bgColor;
+	padding: 0;
+	width: @left-sidebar-width;
+	top: @navbar-brand-height;
+	bottom: 0;
+	overflow-y: auto;
+  	z-index: 95;
+	.shadow(0, 0, 10px, 0, rgba(0, 0, 0, 0.3));
+}

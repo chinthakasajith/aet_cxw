@@ -1,0 +1,386 @@
+<h1 class="page-header">
+  Update Employee Mission
+</h1>
+
+<div class="row mission-landing" ng-init="forceRenderToolTip()">
+  <form class="form-horizontal" name="createMissionInternalFirst" novalidate>
+    <div class=" col-sm-6">
+      <fieldset ng-disabled="isStatus('Closed')|| isStatus('Live')">
+        <div class="form-group has-feedback required" ng-class="{'has-success' : createMissionInternalFirst.title.$valid,'has-error' : createMissionInternalFirst.title.$showError && createMissionInternalFirst.title.$hasError()}">
+          <label class="col-sm-5 control-label" for="title">Mission Title
+            <div class="tooltip-custom">
+              <span class="tooltip-hover" data-content="This is for internal use only."><img alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+            </div>
+          </label>
+          <div class="col-sm-6">
+            <input aria-describedby="inputSuccess2Status" class="form-control" id="title" name="title" ng-maxlength="255" ng-model="mission.title" placeholder="The Mission Title ..." required type="text"/>
+            <div class="error" ng-show="createMissionInternalFirst.title.$showError">
+              <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : createMissionInternalFirst.title.$showError && createMissionInternalFirst.title.$hasError()}"></span>
+              <p class="text-danger" ng-show="createMissionInternalFirst.title.$error.required">Mission Title is required.</p>
+              <p class="text-danger" ng-show="createMissionInternalFirst.title.$error.maxlength">Mission Title must be 255 characters or less</p>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="copy-mission">
+        <button aet-has-permission="COPY_MISSION" class="btn btn-primary" ng-click="copyMission(mission)" type="submit">
+          Copy Mission
+        </button>
+      </div>
+
+      <fieldset ng-disabled="isStatus('Closed')|| isStatus('Live')">
+        <div class="form-group has-feedback required" ng-class="{ 'has-success' : createMissionInternalFirst.startDate.$valid, 'has-error' : createMissionInternalFirst.startDate.$showError && createMissionInternalFirst.startDate.$hasError()}">
+          <label class="col-sm-5 control-label" for="startDate">Start Date
+            <div class="tooltip-custom">
+              <span class="tooltip-hover" data-content="When ready to launch a Mission, change the date to today (to send immediately) or choose a future delivery date."><img alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+            </div>
+          </label>
+          <div class="col-sm-6">
+            <p class="input-group">
+              <input class="form-control" close-text="Close" datepicker-options="dateOptions" datepicker-popup="{{format}}" is-open="startDatePickerOpened" max-date="'2020-06-22'" min-date="minStartdDate" ng-change="onStartDateChange()" ng-model="mission.startDate" required type="text"/>
+              <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="openStartDatePicker($event)" type="button">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+              </span>
+            </p>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset ng-disabled="isStatus('Closed')">
+        <div class="form-group has-feedback required" ng-class="{ 'has-success' : createMissionInternalFirst.endDate.$valid, 'has-error' : createMissionInternalFirst.endDate.$showError && createMissionInternalFirst.endDate.$hasError()}">
+          <label class="col-sm-5 control-label" for="endDate">End Date
+            <div class="tooltip-custom">
+              <span class="tooltip-hover" data-content="Make sure to allow enough time for your initial invitation, reminder invitation, and resulting participation."><img alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+            </div>
+          </label>
+          <div class="col-sm-6">
+            <p class="input-group">
+              <input class="form-control" close-text="Close" datepicker-options="dateOptions" datepicker-popup="{{format}}" is-open="endDatePickerOpened" max-date="'2020-06-22'" min-date="minEndDate" ng-model="mission.endDate" required type="text"/>
+              <span class="input-group-btn">
+                <button class="btn btn-default" ng-click="openEndDatePicker($event)" type="button">
+                  <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+              </span>
+            </p>
+          </div>
+        </div>
+      </fieldset>
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+          <button aet-has-permission="EDIT_EMPLOYEE_MISSION" class="btn btn-primary" ng-click="validateAndUpdate('save')" ng-disabled="createMissionInternalFirst.$invalid || isStatus('Closed')" type="submit">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form class="form-horizontal" id="updateForm" name="createMissionInternal" novalidate>
+
+    <div class="col-sm-12">
+      <div id="navigation">
+        <button id="step-one" ng-class="{ passed: step == 1 }" ng-click="validateAndUpdate('root')" ng-disabled="createMissionInternalFirst.$invalid">
+          <span aria-hidden="true" ng-class="{ 'iconCheckbox' : isValidAction(),'iconRemove' : !isValidAction()}"></span>
+          <div class="buttonTextLabel">Choose
+            <br>
+            Action</div>
+          <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <button id="step-two" ng-class="{ passed: step == 2 }" ng-click="validateAndUpdate('action')" ng-disabled="createMissionInternalFirst.$invalid">
+          <span aria-hidden="true" ng-class="{ 'iconCheckbox' : isValidAssignment(),'iconRemove' : !isValidAssignment()}"></span>
+          <div class="buttonTextLabel">Mission
+            <br>
+            Assignment</div>
+          <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <button id="step-three" ng-class="{ passed: step == 3 }" ng-click="validateAndUpdate('assignment')" ng-disabled="createMissionInternalFirst.$invalid">
+          <span aria-hidden="true" ng-class="{ 'iconCheckbox' : isValidMessages(),'iconRemove' : !isValidMessages()}"></span>
+          <div class="buttonTextLabel oneLine">Messages</div>
+          <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <button id="step-four" ng-class="{ passed: step == 4 }" ng-click="validateAndUpdate('messages')" ng-disabled="createMissionInternalFirst.$invalid">
+          <span aria-hidden="true" ng-class="{ 'iconCheckbox' : isValidSelectParticipants(),'iconRemove' : !isValidSelectParticipants()}"></span>
+          <div class="buttonTextLabel">Select
+            <br>Participants</div>
+          <span class="glyphicon glyphicon-arrow-right"></span>
+        </button>
+        <button id="step-five" ng-class="{ passed: step == 5 }" ng-click="validateAndUpdate('participants')" ng-disabled="createMissionInternalFirst.$invalid">
+          <span class="emptyIcon"></span>
+          <div class="buttonTextLabel">Preview &amp;<br>
+            Send</div>
+          <span class="emptyIcon"></span>
+        </button>
+      </div>
+      <fieldset ng-disabled="isStatus('Closed')|| isStatus('Live')" ng-show="step == 1">
+        <div class="form-group col-sm-10 defaultscroll has-feedback required" style="margin-left: initial;">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Position</th>
+                <th>Stage</th>
+                <th>Touchpoint</th>
+                <th>Action</th>
+                <!-- <th>expectation</th>
+                <th>value</th>
+                <th>emotion</th>
+                <th>frequency</th>
+                <th>loyalty</th> -->
+                <th ng-hide="sortType=='position'">Score</th>
+              </tr>
+            </thead>
+            <tr ng-repeat="stage in stages | orderBy:sortType">
+              <td>
+                <input name="selectedAction" ng-model="stage.checked" type="checkbox">
+              </td>
+              <td>
+                {{stage.position}}
+              </td>
+              <td>
+                <label>{{stage.stage }}</label>
+              </td>
+              <td>
+                {{ stage.touchpoint }}
+              </td>
+              <td>
+                {{ stage.action.title }}
+              </td>
+              <!-- <td>{{ stage.action.feedbackSummary.EMPLOYEES.chartSummary.expectation.averageAnswer }}</td>
+              <td>{{ stage.action.feedbackSummary.EMPLOYEES.chartSummary.value.averageAnswer }}</td>
+              <td>{{ stage.action.feedbackSummary.EMPLOYEES.chartSummary.emotion.averageAnswer }}</td>
+              <td>{{ stage.action.feedbackSummary.EMPLOYEES.chartSummary.frequency.averageAnswer }}</td>
+              <td>{{ stage.action.feedbackSummary.EMPLOYEES.chartSummary.loyalty.averageAnswer }}</td> -->
+              <td ng-hide="sortType=='position'">
+                <div class="circle" ng-class="scoreColor(stage,sortType)"></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-sm-12">
+          <label class="col-sm-1 control-label">Sort By</label>
+          <div class="col-sm-6 sort-by-label radio">
+            <label><input ng-model="sortType" ng-value="'action.feedbackSummary.EMPLOYEES.chartSummary.expectation.averageAnswer'" type="radio">Expectation (Low to High)</label>
+            <label ng-show="projectData.curveType !== 'EMOTION'"><input ng-model="sortType" ng-value="'action.feedbackSummary.EMPLOYEES.chartSummary.value.averageAnswer'" type="radio">Value (Low to High)</label>
+            <label ng-show="projectData.curveType === 'EMOTION'"><input ng-model="sortType" ng-value="'action.feedbackSummary.EMPLOYEES.chartSummary.emotion.averageAnswer'" type="radio">Emotion (Low to High)</label>
+            <label><input ng-model="sortType" ng-value="'action.feedbackSummary.EMPLOYEES.chartSummary.frequency.averageAnswer'" type="radio">Frequency (Low to High)</label>
+            <label><input ng-model="sortType" ng-value="'action.feedbackSummary.EMPLOYEES.chartSummary.loyalty.averageAnswer'" type="radio">Loyality (Low to High)</label>
+            <label><input ng-model="sortType" ng-value="'position'" type="radio">Reset to Default View</label>
+          </div>
+          <div class="col-sm-3">
+            <ul class="legend-collapse">
+              <li>
+                <b ng-click="sortingLegend = !sortingLegend">View Sorting Legend
+                  <span class="glyphicon" ng-class="{'glyphicon-menu-up' : sortingLegend, 'glyphicon-menu-down' : !sortingLegend}"></span>
+                </b>
+              </li>
+              <ul collapse="sortingLegend">
+                <li>
+                  Red dot : Action score 1 to 2.9
+                </li>
+                <li>
+                  Gray dot : Action score 3 to 3.9
+                </li>
+                <li>
+                  Green dot : Action score 4 to 5
+                </li>
+                <li>
+                  White dow : has no Mission data
+                </li>
+              </ul>
+          </ul>
+        </div>
+        <div class="col-sm-2" style="top: 50px;">
+          <button class="btn btn-primary" ng-click="validateAndUpdate('action')">Next Step</button>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset ng-disabled="isStatus('Closed')|| isStatus('Live')" ng-show="step == 2">
+      <div class="form-group has-feedback required" ng-class="{ 'has-error' : !isValidAction()}">
+        <div class="error" ng-show="!isValidAction()">
+          <p class="text-danger" ng-show="!isValidAction()" style="color:white">Action is required.</p>
+        </div>
+        <ul class="list-group defaultscroll">
+          <li class="list-group-item" ng-init="forceRenderToolTip()" ng-repeat="missionaction in mission.missionActions">
+            <ng-form name="createMissionInternal">
+              <div class="form-group has-feedback required" ng-class="{ 'has-error' : !missionaction.actionHeader || missionaction.actionHeader.length >750}">
+                <label class="col-sm-3 control-label" for="header">Misson Header
+                  <div class="tooltip-custom">
+                    <span class="tooltip-hover" data-content="The header appears at the top of each Action in your Mission. Use it to provide an overview of the experience you want the Participant to evaluate."><img alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+                  </div>
+                </label>
+                <div class="col-sm-6">
+                  <input aria-describedby="inputSuccess2Status" class="form-control" id="header" name="header" ng-model="missionaction.actionHeader" placeholder="Header Text ..." required type="text"/>
+                  <div class="error" ng-show="!missionaction.actionHeader || missionaction.actionHeader.length >750">
+                    <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : !missionaction.actionHeader || missionaction.actionHeader.length >750}"></span>
+                    <p class="text-danger" ng-show="missionaction.actionHeader.length > 750">Header Text must be 750 characters or less</p>
+                    <p class="text-danger" ng-show="!missionaction.actionHeader ">Header Text is required.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-3 control-label" for="name">Action Item</label>
+                <div class="col-sm-6">
+                  <input class="form-control" id="action" name="action" ng-disabled="true" ng-model="missionaction.action.title" placeholder="Action Text ..." type="text"/>
+                </div>
+              </div>
+              <div class="form-group">
+                <input ng-model="missionaction.isMediaIncluded" type="checkbox"/>
+                <label class="col-sm-3 control-label" for="upload">Include Media Upload</label>
+              </div>
+              <span class="animate-if" ng-if="missionaction.isMediaIncluded" ng-init="forceRenderToolTip()">
+                <div class="form-group has-feedback required" ng-class="{ 'has-error' : !missionaction.mediaIncludedMessage || missionaction.mediaIncludedMessage.length >750}">
+                  <label class="col-sm-3 control-label" for="instruction">Media Instructions
+                    <div class="tooltip-custom">
+                      <span class="tooltip-hover" data-content="Use this area to specify the kind of feedback you would like (format and content). Audio, video or images can be uploaded by Participants. See the <a href='assets/files/PT_Mission_Preview_EXAMPLE_Value_Q.pdf' target='_blank'>Mission example<a/> or Preview step for Mission layout and elements."><img alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+                    </div>
+                  </label>
+                  <div class="col-sm-6">
+                    <input aria-describedby="inputSuccess2Status" class="form-control" id="instruction" name="instruction" ng-model="missionaction.mediaIncludedMessage" ng-required="missionaction.isMediaIncluded" placeholder="Instructions ..." type="text"/>
+                    <div class="error" ng-show="!missionaction.mediaIncludedMessage || missionaction.mediaIncludedMessage.length >750">
+                      <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : !missionaction.mediaIncludedMessage || missionaction.mediaIncludedMessage.length >750}"></span>
+                      <p class="text-danger" ng-show="!missionaction.mediaIncludedMessage">Instructions are required.</p>
+                      <p class="text-danger" ng-show="missionaction.mediaIncludedMessage.length > 750">Instructions Text must be 750 characters or less</p>
+                    </div>
+                  </div>
+                </div>
+              </span>
+            </ng-form>
+          </li>
+        </ul>
+        <div class="col-sm-10">
+          <button class="btn btn-default" ng-click="prevStep()">Previous Step</button>
+          <button class="btn btn-primary" ng-click="validateAndUpdate('assignment')">Next Step</button>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset id="messagesFields" ng-disabled="isStatus('Closed')|| isStatus('Live')" ng-show="step == 3">
+      <div class="form-group has-feedback required" ng-class="{ 'has-success' : createMissionInternal.welcomeSubjectLine.$valid,'has-error' : createMissionInternal.welcomeSubjectLine.$showError && createMissionInternal.welcomeSubjectLine.$hasError()}">
+        <label class="col-sm-2 control-label" for="welcomeSubjectLine">Mission Email
+          <div class="tooltip-custom">
+            <span class="tooltip-hover" data-content="This is your initial invitation to the Participant. The email automatically includes Dear {first name}, then your message and two links allowing them to accept or decline participation. Don't forget to write a compelling subject line."><img alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+          </div>
+        </label>
+        <div class="col-sm-7">
+          <input aria-describedby="inputSuccess2Status" class="form-control" id="welcomeSubjectLine" name="welcomeSubjectLine" ng-model="mission.missionEmailTitle" placeholder="Subject Line ..." required type="text"/>
+          <div class="error" ng-show="createMissionInternal.welcomeSubjectLine.$showError">
+            <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : createMissionInternal.welcomeSubjectLine.$showError && createMissionInternal.welcomeSubjectLine.$hasError()}"></span>
+            <p class="text-danger" ng-show="createMissionInternal.welcomeSubjectLine.$error.required">Subject Line required.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group has-feedback required" ng-class="{ 'has-success' : createMissionInternal.welcome.$valid,'has-error' : createMissionInternal.welcome.$showError && createMissionInternal.welcome.$hasError()}">
+        <div class="col-sm-offset-2 col-sm-7">
+          <div id="welcome" name="welcome" ng-model="mission.missionEmail" required text-angular></div>
+          <div class="error" ng-show="createMissionInternal.welcome.$showError">
+            <span aria-hidden="true" class="form-control-feedback"></span>
+            <p class="text-danger" ng-show="createMissionInternal.welcome.$error.required">Mission email body required.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group has-feedback required" ng-class="{ 'has-success' : createMissionInternal.reminderSubjectLine.$valid,'has-error' : createMissionInternal.reminderSubjectLine.$showError && createMissionInternal.reminderSubjectLine.$hasError()}">
+        <label class="col-sm-2 control-label" for="reminder">Reminder Email
+          <div class="tooltip-custom">
+            <span class="tooltip-hover" data-content="To increase your participation rate, draft and schedule a reminder message. This is required. Please feel free to edit the copy in this section."><img alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+          </div>
+        </label>
+        <div class="col-sm-7">
+          <input class="form-control" id="reminderSubjectLine" name="reminderSubjectLine" ng-model="mission.reminderEmailTitle" required type="text"/>
+          <div class="error" ng-show="createMissionInternal.reminderSubjectLine.$showError">
+            <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : createMissionInternal.reminderSubjectLine.$showError && createMissionInternal.reminderSubjectLine.$hasError()}"></span>
+            <p class="text-danger" ng-show="createMissionInternal.reminderSubjectLine.$error.required">Subject Line required.</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-group has-feedback required" ng-class="{ 'has-success' : createMissionInternal.reminder.$valid,'has-error' : createMissionInternal.reminder.$showError && createMissionInternal.reminder.$hasError()}">
+        <div class="col-sm-offset-2 col-sm-7">
+          <div id="reminder" name="reminder" ng-model="mission.reminderEmail" required text-angular></div>
+          <div class="error" ng-show="createMissionInternal.reminder.$showError">
+            <span aria-hidden="true" class="form-control-feedback"></span>
+            <p class="text-danger" ng-show="createMissionInternal.reminder.$error.required">Reminder email body required.</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-group has-feedback form required" ng-class="{ 'has-success' : createMissionInternal.reminderDays.$valid  ,'has-error' : ((createMissionInternal.reminderDays.$showError && createMissionInternal.reminderDays.$hasError())|| !isValidReminderDate())}">
+        <label class="col-sm-2 control-label" for="reminder">
+          Remind in</label>
+        <div class="col-sm-2">
+          <input class="form-control pull-left" id="reminderDays" name="reminderDays" ng-model="mission.remindInDays" required type="text"/>
+          <div class="error" ng-show="createMissionInternal.reminderDays.$showError || !isValidReminderDate()">
+            <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : ((createMissionInternal.reminderDays.$showError && createMissionInternal.reminderDays.$hasError())|| !isValidReminderDate())}"></span>
+            <p class="text-danger" ng-show="createMissionInternal.reminderDays.$error.required">Reminder days required.</p>
+            <p class="text-danger" ng-show="createMissionInternal.reminderDays.$error.maxlength">Reminder days must be 3 digits or less.</p>
+            <p class="text-danger" ng-show="createMissionInternal.reminderDays.$error.pattern">This doesn't seem to be a number.</p>
+            <p class="text-danger" ng-show="createMissionInternal.reminderDays.$error.invalidDays">Cannot exceed end Date.</p>
+            <p class="text-danger" ng-show="createMissionInternal.reminderDays.$error.isZero">Cannot be zero.</p>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <p class="form-control-static">days</p>
+        </div>
+      </div>
+      <div class="form-group has-feedback required" ng-class="{ 'has-success' : createMissionInternal.thankYouMessage.$valid,'has-error' : createMissionInternal.thankYouMessage.$showError && createMissionInternal.thankYouMessage.$hasError()}">
+        <label class="col-sm-2 control-label" for="thankyou">Thank You Message
+          <div class="tooltip-custom">
+            <span class="tooltip-hover" data-content="This will appear on screen after the Participant submits their completed Mission."><img alt="Help" src="assets/images/cx-workout_tooltip-icon_16px.png"/></span>
+          </div>
+        </label>
+        <div class="col-sm-7">
+          <input class="form-control" id="thankYouMessage" name="thankYouMessage" ng-model="mission.thankYouMessage" required type="text"/>
+          <div class="error" ng-show="createMissionInternal.thankYouMessage.$showError">
+            <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : createMissionInternal.thankYouMessage.$showError && createMissionInternal.thankYouMessage.$hasError()}"></span>
+            <p class="text-danger" ng-show="createMissionInternal.thankYouMessage.$error.required">Thank You Message required.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-group has-feedback">
+        <div class="col-sm-8">
+          <button class="btn btn-default" ng-click="prevStep()">Previous Step</button>
+          <button class="btn btn-primary" ng-click="validateAndUpdate('messages')">Next Step</button>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset ng-disabled="isStatus('Closed')|| isStatus('Live')" ng-show="step == 4">
+      <div class="form-group has-feedback required" ng-class="{ 'has-error' : isSelectParticipantsValidated || selectedTeamList.length==0}">
+        <label class="col-sm-3 control-label" for="test">Employee List
+        </label>
+        <div class="col-sm-6 wall defaultscroll">
+          <ul class="list-group">
+            <li class="list-group-item" ng-repeat="team in teamLists">
+              <label class="checkbox-inline">
+                <input ng-model="mission.list" ng-value="team" type="radio">
+                {{team.title}}
+              </label>
+            </li>
+            <div class="error" ng-show="isSelectParticipantsValidated || selectedTeamList.length==0">
+              <span class="text-danger" ng-show="isSelectParticipantsValidated || selectedTeamList.length==0" style="color:white">Employee List is required</span>
+            </div>
+          </ul>
+        </div>
+        <button class="btn btn-default margin20" ng-click="addProjectTeam()">Create List</button>
+        <div class="col-sm-9">
+          <button class="btn btn-default" ng-click="prevStep()">Previous Step</button>
+          <button class="btn btn-primary" ng-click="validateAndUpdate('participants')">Next Step</button>
+        </div>
+      </div>
+    </fieldset>
+    <div ng-include src="'src/screens/missionsemployee/templates/preview.html'"></div>
+  </div>
+</form>
+</div>
+<script>
+$('body').on('mouseenter', '.ta-toolbar.btn-toolbar .btn-custom-group :enabled', function() {
+  $(this).addClass('open');
+  $(this).children('button').css('pointer-events', 'none');
+});
+
+$('body').on('mouseleave', '.ta-toolbar.btn-toolbar .btn-custom-group', function() {
+  $(this).removeClass('open');
+});
+</script>

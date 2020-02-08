@@ -1,0 +1,41 @@
+(function(module) {
+
+  module.config(['$stateProvider',
+    function($stateProvider) {
+
+      $stateProvider
+        .state('index', {
+          abstract: true,
+          url: '',
+          views: {
+            'body': {
+              template: '<ui-view></ui-view>'
+            },
+
+          },
+
+        })
+        .state('index.mission', {
+          url: '/mission?token=:tokenId',
+          templateUrl: 'src/screens/mission/templates/mission.html',
+          controller: 'MissionController',
+          data: {
+            selectedTab: "Mission"
+          },
+          resolve: {
+            missionQuestions: ['missionQuestionService', '$stateParams', '$state', function(missionQuestionService, $stateParams, $state) {
+              var missionQuestionsData = missionQuestionService.findMissionQuestion($stateParams.token);
+              if (angular.equals(missionQuestionsData.status, "COMPLETED")) {
+                $state.go('index.thank', {
+                  token: $stateParams.token
+                });
+              }  else {
+                  return missionQuestionsData;
+              }
+            }]
+          }
+        })
+    }
+  ]);
+
+})(angular.module('aet-screens-mission'));

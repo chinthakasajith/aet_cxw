@@ -1,0 +1,6 @@
+**/build/**/*
+**/node_modules/**/*
+**/tmp/**/*
+**/app/bower_components/**/*
+**/.project
+**/docs/**/*

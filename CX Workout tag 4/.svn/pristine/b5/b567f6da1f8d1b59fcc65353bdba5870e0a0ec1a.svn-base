@@ -1,0 +1,177 @@
+<div class="alert alert-info text-center col-sm-12" role="alert" ng-show="data.stages.length < 1 && mapType == 'view'">
+  <strong>Click <a ui-sref="index.secured.mapedit">Create/Edit</a> under Map on the left navigation bar to start building your Map.</strong>
+</div>
+
+<div class="hierarchy-map-main-container" >
+  <div class="labels-container" ng-hide="data.stages.length < 1">
+    <ul class="main-labels">
+      <li class="stage main-label"><canvas width="42" map-label height="84" label="Stages"></canvas></li>
+      <li class="has-icons main-label"><canvas width="42" map-label height="134" label="Touchpoints"></canvas></li>
+      <li class="has-icons" ng-class="actionCtrl === 'Show Actions by Channel' || export === true ? 'action ' : 'main-label'">
+        <canvas width="42" map-label height="134" label="Actions"></canvas>
+      </li>
+      <li class="has-icons"
+          ng-repeat="channel in data.channels | limitTo: data.channels.length -1"
+          ng-show="actionCtrl === 'Show Actions by Channel' || export"></li>
+    </ul>
+    <ul class="channel-labels">
+      <li class="stage main-label"></li>
+      <li class="has-icons main-label"></li>
+      <li class="has-icons main-label" ng-class="actionCtrl !== 'Show Actions by Channel' || export === false ? '' : ''"
+          ng-hide="actionCtrl === 'Show Actions by Channel' || export"></li>
+      <li class="has-icons"
+          ng-repeat="channel in data.channels"
+          ng-show="actionCtrl === 'Show Actions by Channel' || export">
+        <canvas width="42" map-label height="132" label="{{ channel.title }}"></canvas>
+      </li>
+    </ul>
+  </div>
+  <div class="tree map-view" ng-class="export ? 'export-map' : ''">
+    <ul class="root-container">
+      <li class="element-container stage"
+          ng-repeat="stage in data.stages">
+        <div class="node">
+          <div class="panel panel-default stage"
+               ng-class="{'panel-primary' : stage_index == stage.positionIndex}">
+            <div class="panel-body"
+                 ng-click="active(stage.positionIndex,0)">
+              <p>{{stage.positionIndex + 1}}</p>
+              <h4 class="stage-title">{{stage.title}}</h4>
+            </div>
+          </div>
+        </div>
+        <ul class="child-container"
+            ng-show="( stage_index == stage.positionIndex && stage.touchpoints.length > 0 ) || export">
+          <div class="vertical-line"></div>
+          <li class="element-container"
+              ng-repeat="touchpoint in stage.touchpoints">
+            <div class="vertical-line"></div>
+            <div class="line-to"></div>
+            <div class="node">
+              <div class="panel panel-default"
+                   ng-click="active(stage.positionIndex , touchpoint.positionIndex)"
+                   ng-class="[setNodeColor(HierarchyMapService.getMapType(touchpoint.avgAnswers).expAvgAns, HierarchyMapService.getMapType(touchpoint.avgAnswers).loyAvgAns), stage_index == stage.positionIndex && touchpoint_index == touchpoint.positionIndex ? 'panel-primary' : '']">
+                <div class="panel-body" ng-click="active(stage.positionIndex,0)">
+                  <p class="point-val">{{stage.positionIndex + 1}}.{{touchpoint.positionIndex + 1}} </p>
+                  <h4>{{touchpoint.title}}</h4>
+                  <div class="icons">
+                        <span class="icon"
+                              ng-show="HierarchyMapService.getMapType(touchpoint.media).hasMedia === 0 || HierarchyMapService.getMapType(touchpoint.media).hasMedia === 1">
+                          <i class="c-icon c-icon-map-media"
+                             ng-class="HierarchyMapService.getMapType(touchpoint.media).hasMedia === 1 ? 'new' : ''"></i>
+                        </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <span class="action-container" ng-show="actionCtrl === 'Show Full Map (Stages, Touchpoints, Actions)' && export === false">
+            <ul class="child-container"
+                ng-show="( stage_index == stage.positionIndex && touchpoint_index == touchpoint.positionIndex && stage.touchpoints[stage.touchpoints.indexOf(touchpoint)].actions.length > 0 ) || export">
+              <div class="vertical-line"></div>
+              <li action-chart class="element-container no_selection"
+                  ng-repeat="action in touchpoint.actions"
+                  ng-dblclick="actionDetails(action.positionIndex)">
+                <div class="vertical-line"></div>
+                <div class="line-to"></div>
+                <div class="node">
+                  <div class="panel panel-primary action"
+                       ng-class="setNodeColor(HierarchyMapService.getMapType(action.feedbackSummary).chartSummary.expectation.averageAnswer, HierarchyMapService.getMapType(action.feedbackSummary).chartSummary.loyalty.averageAnswer)">
+                    <div class="panel-body">
+                      <p class="point-val">{{stage.positionIndex + 1}}.{{touchpoint.positionIndex +
+                        1}}.{{action.positionIndex + 1}}</p>
+                      <h4 class="title">{{action.title}}</h4>
+                      <div class="icons">
+                        <span class="icon"
+                              ng-show="HierarchyMapService.getMapType(action.feedbackSummary).chartSummary.loyalty.averageAnswer >= 4 && HierarchyMapService.getMapType(action.feedbackSummary).chartSummary.loyalty.averageAnswer <= 5">
+                          <i class="c-icon c-icon-map-loyalty"></i>
+                        </span>
+                        <span class="icon"
+                              ng-show="HierarchyMapService.getMapType(action.feedbackSummary).mediaSummaries.length > 0">
+                          <i class="c-icon c-icon-map-media"
+                             ng-class="HierarchyMapService.getMapType(action.feedbackSummary).hasNewMedia === true ? 'new' : ''"></i>
+                        </span>
+                        <span class="icon hidden"
+                              ng-show="hasComments(HierarchyMapService.getMapType(action.feedbackSummary).commentSummaries)">
+                          <i class="c-icon c-icon-map-comment"
+                             ng-class="HierarchyMapService.getMapType(action.feedbackSummary).hasNewComment === true ? 'new' : ''">
+                          </i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="action-details"
+                       ng-show="action_index == action.positionIndex && !export">
+                    <action-summary
+                        action-data="action"
+                        stage-data="stage"
+                        touchpoint-data="touchpoint"
+                        average-color-fn="averageColor"
+                        close-action-details-fn="closeActionDetails"
+                        curve-type="{{ curveType }}">
+                    </action-summary>
+                  </div>
+                </div>
+              </li>
+
+            </ul>
+          </span>
+          <span class="channel-container fadeInUp" ng-show="actionCtrl === 'Show Actions by Channel' || export">
+            <ul class="child-container"
+                ng-show="stage_index == stage.positionIndex && touchpoint_index == touchpoint.positionIndex && stage.touchpoints[stage.touchpoints.indexOf(touchpoint)].actions.length > 0 || export">
+              <div class="vertical-line"></div>
+              <li class="element-container no_selection"
+                  ng-repeat="action in touchpoint.actions "
+                  set-channels
+                  channel="action.channel"
+                  channel-list="data.channels"
+                  ng-dblclick="actionDetails(action.positionIndex)">
+                <div class="vertical-line"></div>
+                <div class="line-h"></div>
+                <div class="line-to"></div>
+                <div class="node">
+                  <div class="panel panel-primary action"
+                       ng-class="setNodeColor(HierarchyMapService.getMapType(action.feedbackSummary).chartSummary.expectation.averageAnswer, HierarchyMapService.getMapType(action.feedbackSummary).chartSummary.loyalty.averageAnswer)">
+                    <div class="panel-body">
+                      <p class="point-val">{{stage.positionIndex + 1}}.{{touchpoint.positionIndex +
+                        1}}.{{action.positionIndex + 1}}</p>
+                      <h4 class="title">{{action.title}}</h4>
+                      <div class="icons">
+                        <span class="icon"
+                              ng-show="HierarchyMapService.getMapType(action.feedbackSummary).chartSummary.loyalty.averageAnswer >= 4 && HierarchyMapService.getMapType(action.feedbackSummary).chartSummary.loyalty.averageAnswer <= 5">
+                          <i class="c-icon c-icon-map-loyalty"></i>
+                        </span>
+                        <span class="icon"
+                              ng-show="HierarchyMapService.getMapType(action.feedbackSummary).mediaSummaries.length > 0">
+                          <i class="c-icon c-icon-map-media"
+                             ng-class="HierarchyMapService.getMapType(action.feedbackSummary).hasNewMedia === true ? 'new' : ''"></i>
+                        </span>
+                        <span class="icon hidden"
+                              ng-show="hasComments(HierarchyMapService.getMapType(action.feedbackSummary).commentSummaries)">
+                          <i class="c-icon c-icon-map-comment"
+                             ng-class="HierarchyMapService.getMapType(action.feedbackSummary).hasNewComment === true ? 'new' : ''">
+                          </i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="action-details"
+                       ng-show="action_index == action.positionIndex && !export">
+                    <action-summary
+                        action-data="action"
+                        stage-data="stage"
+                        touchpoint-data="touchpoint"
+                        average-color-fn="averageColor"
+                        close-action-details-fn="closeActionDetails"
+                        curve-type="{{ curveType }}">
+                    </action-summary>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

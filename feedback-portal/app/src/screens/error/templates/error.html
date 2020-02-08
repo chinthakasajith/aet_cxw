@@ -1,0 +1,16 @@
+<div class="error-screen">
+  <div class="panel">
+    <div class="panel-body">
+	    <div ng-if="errorType == 404">
+	    	<h4>Thank you for your interest, you are seeing this page due to one of the following reasons:</h4>
+	    	<ul>
+				<li> Project/Mission is no longer exist or expired</li>
+				<li> You are no longer a valid user</li>
+			</ul>
+	    </div>
+	    <div ng-if="errorType == 500">
+	    	<h4>There is a system failure, please try again later</h4>
+	    </div>
+    </div>
+  </div>
+</div>

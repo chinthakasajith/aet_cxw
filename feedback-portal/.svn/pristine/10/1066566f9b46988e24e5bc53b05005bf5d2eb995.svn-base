@@ -1,0 +1,25 @@
+.aet-modal {
+  .modal-header {
+    overflow: auto;
+    .btn {
+      float: right;
+      padding: 2px 4px 0;
+    }
+  }
+  &.tnc-modal{
+    .modal-header {
+
+    }
+    .modal-body{
+      .tnc{
+        height: 70px;
+        overflow: auto;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        p{
+          text-align: justify;
+        }
+      }
+    }
+  }
+}

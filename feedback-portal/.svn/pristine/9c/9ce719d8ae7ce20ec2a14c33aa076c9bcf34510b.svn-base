@@ -1,0 +1,35 @@
+(function(module) {
+
+  module.service('missionQuestionService', ['missionQuestionEndpoint', 'missionQuestionTransformer', '$q', '$log',
+    function(missionQuestionEndpoint, missionQuestionTransformer, $q, $log) {
+      this.findMissionQuestion = function(token) {
+        return missionQuestionEndpoint.findMissionQuestion(token).then(function(response) {
+          return missionQuestionTransformer.DTOToMissionQuestion(response.data);
+        }, function(err) {
+          console.log('missionQuestionService error ' + err);
+          return $q.reject(err);
+        });
+      };
+
+      this.updateMissionQuestion = function(missionquestion, send) {
+        var dto = missionQuestionTransformer.missionQuestionToUpdateDTO(missionquestion, send);
+        return missionQuestionEndpoint.updateMissionQuestion(dto).then(function(response) {
+          return response.data;
+        }, function(err) {
+          $log.debug("Could not update mission question", err);
+          return $q.reject(err);
+        });
+      };
+
+      this.getFinalThankYouMessage=function(token){
+        return missionQuestionEndpoint.getFinalThankYouMessage(token).then(function(response) {
+          return response.data;
+        }, function(err) {
+          $log.debug("Could not get last thank you message", err);
+          return $q.reject(err);
+        });
+      }
+    }
+  ]);
+
+})(angular.module('aet.domain.missionquestion'));

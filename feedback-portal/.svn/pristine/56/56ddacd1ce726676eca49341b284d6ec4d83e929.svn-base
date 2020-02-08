@@ -1,0 +1,12 @@
+<div class="thank-screen">
+  <div class="logo">
+    <div ng-show="feedbackResponse.logoUrl">
+      <img alt="cxworkout" ng-src="{{feedbackResponse.logoUrl}}">
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-body">
+      <p>{{feedbackResponse.thankYouMsg}}</p>
+    </div>
+  </div>
+</div>

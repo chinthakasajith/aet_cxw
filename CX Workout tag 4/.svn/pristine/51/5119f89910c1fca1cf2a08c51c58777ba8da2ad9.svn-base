@@ -1,0 +1,80 @@
+<h1 class="page-header" ng-hide="showExportHtml">
+  CX Journey Map
+</h1>
+<div class="export-header row" ng-show="showExportHtml">
+  <img class="min-logo float-left" ng-src="{{project.logoUrl}}" imageonload="imageReady()"/>
+
+  <div class="float-left">
+    <h1>CX Journey Map : {{project.title}}</h1>
+    <h4>Project leader :
+      <p class="inline" ng-repeat="leaders in project.projectLeaders">{{leaders.firstName}}
+      {{leaders.lastName}}{{$last ? '' : ', '}}
+      </p>
+    </h4>
+    <h4>Date : {{getDate() | date:'MM/dd/yyyy'}}</h4>
+  </div>
+</div>
+
+
+<div class="map-controllers" ng-hide="showExportHtml || mapData.stages.length < 1">
+
+  <div class="map-ctrl map-data-type">
+    <label class="radio-inline" for="customers">
+      <input id="customers" type="radio" name="mapDataType" ng-click="setMapType('CUSTOMERS')" value="CUSTOMERS" ng-model="mapCtrl.mapDataType"> Customer Map
+    </label>
+    <label class="radio-inline" for="employees">
+      <input id="employees" type="radio" name="mapDataType" ng-click="setMapType('EMPLOYEES')" value="EMPLOYEES" ng-model="mapCtrl.mapDataType"> Employee Map
+    </label>
+  </div>
+
+  <div class="map-ctrl action-type">
+    <select class="form-control"
+            ng-options="actionType for actionType in mapCtrl.actionTypes"
+            ng-model="selectedActionType">
+    </select>
+  </div>
+  <div class="map-ctrl create-mission">
+    <a type="button">Create Mission </a>
+  </div>
+  <div class="map-ctrl map-copy">
+    <a type="button" aet-has-permission="COPY_MAP" ng-click="copy()">Copy This Map</a>
+  </div>
+  <div class="map-ctrl map-share">
+    <a type="button">Share Map</a>
+  </div>
+
+  <div class="map-ctrl map-export">
+    <a id="btnSave" type="button" value="Export Map" ng-click="export()"
+           aet-has-permission="EXPORT_MAP" ng-show="mapData.stages.length > 0">Export Map </a>
+  </div>
+
+</div>
+<div class="clearfix mar-b-20"></div>
+<view-hierarchy-map
+    curve-type="{{ curveType }}"
+    map-type="view"
+    export="showExportHtml"
+    action-ctrl="selectedActionType"
+    class="map"
+    map-data-type="mapCtrl.mapDataType">
+</view-hierarchy-map>
+
+<div class="legend">
+  <a ng-click="legendClosed = !legendClosed" class="legend-title">Legend
+  	<span class="glyphicon" ng-class="{'glyphicon-collapse-up' : !legendClosed, 'glyphicon-collapse-down' : legendClosed}"></span>
+  </a>
+  <div ng-show="!legendClosed">
+	  <p class="legend-header">Colors on Touchpoints and Actions are driven by the data collected from Missions.</p>
+	  <ul class="legend-pointers">
+	    <li>A red item means there are high loyalty ratings (avg 4-5 points) and low ratings on meeting expectations (avg 1-2 points).</li>
+	    <li>A green item means there are high loyalty ratings (avg 4-5 points) and high ratings on meeting expectations (avg 4-5 points). </li>
+	    <li>A gray item means it doesn't meet the above conditions.</li>
+	    <li>A white item means it does not have Mission data collected.</li>
+	  </ul>
+	  <p class="legend-title">Icons</p>
+	  <div class="icon-legend">
+	    <span class="c-icon c-icon-map-media"><span class="text">The blue media icon appears where there has been an uploaded file collected from a Mission. (A blue media icon with a red dot means there is an item uploaded in the last 24 hours.)</span></span>
+	    <span class="c-icon c-icon-map-loyalty"><span class="text">The yellow loyalty icon means the loyalty ratings average 4-5 on the item. </span></span>
+	  </div>
+  </div>
+</div>

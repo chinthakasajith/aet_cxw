@@ -1,0 +1,111 @@
+<h1 class="page-header">
+  Edit Customer List
+</h1>
+
+<div class="row listsemployee-landing">
+
+  <div class=" col-sm-12">
+    <form class="form-horizontal" name="editCustomerList" novalidate>
+      <div class="form-group has-feedback required" ng-class="{'has-error' : editCustomerList.title.$showError && editCustomerList.title.$hasError()}">
+        <label class="col-sm-3 control-label" for="title">Customer List Title</label>
+        <div class="col-sm-5">
+          <input aria-describedby="inputSuccess2Status" class="form-control" id="title" name="title" ng-maxlength="255" ng-model="listCustomer.title" placeholder="The Customer List Title ..." required type="text"/>
+          <div class="error" ng-show="editCustomerList.title.$showError">
+            <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : editCustomerList.title.$showError && editCustomerList.title.$hasError()}"></span>
+            <p class="text-danger" ng-show="editCustomerList.title.$error.required">Employee List Title is required</p>
+            <p class="text-danger" ng-show="editCustomerList.title.$error.maxlength">Employee List Title must be 255 characters or less</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <ng-form name="manualForm">
+          <label class="col-sm-3 control-label" for="title">Add Customer</label>
+          <div class="col-xs-9">
+            <div class="col-sm-3 padding-10">
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : manualForm.manuallyAddedFirstName.$showError && manualForm.manuallyAddedFirstName.$hasError()}">
+                <input aria-describedby="inputSuccess2Status" class="form-control" id="manuallyAddedFirstName" name="manuallyAddedFirstName" ng-model="manuallyAddedFirstName" placeholder="First Name" required type="text">
+                <div class="error" ng-show="manualForm.manuallyAddedFirstName.$showError">
+                  <span class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : manualForm.manuallyAddedFirstName.$showError && manualForm.manuallyAddedFirstName.$hasError()}"></span>
+                  <p class="text-danger" ng-show="manualForm.manuallyAddedFirstName.$error.required">First Name is required.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2 padding-10">
+              <input class="form-control" id="manuallyAddedLastName" name="manuallyAddedLastName" ng-model="manuallyAddedLastName" placeholder="Last Name" type="text">
+            </div>
+            <div class="col-sm-2 padding-10">
+              <div class="form-group has-feedback" ng-class="{ 'has-error' : manualForm.manuallyAddedEmailAddress.$showError && manualForm.manuallyAddedEmailAddress.$hasError()}">
+                <input class="form-control" id="manuallyAddedEmailAddress" name="manuallyAddedEmailAddress" ng-model="manuallyAddedEmailAddress" ng-pattern="/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$/" placeholder="Email" required type="text">
+                <div class="error" ng-show="manualForm.manuallyAddedEmailAddress.$showError">
+                  <span class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : manualForm.manuallyAddedEmailAddress.$showError && manualForm.manuallyAddedEmailAddress.$hasError()}"></span>
+                  <p class="text-danger" ng-show="manualForm.manuallyAddedEmailAddress.$error.pattern">This doesn't seem to be a valid email address pattern</p>
+                  <p class="text-danger" ng-show="manualForm.manuallyAddedEmailAddress.$error.required">Email is required.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2 padding-10">
+              <button class="btn btn-sm btn-primary" ng-click="manullayAddRow(manuallyAddedFirstName,manuallyAddedLastName,manuallyAddedEmailAddress); manualForm.$setPristine()" ng-disabled="!manuallyAddedRowValidation()" type="button">Add</button>
+            </div>
+          </div>
+        </ng-form>
+      </div>
+
+
+      <div class="form-group" ng-show="listCustomer.externalUsers.length>0">
+        <label class="col-sm-3 control-label" for="title"></label>
+        <div class="col-sm-6">
+          <table class="table">
+            <thead>
+              <th class="table-header"></th>
+              <th class="table-header">First Name</th>
+              <th class="table-header">Last Name</th>
+              <th class="table-header">Email</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="csvData in listCustomer.externalUsers">
+                <td>
+                  <button class="btn btn-sm btn-danger" ng-click="deleteSelectedRow(csvData)" type="button">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </button>
+                </td>
+                <td>
+                  <ng-form name="manualForm">
+                    <div class="form-group has-feedback" ng-class="{ 'has-error' : manualForm.firstName.$showError && manualForm.firstName.$hasError()}">
+                      <input class="form-control" id="firstName" name="firstName" ng-model="csvData.firstName" required type="text">
+                      <div class="error" ng-show="manualForm.firstName.$showError">
+                        <span class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : manualForm.firstName.$showError && manualForm.firstName.$hasError()}"></span>
+                        <p class="text-danger" ng-show="manualForm.firstName.$error.required">First Name is required.</p>
+                      </div>
+                    </div>
+                  </ng-form>
+                </td>
+                <td><input class="form-control" id="lastName" ng-model="csvData.lastName" type="text"></td>
+                <td>
+                  <ng-form name="manualForm">
+                    <div class="form-group has-feedback" ng-class="{ 'has-error' : manualForm.email.$showError && manualForm.email.$hasError()}">
+                      <input class="form-control" id="email" name="email" ng-disabled="true" ng-model="csvData.email" ng-pattern="/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$/" type="text">
+                      <div class="error" ng-show="manualForm.email.$showError">
+                        <span class="glyphicon form-control-feedback" ng-class="{ 'glyphicon-remove' : manualForm.email.$showError && manualForm.email.$hasError()}"></span>
+                        <p class="text-danger" ng-show="manualForm.email.$error.pattern">This doesn't seem to be a valid email address pattern</p>
+                        <p class="text-danger" ng-show="manualForm.email.$error.required">Email is required.</p>
+                      </div>
+                    </div>
+                  </ng-form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-9">
+          <button aet-has-permission="EDIT_CUSTOMER_LIST" class="btn btn-primary" ng-click="submitListCustomer()" type="submit" ng-disabled="!isValidList()">
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+<div class="aet-modal">
+
+  <div class="modal-header"></div>
+  <div class="modal-body">
+    <p>
+      Duplicate emails will not be saved. Do you want to proceed ?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="yes()">Yes</button>
+    <button class="btn btn-default btn-danger" ng-click="no()">No</button>
+  </div>
+
+</div>

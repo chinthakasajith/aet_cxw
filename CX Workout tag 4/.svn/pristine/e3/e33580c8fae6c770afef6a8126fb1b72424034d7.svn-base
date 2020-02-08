@@ -1,0 +1,135 @@
+<ul class="sidebar-nav">
+
+  <li aet-is-super-admin>
+    <a ng-click="adminTab = !adminTab">
+      <span class="glyphicon glyphicon-cog"></span>
+      Administration
+      <span class="glyphicon pull-right"
+            ng-class="{'glyphicon-menu-right' : adminTab, 'glyphicon-menu-down' : !adminTab}"></span>
+    </a>
+    <ul class="sub-menu" collapse="adminTab">
+      <li aet-is-super-admin>
+        <a aet-nav-tab="Clients" ui-sref="index.secured.client.search">Clients</a>
+      </li>
+      <li aet-is-super-admin>
+        <a aet-nav-tab="BusinessUsers" ui-sref="index.secured.businessUser.search">Business Users
+        </a>
+      </li>
+      <!-- This is not added to subscription(sp) 01 -->
+      <!-- <li aet-is-super-admin>
+              <a ui-sref="index.secured.role.search"
+                 aet-nav-tab="Roles">Roles</a>
+            </li> -->
+    </ul>
+  </li>
+
+  <li aet-has-any-permission="[LIST_SEARCH_USERS_PROJECTS]">
+    <a aet-nav-tab="Projects" class="tab project" ui-sref="index.secured.project.search">
+      <span class="c-icon c-icon-cx-gray"></span>CX Projects
+    </a>
+  </li>
+
+  <li aet-has-any-permission="['VIEW_MAP', 'EDIT_MAP']">
+    <a class="tab map" ng-click="mapTab = !mapTab">
+      <span class="glyphicon glyphicon-th-large"></span>
+      Map
+      <span class="glyphicon pull-right"
+            ng-class="{'glyphicon-menu-right' : mapTab, 'glyphicon-menu-down' : !mapTab}"></span>
+    </a>
+    <ul class="sub-menu" collapse="mapTab">
+      <li aet-has-permission="VIEW_MAP">
+        <a aet-nav-tab="View" ui-sref="index.secured.mapview">View
+        </a>
+      </li>
+      <li aet-has-permission="EDIT_MAP">
+        <a aet-nav-tab="Edit" ui-sref="index.secured.mapedit">Create/Edit
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li aet-has-any-permission="['LIST_SEARCH_PT_MISSIONS', 'LIST_SEARCH_CUSTOMER_MISSIONS', 'LIST_SEARCH_EMPLOYEE_MISSIONS']">
+    <a class="tab mission" ng-click="missionTab = !missionTab">
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Mission
+      <span class="glyphicon pull-right"
+            ng-class="{'glyphicon-menu-right' : missionTab, 'glyphicon-menu-down' : !missionTab}"></span>
+    </a>
+    <ul class="sub-menu" collapse="missionTab">
+      <li aet-has-permission="LIST_SEARCH_PT_MISSIONS">
+        <a aet-nav-tab="ProjectTeamMission" ui-sref="index.secured.missionsprojectteam.search">Project Team
+        </a>
+      </li>
+      <li aet-has-permission="LIST_SEARCH_EMPLOYEE_MISSIONS">
+        <a aet-nav-tab="EmployeeMission" ui-sref="index.secured.employeemission.search">Employees
+        </a>
+      </li>
+      <li aet-has-permission="LIST_SEARCH_CUSTOMER_MISSIONS">
+        <a aet-nav-tab="CustomerMission" ui-sref="index.secured.customermission.search">Customers
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li aet-has-any-permission="['LIST_SEARCH_PT_POLLS', 'LIST_SEARCH_CUSTOMER_POLLS', 'LIST_SEARCH_EMPLOYEE_POLLS']">
+    <a aet-nav-tab="Polls" class="tab poll" ui-sref="index.secured.polls.search">
+      <span class="glyphicon glyphicon-stats"></span>Polls
+    </a>
+  </li>
+  <li aet-has-any-permission="['LIST_SEARCH_PT_DISCUSSIONS', 'LIST_SEARCH_CUSTOMER_DISCUSSIONS', 'LIST_SEARCH_EMPLOYEE_DISCUSSIONS']">
+    <a aet-nav-tab="Discussions" class="tab discussion" ui-sref="index.secured.discussions.search">
+      <span class="glyphicon glyphicon-comment"></span>Discussions
+    </a>
+  </li>
+  <li aet-has-any-permission="['LIST_SEARCH_PT_LISTS', 'LIST_SEARCH_CUSTOMER_LISTS', 'LIST_SEARCH_EMPLOYEE_LISTS']">
+    <a class="tab list" ng-click="listTab = !listTab">
+      <span class=" glyphicon glyphicon-list"></span>
+      Lists
+      <span class="glyphicon pull-right"
+            ng-class="{'glyphicon-menu-right' : listTab, 'glyphicon-menu-down' : !listTab}"></span>
+    </a>
+    <ul class="sub-menu" collapse="listTab">
+      <li aet-has-permission="LIST_SEARCH_PT_LISTS">
+        <a aet-nav-tab="ProjectTeamList" ui-sref="index.secured.listsprojectteam.search">Project Team</a>
+      </li>
+      <li aet-has-permission="LIST_SEARCH_EMPLOYEE_LISTS">
+        <a aet-nav-tab="EmployeeList" ui-sref="index.secured.listsemployee.search">Employees
+        </a>
+      </li>
+      <li aet-has-permission="LIST_SEARCH_CUSTOMER_LIST">
+        <a aet-nav-tab="CustomerList" ui-sref="index.secured.listscustomer.search">Customers
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li aet-has-any-permission="['VIEW_BUBBLE_CHART_REPORT', 'VIEW_WORD_CLOUD_REPORT', 'VIEW_COMMENTS_REPORT','VIEW_EXPERIENCE_CURVE_REPORT']">
+    <a class="tab report" ng-click="reportTab = !reportTab">
+      <span class=" glyphicon glyphicon-file"></span>
+      Reports
+      <span class="glyphicon pull-right"
+            ng-class="{'glyphicon-menu-right' : reportTab, 'glyphicon-menu-down' : !reportTab}"></span>
+    </a>
+    <ul class="sub-menu" collapse="reportTab">
+      <li aet-has-permission="VIEW_BUBBLE_CHART_REPORT">
+        <a aet-nav-tab="Bubblechart" ui-sref="index.secured.bubblechart">Bubble Chart
+        </a>
+      </li>
+      <li aet-has-permission="VIEW_WORD_CLOUD_REPORT">
+        <a aet-nav-tab="Wordcloud" ui-sref="index.secured.wordcloud">Word Cloud
+        </a>
+      </li>
+      <li aet-has-permission="VIEW_COMMENTS_REPORT">
+        <a aet-nav-tab="Comments" ui-sref="index.secured.comment">Comments
+        </a>
+      </li>
+      <li aet-has-permission="VIEW_EXPERIENCE_CURVE_REPORT">
+        <a aet-nav-tab="Experience Curve" ui-sref="index.secured.experiencecurve">Experience Curve
+        </a>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <a aet-nav-tab="Tip" class="tab tip" ui-sref="index.secured.help">
+      <span class="glyphicon glyphicon-question-sign"></span>Tips & Help
+    </a>
+  </li>
+
+</ul>

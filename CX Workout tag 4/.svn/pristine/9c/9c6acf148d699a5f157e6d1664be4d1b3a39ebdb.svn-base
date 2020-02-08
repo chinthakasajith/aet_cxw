@@ -1,0 +1,22 @@
+<div class="aet-modal">
+
+  <div class="modal-header">
+
+      <button class="btn btn-default" ng-show="warningType=='futureDate'" ng-click="no()"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+
+  </div>
+  <div class="modal-body">
+    <p ng-if="warningType=='reminderDayConflict'">There is a conflict between your Mission End Date and your Reminder timing. Please adjust the End Date or email Reminder timing. Keep in mind you need time for participants to respond. Thank you. </p>
+    <p ng-if="warningType=='sevenDayExceed'">The Mission end date is less than 7 days from the start date.  Do you wish to continue ?</p>
+    <p ng-if="warningType=='futureDate'">Your Mission has been scheduled and will be sent on your Mission Start Date. Thank you.</p>
+    <p ng-if="warningType=='startToday'">Your Mission is ready to be sent to Selected Participants. Do you wish to send now? </p>
+
+
+  </div>
+  <div class="modal-footer">
+    <button ng-hide="warningType=='futureDate' || warningType=='reminderDayConflict'" class="btn btn-default btn-danger" ng-click="yes()">Yes</button>
+    <button ng-hide="warningType=='futureDate' || warningType=='reminderDayConflict'" class="btn btn-primary" ng-click="no()">No</button>
+    <button ng-show="warningType=='futureDate' || warningType=='reminderDayConflict'" class="btn btn-default btn-danger" ng-click="yes()">Ok</button>
+  </div>
+
+</div>

@@ -1,0 +1,59 @@
+<div class="Add-modal map-modal">
+
+  <div class="modal-header">
+    <h3 class="modal-title">Edit Action</h3>
+  </div>
+  <div class="modal-body">
+    <form name="editActionModal" class="form-horizontal">
+      <div class="form-group has-feedback required"
+           ng-class="{ 'has-success' : editActionModal.actionTitle.$valid, 'has-error' : editActionModal.actionTitle.$showError && editActionModal.actionTitle.$hasError()}">
+        <label for="title" class="col-sm-3 control-label">Title</label>
+
+        <div class="col-sm-8">
+          <input name="actionTitle"
+                 ng-model="title"
+                 type="text"
+                 class="form-control"
+                 id="title"
+                 placeholder='"I used my gift card to pay for my purchase"'
+                 ng-required="true"
+                 ng-maxlength="80">
+
+          <div class="error" ng-show="editActionModal.actionTitle.$showError">
+                  <span aria-hidden="true" class="glyphicon form-control-feedback"
+                        ng-class="{'glyphicon-ok' : editActionModal.actionTitle.$valid, 'glyphicon-remove' : editActionModal.actionTitle.$showError && editActionModal.actionTitle.$hasError()}"></span>
+
+            <p class="text-danger" ng-show="editActionModal.actionTitle.$error.required">Action title is required.</p>
+
+            <p class="text-danger" ng-show="editActionModal.actionTitle.$error.maxlength">Action title must be 80
+              characters or less</p>
+
+          </div>
+        </div>
+      </div>
+      <div class="form-group has-feedback required"
+           ng-class="{ 'has-success' : editActionModal.channel.$valid, 'has-error' : editActionModal.channel.$showError && editActionModal.channel.$hasError()}">
+        <label for="chanel" class="col-sm-3 control-label">Channel</label>
+
+        <div class="col-sm-8" ng-required="true">
+          <select ng-model="channel"
+                  id="chanel"
+                  class="form-control"
+                  ng-options="channel.title for channel in channels track by channel.id"
+                  ng-required="true"
+                  placeholder="Select Channel">
+          </select>
+
+          <div class="error" ng-show="editActionModal.channel.$showError">
+            <p class="text-danger" ng-show="editActionModal.channel.$error.required">Please select a channel.</p>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button ng-disabled="editActionModal.$invalid" class="btn btn-default btn-primary" ng-click="save()">Save</button>
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+  </div>
+
+</div>

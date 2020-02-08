@@ -1,0 +1,108 @@
+<h1 class="page-header">
+	Edit Business User
+</h1>
+
+<div class="row">
+	<div class=" col-sm-6">
+		<form name="editBusinessUserForm" novalidate class="form-horizontal">
+			<div class="form-group has-feedback" ng-class="{'has-error' : editBusinessUserForm.title.$showError && editBusinessUserForm.title.$hasError()}">
+        <label class="col-sm-5 control-label" for="title">Title
+        </label>
+        <div class="col-sm-7">
+          <input  aria-describedby="inputSuccess2Status" class="form-control" id="title" name="title" ng-maxlength="255" ng-model-options="{ updateOn: 'blur' }" ng-model="businessuser.title" placeholder="Enter Title ..." type="text" ng-pattern="/^[a-zA-Z.]*$/"/>
+
+          <div class="error" ng-show="editBusinessUserForm.title.$showError">
+            <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-remove' : editBusinessUserForm.title.$showError && editBusinessUserForm.title.$hasError()}"></span>
+            <span class="text-danger" ng-show="editBusinessUserForm.title.$error.maxlength">Title must be 255 characters or less</span>
+            <p class="text-danger" ng-show="editBusinessUserForm.title.$error.pattern">This doesn't seem to be a valid title, use only alpha characters and period (E.g.: Mr.)</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-group has-feedback required" ng-class="{'has-success' : editBusinessUserForm.firstName.$valid, 'has-error' : editBusinessUserForm.firstName.$showError && editBusinessUserForm.firstName.$hasError()}">
+        <label class="col-sm-5 control-label required" for="firstName">First Name</label>
+        <div class="col-sm-7">
+          <input  class="form-control" id="firstName" name="firstName" ng-maxlength="255" ng-model-options="{ updateOn: 'blur' }" ng-model="businessuser.firstName" placeholder="Enter First Name ..." required ng-pattern="/^[a-zA-Z \'\-]*$/" type="text"/>
+          <div class="error" ng-show="editBusinessUserForm.firstName.$showError">
+            <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : editBusinessUserForm.firstName.$valid, 'glyphicon-remove' : editBusinessUserForm.firstName.$showError && editBusinessUserForm.firstName.$hasError()}"></span>
+            <p class="text-danger" ng-show="editBusinessUserForm.firstName.$error.required">First Name is required</p>
+            <p class="text-danger" ng-show="editBusinessUserForm.firstName.$error.maxlength">First Name must be 255 characters or less</p>
+            <p class="text-danger" ng-show="editBusinessUserForm.firstName.$error.pattern">This doesn't seem to be a valid name, use only alpha characters and space</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-group has-feedback required" ng-class="{'has-success' : editBusinessUserForm.lastName.$valid, 'has-error' : editBusinessUserForm.lastName.$showError && editBusinessUserForm.lastName.$hasError()}">
+        <label class="col-sm-5 control-label required" for="lastName">Last Name</label>
+        <div class="col-sm-7">
+          <input  class="form-control" id="lastName" name="lastName" ng-maxlength="255" ng-model-options="{ updateOn: 'blur' }" ng-model="businessuser.lastName" placeholder="Enter Last Name ..." required ng-pattern="/^[a-zA-Z \'\-]*$/" type="text"/>
+          <div class="error" ng-show="editBusinessUserForm.lastName.$showError">
+            <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : editBusinessUserForm.lastName.$valid, 'glyphicon-remove' : editBusinessUserForm.lastName.$showError && editBusinessUserForm.lastName.$hasError()}"></span>
+            <p class="text-danger" ng-show="editBusinessUserForm.lastName.$error.required">Last Name is required</p>
+            <p class="text-danger" ng-show="editBusinessUserForm.lastName.$error.maxlength">Last Name must be 255 characters or less</p>
+            <p class="text-danger" ng-show="editBusinessUserForm.lastName.$error.pattern">This doesn't seem to be a valid name, use only alpha characters and space</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback" ng-class="{'has-success' : editBusinessUserForm.profilePic.$valid, 'has-error' : editBusinessUserForm.profilePic.$showError && editBusinessUserForm.profilePic.$hasError()}">
+        <label class="col-sm-5 control-label" for="profilePic">Profile Pic</label>
+        <div class="col-sm-7">
+          <input class="form-control" id="profilePic" accept="image/*" name="profilePic" type="file">
+          <div class="error" ng-show="editBusinessUserForm.profilePic.$showError"></div>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback required" ng-class="{ 'has-success' : editBusinessUserForm.email.$valid, 'has-error' : editBusinessUserForm.email.$showError && editBusinessUserForm.email.$hasError()}">
+        <label class="col-sm-5 control-label required" for="email">Email
+        </label>
+        <div class="col-sm-7">
+          <input  class="form-control" id="email" name="email" ng-model-options="{ updateOn: 'blur' }" ng-maxlength="255" ng-model="businessuser.email" ng-pattern="/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$/" placeholder="Please enter a valid email... " required tooltip-placement="right" tooltip="This email address must be unique to this system." type="text"/>
+          <div class="error" ng-show="editBusinessUserForm.email.$showError">
+            <span aria-hidden="true" class="glyphicon form-control-feedback" ng-class="{'glyphicon-ok' : editBusinessUserForm.email.$valid, 'glyphicon-remove' : editBusinessUserForm.email.$showError && editBusinessUserForm.email.$hasError()}"></span>
+            <p class="text-danger" ng-show="editBusinessUserForm.email.$error.required">Email is required</p>
+            <p class="text-danger" ng-show="editBusinessUserForm.email.$error.maxlength">Email must be 255 characters or less</p>
+            <p class="text-danger" ng-show="editBusinessUserForm.email.$error.pattern">This doesn't seem to be a valid email address pattern</p>
+          </div>
+        </div>
+      </div>
+
+      <div ng-if="!businessuser.isSuperAdmin" class="form-group has-feedback required" ng-class="{ 'has-success' : editBusinessUserForm.client.$valid, 'has-error' : editBusinessUserForm.client.$showError && editBusinessUserForm.client.$hasError()}">
+        <label class="col-sm-5 control-label" for="client">Client</label>
+        <div class="col-sm-7">
+          <select class="form-control" id="client" name="client" ng-model="businessuser.clientRoles[0].client" ng-options="c as c.name for c in clientLists track by c.id" required></select>
+          <div class="error" ng-show="editBusinessUserForm.client.$showError">
+            <p class="text-danger" ng-show="editBusinessUserForm.client.$error.required">Client is required</p>
+          </div>
+        </div>
+      </div>
+
+      <div ng-if="!businessuser.isSuperAdmin" class="form-group has-feedback required" ng-class="{ 'has-success' : editBusinessUserForm.role.$valid, 'has-error' : editBusinessUserForm.role.$showError && editBusinessUserForm.role.$hasError()}">
+        <label class="col-sm-5 control-label" for="role">Role</label>
+        <div class="col-sm-7">
+          <select class="form-control" id="role" name="role" ng-model="businessuser.clientRoles[0].role" ng-options="r as r.title for r in roleDetails track by r.id" required></select>
+          <div class="error" ng-show="createBusinessUserForm.role.$showError">
+            <p class="text-danger" ng-show="editBusinessUserForm.role.$error.required">Role is required</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group has-feedback">
+        <label class="col-md-5 control-label" for="superAdmin">Super Admin</label>
+        <div class="col-md-7">
+          <div class="checkbox">
+            <input  id="superAdmin" name="superAdmin" ng-model="businessuser.isSuperAdmin" type="checkbox"/>
+          </div>
+        </div>
+      </div>
+
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-9">
+					<button class="btn btn-primary" type="submit" ng-disabled="editBusinessUserForm.$invalid" ng-click="submitBusinessUserForm()">
+						Save
+					</button>
+				</div>
+			</div>
+
+		</form>
+
+	</div>
+</div>

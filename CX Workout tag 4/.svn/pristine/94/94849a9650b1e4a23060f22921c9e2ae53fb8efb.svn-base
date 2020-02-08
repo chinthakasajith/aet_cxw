@@ -1,0 +1,23 @@
+<h1 class="page-header">
+	Map Edit
+</h1>
+
+<div class="map-controllers">
+	<div class="map-ctrl map-copy">
+		<div id="copyMapInEdit">
+    		<a type="button" aet-has-permission="COPY_MAP" ng-click="copy()">Copy This Map</a>
+    	</div>
+  	</div>
+</div>
+<div class="clearfix mar-b-20"></div>
+<edit-hierarchy-map add-stage-fn="addStage"
+			   add-touchpoint-fn="addTouchpoint"
+			   add-action-fn="addAction"
+			   delete-fn="delete"
+			   edit-stage-fn="editStage"
+			   edit-touchpoint-fn="editTouchpoint"
+			   edit-action-fn="editAction"
+			   sortableOptionsFn="sortableOptions"
+				 class="map edit"
+				 map-type="edit">
+</edit-hierarchy-map>

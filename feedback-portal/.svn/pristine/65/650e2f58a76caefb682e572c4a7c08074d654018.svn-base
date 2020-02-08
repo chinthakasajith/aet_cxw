@@ -1,0 +1,24 @@
+(function(module) {
+
+  module.service('missionQuestionEndpoint', ['$q', '$http','api','$stateParams',
+    function($q, $http, api,$stateParams) {
+      this.findMissionQuestion = function(token) {
+
+        var url = api('admin') + '/feedback/mission?token=' + token;
+        return $http.get(url);
+      };
+
+      this.updateMissionQuestion = function(missionquestion) {
+        var url = api('admin') + '/feedback/mission?token=' + $stateParams.token;
+        return $http.put(url, missionquestion);
+      };
+
+      this.getFinalThankYouMessage = function(token) {
+        var url = api('admin') + '/feedback/message?token=' + token;
+        return $http.get(url);
+      };
+
+    }
+  ]);
+
+})(angular.module('aet.endpoint'));

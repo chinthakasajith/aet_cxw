@@ -1,0 +1,104 @@
+(function(module) {
+
+  module.controller('MapViewController', ['$scope', '$rootScope', 'ScreenshotService', 'HierarchyMapService', '$state', '$timeout', 'projectDetails', '$log', 'mapService', 'modalService', 'alertsService',
+    function($scope, $rootScope, ScreenshotService, HierarchyMapService, $state, $timeout, projectDetails, $log, mapService, modalService, alertsService) {
+
+      var mapData = HierarchyMapService.getMapData();
+      
+      $scope.legendClosed = true;
+
+      $scope.mapData = mapData;
+
+      $scope.setMapType = function(mapType){
+        HierarchyMapService.setMapType(mapType);
+      };
+
+      $scope.mapCtrl = {
+        mapDataType : HierarchyMapService.getMapType(),
+        actionTypes : [
+          "Show Full Map (Stages, Touchpoints, Actions)",
+          "Show Actions by Channel"
+          //"Show Experience  Curve"
+        ]
+      };
+
+      $scope.selectedActionType = $scope.mapCtrl.actionTypes[0];
+
+      $scope.project = mapData.project;
+      $scope.curveType = $scope.project.curveType;
+
+      $scope.showChannels = false;
+      $scope.showExportHtml = false;
+
+      function resetExport() {
+        $scope.showExportHtml = false;
+        $state.go($state.current, {});
+      }
+
+      $scope.getDate = function() {
+        return new Date();
+      };
+
+      $scope.export = function() {
+
+        $rootScope.showLoader("Building PDF");
+        $scope.showExportHtml = true;
+        $(".navbar-fixed-top").hide();
+        $(".navbar-fixed-top").next().removeClass("sidebar-offset");
+        $(".sidebar ").hide();
+        $("#btnSave").hide();
+
+        ScreenshotService.capture().then(function(pdf){
+          pdf.save($scope.project.title + " map.pdf");
+          $(".navbar-fixed-top").next().addClass("sidebar-offset");
+          $(".navbar-fixed-top").show();
+          $(".sidebar ").show();
+          $("#btnSave").show();
+          resetExport();
+          $rootScope.hideLoader();
+        });
+
+      };
+      
+      $scope.copy = function() {
+
+    	 var project = projectDetails.getSelectedProject();
+    	 var message = "Are you sure you want to create a copy of " + project.title + "?";
+
+         var modalInstance = modalService.customCopyModal(project.title, message, 'Yes', 'No');
+         modalInstance.result.then(function() {
+         $rootScope.showLoader('Copying...');
+         mapService.copyMap(project.id).then(function(data) {
+             alertsService.addAlert({
+               title: 'Success',
+               message: "Successfully created a copy of '" + project.title + "'",
+               type: 'success'
+             });
+             $scope.editProject(data);
+           }, function(err) {
+             $rootScope.hideLoader();
+             alertsService.addAlert({
+               title: 'Error',
+               message: "Could not create a copy of '" + project.title + "'",
+               type: 'error'
+             });
+           });
+         });
+
+       };
+      
+      
+      
+      $scope.editProject = function(project) {
+		
+		$state.go('index.secured.project.edit', {projectId:project.id}, {
+	         reload: true
+	    });
+			
+		$rootScope.hideLoader();
+	}
+        
+   }
+  ]);
+
+})(angular.module('aet.screens.mapview'));

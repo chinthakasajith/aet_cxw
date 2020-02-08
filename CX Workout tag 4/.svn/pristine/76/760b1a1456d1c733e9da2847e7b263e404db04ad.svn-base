@@ -1,0 +1,11 @@
+.listscustomer-landing{
+  .user-list{
+    &.unique-users{
+      .list-item{
+        &.head{
+
+        }
+      }
+    }
+  }
+}

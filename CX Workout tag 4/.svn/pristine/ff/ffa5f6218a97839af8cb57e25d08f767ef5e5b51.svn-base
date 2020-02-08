@@ -1,0 +1,100 @@
+.export-header{
+  border-bottom: 1px solid #eee;
+  margin-bottom:50px;
+  padding: 15px;
+}
+
+.min-logo{
+  max-width:230px;
+    max-height:95px;
+    width: auto;
+    height: auto;
+}
+
+.float-left{
+    float:left;
+}
+
+.inline{
+    display: inline;
+}
+
+.map-controllers{
+  @map-ctrl-font-size : @default-font-size;
+  @map-ctrl-height : 35px;
+  .map-ctrl{
+    float: left;
+    margin-right: 10px;
+    &.map-data-type{
+      border: 1px solid @border-color;
+      padding: 9px 15px;
+      border-radius: 4px;
+      height: @map-ctrl-height;
+      label{
+      }
+      input{
+        top: -3px;padding-top: 7px;
+        padding-bottom: 8px;
+      }
+    }
+    a{
+      position: relative;
+      top: 10px;
+      font-size: @default-font-size;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+    #copyMapInEdit{
+    	a{
+	      left: 1040px;
+	    }
+    }
+  }
+  font-size: @map-ctrl-font-size;
+  .btn{
+    font-size: @map-ctrl-font-size;
+    height: @map-ctrl-height;
+  }
+  .form-control{
+    font-size: @map-ctrl-font-size;
+    height: @map-ctrl-height;
+    padding: 5px 12px;
+  }
+}
+
+.legend{
+  font-size: @default-font-size;
+  margin-left: 85px;
+  margin-bottom: 20px;
+  p{
+    margin-bottom: 0;
+  }
+  .legend-title{
+    font-weight: bold;
+  }
+  .legend-header{
+
+  }
+  .legend-pointers{
+    list-style-type: none;
+    padding: 0 15px;
+    li{
+      &:before{
+        content: "-";
+        position: absolute;
+        left: 100px;
+      }
+    }
+  }
+  .icon-legend{
+    margin-top: 5px;
+    .c-icon{
+      display: block;
+      .text{
+        position: relative;
+        top: -4px;
+        margin-left: 10px;
+      }
+    }
+  }
+}

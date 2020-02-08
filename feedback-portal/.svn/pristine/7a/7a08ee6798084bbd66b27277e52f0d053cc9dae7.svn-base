@@ -1,0 +1,301 @@
+@media (min-width: 768px) {
+
+}
+@media (min-width: 992px) {
+
+}
+@media (min-width: 1200px) {
+
+}
+body {
+  background-color: #dfe2e3;
+  color: #33485d;
+}
+/* loader */
+.loader {
+  .backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000;
+    opacity: 0.7;
+  }
+  .loader-container {
+    position: fixed;
+    @media @mobile {
+      left: 30%;
+    }
+    left: 44%;
+    top: 200px;
+    z-index: 2000;
+    h1 {
+      position: relative;
+      top: 50px;
+      left: 15px;
+      color: #fff;
+      font-size: 20px;
+    }
+    @media @mobile {
+      .loadingAnimation{
+        background: url("../../assets/images/img-animation-01.gif") no-repeat;
+        height: 32px;
+        left: 50%;
+        position: relative;
+        top: 40px;
+        width: 32px;
+      }
+    }
+    #loader {
+      animation: animate 1.5s linear infinite;
+      clip: rect(0, 40px, 40px, 20px);
+      height: 40px;
+      width: 40px;
+      position: absolute;
+      left: calc(80% - 40px);
+      top: calc(50% - 40px);
+      &:after {
+        animation: animate2 1.5s ease-in-out infinite;
+        clip: rect(0, 40px, 40px, 20px);
+        content: '';
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+        position: absolute;
+      }
+      @keyframes animate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(220deg);
+        }
+      }
+      @keyframes animate2 {
+        0% {
+          box-shadow: inset #fff 0 0 0 17px;
+          transform: rotate(-140deg);
+        }
+        50% {
+          box-shadow: inset #fff 0 0 0 2px;
+        }
+        100% {
+          box-shadow: inset #fff 0 0 0 17px;
+          transform: rotate(140deg);
+        }
+      }
+    }
+  }
+}
+.mission {
+  div.missionheader {
+    @media @mobile {
+
+    }
+    background-color: #33485d;
+    color: #becad6;
+    padding: 20px;
+  }
+  .action-header {
+    @media @mobile {
+
+    }
+    background-color: #fff;
+    color: #33485d;
+    padding: 10px;
+  }
+  .formBodyDiv {
+    @media @mobile {
+      padding: 0;
+      background-color: #f1f1f1;
+    }
+    padding: 0;
+  }
+  .questionlist-header {
+    padding: 15px;
+    background-color: #dfe2e3;
+  }
+  .questionlist-body {
+    padding: 0;
+    .panel {
+      &.comments {
+        margin-top: 30px;
+      }
+      .smileyIconButtons {
+        text-align: center;
+        padding: 10px;
+      }
+      .smileyIconButtons a {
+        padding: 12px 12px 0;
+        margin-right: 20px;
+      }
+      .smileyIconButtons a:hover {
+        opacity: 1.0;
+      }
+      .smileyIconButtons a.icoPositive {
+        background: url("../../assets/images/positive-smile-ico.png") no-repeat;
+        opacity: 0.5;
+      }
+      .smileyIconButtons a.icoNeutral {
+        background: url("../../assets/images/neutral-smile-ico.png") no-repeat;
+        opacity: 0.5;
+      }
+      .smileyIconButtons a.icoNegative {
+        background: url("../../assets/images/negative-smile-ico.png") no-repeat;
+        opacity: 0.5;
+      }
+      .smileyIconButtons a.icoPositiveSelected {
+        background: url("../../assets/images/positive-smile-ico.png") no-repeat;
+        opacity: 1.0;
+      }
+      .smileyIconButtons a.icoNeutralSelected {
+        background: url("../../assets/images/neutral-smile-ico.png") no-repeat;
+        opacity: 1.0;
+      }
+      .smileyIconButtons a.icoNegativeSelected {
+        background: url("../../assets/images/negative-smile-ico.png") no-repeat;
+        opacity: 1.0;
+      }
+    }
+    .panel-default > .panel-heading {
+      color: inherit;
+      background-image: none;
+      background-color: #fff;
+      border-color: #dfe2e3;
+    }
+    .media-instruction {
+      margin-top: 0;
+      font-family: 'Arial';
+      font-size: 12pt;
+      padding: 20px 0;
+    }
+    .question {
+      margin-top: 0;
+      font-family: 'Arial';
+      font-size: 12pt;
+      font-style: normal;
+    }
+  }
+  .questionlist-footer {
+    padding: 15px;
+  }
+  .logo {
+    margin: 10px 15px 0;
+    max-height: 55px;
+  }
+  .tab-set {
+    .list-group {
+
+    }
+  }
+  .tab-body {
+    label {
+      font-weight: normal;
+    }
+    .item {
+      .mission-header {
+        margin-top: 0;
+        margin-bottom: 0;
+        text-align: justify;
+        font-family: 'Arial';
+        @media @mobile {
+          font-size: 22px;
+          text-align: left;
+        }
+      }
+      p {
+        margin-bottom: 0;
+        font-family: 'Arial';
+        font-size: 10pt;
+      }
+    }
+  }
+  .jslider {
+    min-height: 30px;
+    margin-top: 15px;
+    margin-left: 10px;
+    @media @mobile {
+      width: 100%;
+    }
+    div.jslider-scale span:nth-child(4) ins .ratingLabel {
+      @media @mobile {
+        display: none;
+      }
+      left: -16px;
+      position: relative;
+      text-align: center;
+    }
+    div.jslider-scale span:nth-child(6) ins .ratingLabel {
+
+    }
+    div.jslider-scale ins {
+      left: -3px;
+      font-size: 10pt;
+      font-family: 'Arial';
+
+      // div.title-mar-left-10 {
+      //   margin-left: -10px;
+      // }
+    }
+    .jslider-value {
+      visibility: hidden;
+    }
+    .jslider-pointer {
+      top: -7px;
+      left: 15px;
+      width: 20px;
+      height: 20px;
+      margin-left: -9px;
+    }
+  }
+  .form-control {
+    height: inherit;
+    @media @desktop-smAndLg {
+      padding-right: 42.5px !important;
+    }
+
+  }
+  .overflow-hide {
+    overflow: hidden;
+  }
+  .noPaddingLeftRight {
+    padding: 0;
+  }
+  div.form-group {
+    background-color: #f9f9f9;
+    border: 1px solid #dfe2e3;
+    @media @mobile {
+      margin: 10px;
+    }
+    padding: 10px 0 80px;
+    margin: 10px 0;
+  }
+}
+.btn {
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  &.btn-primary {
+    color: #fff;
+    background-color: #9bda6e;
+    border-color: #9bda6e;
+    border-bottom: 3px solid #569727;
+    border-radius: 5px;
+    background-image: inherit;
+  }
+}
+.tab-set {
+  .list-group {
+    .list-group-item {
+      &.active {
+        color: #fff;
+        background-color: #9bda6e;
+        border-color: #9bda6e;
+        background-image: inherit;
+        text-shadow:inherit;
+      }
+    }
+  }
+}

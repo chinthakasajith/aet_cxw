@@ -1,0 +1,10 @@
+{
+	"connect": {
+		"hostname": "localhost",
+		"port": "8888",
+		"basePath": "build"
+	},
+
+	"apiBaseUrl": "http://10.33.2.111",
+	"s3bucket" : "cxworkoutdev"
+}

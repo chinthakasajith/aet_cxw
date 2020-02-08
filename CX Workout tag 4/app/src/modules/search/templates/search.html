@@ -1,0 +1,33 @@
+<div ng-transclude></div>
+<div class="search">
+  <table class="table search-results-table">
+    <thead>
+    <tr>
+      <th ng-repeat="column in columns">{{column.label}}</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="searchResult in searchManager.searchResults.results | searchFilter : searchManager.query : searchManager.searchableFields"
+        class="search-result">
+      <td ng-repeat="column in columns" title="{{searchResult[column.name]}}">{{searchResult[column.name]}}</td>
+      <td aet-action-button-transclude row="searchResult"></td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="below-search">
+    <div class="search-count" ng-show="!searchManager.showLoading">
+      {{searchManager.searchResults.pagination.total}} results
+    </div>
+    <div class="search-wait" ng-show="searchManager.showLoading">
+      Searching...
+    </div>
+  </div>
+  <pagination total-items="searchManager.searchResults.pagination.total"
+              ng-model="searchManager.page"
+              items-per-page="searchManager.count"
+              ng-change="searchManager.search()"
+              max-size="searchManager.maxPages"
+              rotate="false"
+              ng-show="searchManager.searchResults.pagination.total"></pagination>
+</div>

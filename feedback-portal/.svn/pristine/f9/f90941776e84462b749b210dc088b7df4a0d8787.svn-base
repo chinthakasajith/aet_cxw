@@ -1,0 +1,28 @@
+.thank-screen {
+  margin: 0 auto;
+  @media @desktop-smAndLg {
+    max-width: 750px;
+  }
+
+  @media @mobile {
+    margin-top: 20px;
+  }
+
+  .logo{
+    margin: 20px 0;
+    img{
+      max-height: 55px;
+    }
+  }
+
+  .panel{
+    border-radius: 0;
+    .panel-body{
+      p{
+        font-size: 14px;
+        text-align: justify;
+        margin-bottom: 0;
+      }
+    }
+  }
+}

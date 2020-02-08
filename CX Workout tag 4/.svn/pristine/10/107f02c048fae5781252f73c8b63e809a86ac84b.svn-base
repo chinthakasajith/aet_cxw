@@ -1,0 +1,20 @@
+<div class="aet-modal">
+
+  <div class="modal-header"></div>
+  <div class="modal-body">
+    <p ng-show="dupilicateListsCount>0 && !invalidUsersCount>0">
+      Duplicate emails will not be saved. Do you want to proceed ?
+    </p>
+    <p ng-show="invalidUsersCount>0 && !dupilicateListsCount>0">
+      Invalid emails will not be saved. Do you want to proceed ?
+    </p>
+    <p ng-show="dupilicateListsCount>0 && invalidUsersCount>0">
+      Duplicate emails and invalid emails will not be saved. Do you want to proceed ?
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="yes()">Yes</button>
+    <button class="btn btn-default btn-danger" ng-click="no()">No</button>
+  </div>
+
+</div>

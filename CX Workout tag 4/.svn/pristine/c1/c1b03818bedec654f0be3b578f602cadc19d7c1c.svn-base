@@ -1,0 +1,59 @@
+<div class="login-screen">
+  <alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)"><span ng-bind-html="alert.msg"></span></alert>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="logo">
+        <img src="assets/images/logo.png" alt=""/>
+      </div>
+    </div>
+    <div class="panel-body">
+      <form name="passwordResetForm" novalidate class="form-horizontal login-form">
+        <div class="form-group">
+          <div class="col-sm-12">
+            <p class="form-control-static">To reset your password, <br>please provide your email address</p>
+          </div>
+        </div>
+        <div class="form-group has-feedback"
+             ng-class="{ 'has-success' : passwordResetForm.email.$valid, 'has-error' : passwordResetForm.email.$showError && passwordResetForm.email.$hasError()}">
+          <div class="col-sm-12">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <input
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  ng-maxlength="255"
+                  ng-model="resetPasswordRequestDTO.email"
+                  ng-pattern="/^[_A-Za-z0-9]+(\.[_A-Za-z0-9]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*(\.[A-Za-z]{2,})$/"
+                  placeholder="Enter email address here..."
+                  required type="email"/>
+
+              <div ng-show="passwordResetForm.email.$showError">
+                        <span class="glyphicon  form-control-feedback" aria-hidden="true"
+                              ng-class="{'glyphicon-ok' : passwordResetForm.email.$valid, 'glyphicon-remove' : passwordResetForm.email.$showError && passwordResetForm.email.$hasError()}"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group pull-right">
+          <div class="col-sm-12">
+            <button class="btn btn-primary"
+                    type="submit"
+                    ng-disabled="passwordResetForm.$invalid"
+                    ng-click="resetPassword()">
+              Send
+            </button>
+            <a class="btn btn-default"
+               ui-sref="login"
+               type="submit">
+              Cancel
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="loader-container" ng-if="loader == true;">
+    <div id="loader"></div>
+  </div>
+</div>

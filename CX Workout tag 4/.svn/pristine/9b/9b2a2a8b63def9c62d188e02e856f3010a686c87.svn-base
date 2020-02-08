@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <h3 class="modal-title">Welcome !
+    {{userDetails.getUser().firstName+" "+userDetails.getUser().lastName}}</h3>
+</div>
+
+<div class="modal-body">
+  <label name="title" ng-hide="clientDetails.getAuthorizedClients().length == 1 && projectDetails.getAuthorizedProjects().length < 2">What Project do you want to work on today ?</label>
+  <label name="noProject" ng-show="projectDetails.getAuthorizedProjects().length == 0">There is no projects created yet ...</label>
+  <label name="description" ng-show="clientDetails.getAuthorizedClients().length == 1 && projectDetails.getAuthorizedProjects().length == 1">You will be working on
+    {{projectDetails.getSelectedProject().title}}
+    Project now</label>
+
+  <div class="navbar-main">
+    <div class="container-fluid">
+      <div class="navbar-header" ng-show="clientDetails.getAuthorizedClients().length == 1 && projectDetails.getAuthorizedProjects().length > 1">
+        <label style="display:block; margin-top:15px;">{{clientDetails.getSelectedClient().name}}</label>
+      </div>
+
+      <ul class="nav navbar-nav navbar-left">
+        <li class="dropdown client" dropdown is-open="clientStatus.isopen" ng-show="clientDetails.getAuthorizedClients().length>1">
+          <a class="dropdown-toggle" data-toggle="dropdown" dropdown-toggle ng-disabled="disabled" role="button">
+            {{clientDetails.getSelectedClient().name}}
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-repeat="client in clientDetails.getAuthorizedClients() | orderBy: 'name'">
+              <a href ng-click="selectClient(client)">{{client.name}}</a>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown project" dropdown is-open="projectStatus.isopen" ng-hide="clientDetails.getAuthorizedClients().length == 1 && projectDetails.getAuthorizedProjects().length < 2">
+          <a class="dropdown-toggle" data-toggle="dropdown" dropdown-toggle ng-disabled="disabled" role="button">
+            {{projectDetails.getSelectedProject().title}}
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-repeat="project in projectDetails.getAuthorizedProjects() | orderBy: 'title'">
+              <a href ng-click="selectProject(project)">{{project.title}}</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()" type="button">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()" type="button">Cancel</button>
+  </div>
